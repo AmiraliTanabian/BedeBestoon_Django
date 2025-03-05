@@ -7,7 +7,7 @@ class Token(models.Model):
 
 class Spend(models.Model):
     title = models.CharField(max_length=255)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField()
     price = models.BigIntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -16,7 +16,7 @@ class Spend(models.Model):
 
 class Income(models.Model):
     title = models.CharField(max_length=255)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField()
     price = models.BigIntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
