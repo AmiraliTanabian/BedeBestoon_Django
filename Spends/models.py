@@ -6,7 +6,7 @@ class Token(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.user.first_name}_token'
+        return f'{self.user.username}_token'
 
 class Spend(models.Model):
     title = models.CharField(max_length=255)
@@ -25,5 +25,3 @@ class Income(models.Model):
 
     def __str__(self):
         return f'{self.title} - {self.time.strftime("%Y-%m-%d | %H:%M")}'
-
-
