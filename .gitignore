@@ -173,3 +173,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# executable files for add income or spend on cli 
+cli_add_income.sh
+cli_add_spend.sh

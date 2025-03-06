@@ -23,3 +23,21 @@ def submit_spend(request):
                             price=request.POST['price'], time=date)
 
     return JsonResponse({'status':'ok'}, encoder=JSONEncoder)
+
+@csrf_exempt
+def submit_income(request):
+    print(request.POST['token'])
+    if request.method == 'POST':
+        user = Token.objects.get(token=request.POST['token']).user
+
+        if 'data' not in request.POST :
+            date = datetime.now()
+
+        else:
+            date = request.POST['date']
+
+        Income.objects.create(user=user, title=request.POST['title'], price=request.POST['price'],
+                              time=date)
+
+    return JsonResponse({'status':'ok'},
+                        encoder=JSONEncoder)
