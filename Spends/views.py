@@ -13,6 +13,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.conf import settings
+from django.db.models import Avg, Sum, Count, Max, Min
 
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
@@ -23,7 +24,7 @@ def random_str(length):
 
 
 @csrf_exempt
-def submit_spend(request):
+def api_submit_spend(request):
     #TODO: data validations : date, token, price, title,...
     if request.method == 'POST':
         user = Token.objects.get(token=request.POST['token']).user
@@ -39,7 +40,7 @@ def submit_spend(request):
     return JsonResponse({'status':'ok'}, encoder=JSONEncoder)
 
 @csrf_exempt
-def submit_income(request):
+def api_submit_income(request):
     print(request.POST['token'])
     if request.method == 'POST':
         user = Token.objects.get(token=request.POST['token']).user
@@ -133,3 +134,12 @@ def verify_account(request, random_string):
         temp_object.delete()
         return render(request, 'Spends/verify_account.html', {'status':'Ok', 'username': username,
                                                               'token':this_token.token})
+#     tau5-L3__>}vXzE7$LbwlQH96g7M[d+$H?|w)2Iq?08]08^l'#
+@csrf_exempt
+def general_stats(request):
+    token = request.POST['token']
+    print(Token.objects.filter(token=token).exists())
+    this_user = Token.objects.get(token=token).user
+    income_stats = Income.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
+    spend_stats = Spend.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
+    return JsonResponse({'Income':income_stats, 'Spends':spend_stats}, encoder=JSONEncoder)
