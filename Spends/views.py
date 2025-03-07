@@ -8,7 +8,7 @@ from json.encoder import JSONEncoder
 from .forms import registerForm
 from secrets import choice
 from string import digits, punctuation, ascii_letters
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -134,9 +134,41 @@ def verify_account(request, random_string):
         temp_object.delete()
         return render(request, 'Spends/verify_account.html', {'status':'Ok', 'username': username,
                                                               'token':this_token.token})
-#     tau5-L3__>}vXzE7$LbwlQH96g7M[d+$H?|w)2Iq?08]08^l'#
 @csrf_exempt
-def general_stats(request):
+def api_login(request):
+    if request.method == 'POST':
+        if 'username' in request.POST and 'password' in request.POST:
+            username = request.POST['username']
+            password =  request.POST['password']
+            user = User.objects.filter(username=username)
+
+            # Username found
+            if user :
+                # password correct
+                user = user[0]
+                if check_password(password, user.password):
+                    token = Token.objects.get(user=user).token
+                    return JsonResponse({"status":"OK", "token":token}, encoder=JSONEncoder)
+
+                # password incorrect
+                else:
+                    status = 'Password is incorrect'
+
+
+            # Username not found
+            else:
+                status = 'Username is incorrect!'
+        else:
+            status = 'You should send username and password'
+    else:
+        status = 'Incorrect request (just POST)'
+
+    context = {'status':status}
+    return JsonResponse(context, encoder=JSONEncoder)
+
+
+@csrf_exempt
+def api_general_stats(request):
     token = request.POST['token']
     print(Token.objects.filter(token=token).exists())
     this_user = Token.objects.get(token=token).user
