@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Spends'
+    'Spends',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,9 @@ ROOT_URLCONF = 'SpendsManager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,3 +125,20 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Recaptcha config
+RECAPTCHA_PUBLIC_KEY = "6Ld0yesqAAAAAG9a1VrZLwGgob_IoXz1g7fMv7LQ"
+RECAPTCHA_PRIVATE_KEY = "6Ld0yesqAAAAAATPX8IiJNPBWzlZjbNdr93tLkvJ"
+
+# Emails config 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'atanabain@gmail.com'
+EMAIL_HOST_PASSWORD = 'fnma wcbl cnmh zuur'
+DEFAULT_FROM_EMAIL = 'admin@bedeBeeston.com'
+EMAIL_TIMEOUT = 60
+
+
+SITE_URL = 'http://localhost:8000'

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ثبت نام - بدهه بستون{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'Spends/Style/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form action="{% url 'account_register' %}" method="post" >
+            <h1 id="main-title">ساخت حساب کاربری</h1>
+            {% csrf_token %}
+            {{ form_object }}
+            <button type="submit">ثبت نام</button>
+        </form>
+
+        <br>
+        {% if status == 'AgianPasswordError' %}
+            <div id="error-message" class="error-box">
+                متاسفانه رمز عبور شما با تکرارش مطابقت ندارد
+            </div>
+        {% elif status == 'UserNameExists' %}
+            <div id="error-message" class="error-box">
+               متاسفانه این نام کاربری قبلا ثبت شده است
+            </div>
+        {% elif status == 'EmailExists'%}
+            <div id="error-message" class="error-box">
+                متاسفانه این ایمیل قبلا ثبت شده است
+            </div>
+        {% elif status == 'OK' %}
+            <div id="error-message" class="success-box">
+                ایمیل تایید برای شما ارسال شد<br> اگر ایمیل را نمیبیند پوشه spam را چک کنید
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'Spends/Js/register.js' %}"></script>
+{% endblock %}

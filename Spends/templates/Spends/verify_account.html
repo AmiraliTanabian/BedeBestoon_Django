@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}اعتبار سنجی اکانت{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'Spends/Style/verify_account.css' %}">
+{% endblock %}
+{% block content %}
+    <h1 id="main-title">اعتبارسنجی ایمیل شما</h1>
+    <h3>بده بستون</h3>
+
+    {% if status == 'Ok' %}
+        <div class="message success">
+            <h2>لینک شما معتبر است!</h2>
+            <p>حالا می‌توانید وارد حساب کاربری خود شوید.</p>
+            <p>توکن شما:( لطفا آن را سیو کنید زیر دیگر نمایش داده نخواهد شد ... کاملا جدی :| )</p>
+            <p id="text">{{ token }}</p>
+            <div id="popup" class="popup">کپی شد!</div>
+            <a href="/login">به صفحه ورود بروید</a>
+        </div>
+    {% elif status == 'NotFound' %}
+        <div class="message error">
+            <h2>لینک معتبر نیست!</h2>
+            <p>لطفاً دوباره تلاش کنید یا از ما درخواست لینک جدید کنید.</p>
+        </div>
+    {% else %}
+        <div class="message info">
+            <h2>لینک شما منقضی شده است!</h2>
+            <p>لینک اعتبارسنجی شما به پایان رسیده است. لطفاً درخواست لینک جدید کنید.</p>
+        </div>
+
+    {% endif %}
+{% endblock %}
+{% block js %}
+    <script src="{% static 'Spends/Js/verify_account.js' %}"></script>
+{% endblock %}

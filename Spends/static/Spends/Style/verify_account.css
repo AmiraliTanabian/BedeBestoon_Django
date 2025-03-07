@@ -1,0 +1,33 @@
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 20px;
+    direction: rtl;
+}
+.message {
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+.info {
+    background-color: #cce5ff;
+    color: #004085;
+}
+.popup {
+    position: absolute;
+    background: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}

@@ -25,3 +25,15 @@ class Income(models.Model):
 
     def __str__(self):
         return f'{self.title} - {self.time.strftime("%Y-%m-%d | %H:%M")}'
+
+
+class TempUser(models.Model):
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    random_str = models.CharField(max_length=50)
+    date = models.DateTimeField()
+
+
+    def __str__(self):
+        return f'{self.username}'
