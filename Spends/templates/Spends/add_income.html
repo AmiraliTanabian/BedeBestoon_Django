@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}افزودن درآمد جدید{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static "Spends/Style/add_spend.css" %}">
+{% endblock %}
+{% block content %}
+     <div class="container">
+    <h1>ثبت درآمد جدید</h1>
+
+    <form action="" method="POST">
+        <div class="form-group">
+            <label for="income-name">عنوان درآمد</label>
+            <input type="text" id="income-name" name="income-name" required placeholder="عنوان درآمد">
+        </div>
+        <div class="form-group">
+            <label for="income-amount">مقدار درآمد (تومان)</label>
+            <input type="number" id="income-amount" name="income-amount" required placeholder="مقدار درآمد">
+        </div>
+        <div class="form-group">
+            <label for="income-date">زمان دریافت</label>
+            <input type="date" id="income-date" name="income-date" required>
+        </div>
+        <button type="submit" class="submit-btn">ثبت درآمد</button>
+    </form>
+
+    <a href="{% url "home_page" %}" class="back-btn">بازگشت به پنل مدیریت</a>
+{% endblock %}

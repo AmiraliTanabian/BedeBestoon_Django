@@ -192,7 +192,14 @@ def add_spend(request):
     if request.user.is_authenticated:
         return render(request, 'Spends/add_spend.html')
     else:
-        return render(request, 'Spends/dont_login_error.html')
+        return render(request, 'Spends/unauthorized.html')
+
+def add_income(request):
+    if request.user.is_authenticated:
+        return render(request, 'Spends/add_income.html')
+    else:
+        return render(request, "Spends/unauthorized.html")
+
 
 @csrf_exempt
 def api_login(request):
