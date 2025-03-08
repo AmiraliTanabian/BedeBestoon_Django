@@ -182,4 +182,5 @@ cli_add_spend.sh
 
 recaptcha.txt
 todo.txt
-*pyc
+*.pyc
+__pycache__/

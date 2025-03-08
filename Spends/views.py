@@ -158,8 +158,6 @@ def login_page(request):
             return render(request, 'Spends/login.html', {'status':'username or password incorrect',
                                                          'form_obj':form_obj})
 
-
-
 def index_page(request):
     if request.user.is_authenticated:
         user = request.user
@@ -188,6 +186,13 @@ def index_page(request):
         return render(request, 'Spends/dashboard.html', context)
     else:
         return JsonResponse({'status':'وارد حساب بشوید'}, encoder=JSONEncoder)
+
+
+def add_spend(request):
+    if request.user.is_authenticated:
+        return render(request, 'Spends/add_spend.html')
+    else:
+        return render(request, 'Spends/dont_login_error.html')
 
 @csrf_exempt
 def api_login(request):

@@ -125,3 +125,11 @@ h1 {
     font-weight: bold;
     margin-top: 12px;
 }
+
+a{
+    text-decoration: none;
+}
+
+.link {
+    color:white;
+}

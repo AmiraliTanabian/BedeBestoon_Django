@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    افزودن هزینه - بده بستون
+{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "Spends/Style/add_spend.css" %}">
+{% endblock %}
+{% block content %}
+ <div class="container">
+    <h1>ثبت خرج جدید</h1>
+
+    <form action="" method="POST">
+        <div class="form-group">
+            <label for="expense-name">عنوان خرج</label>
+            <input type="text" id="expense-name" name="expense-name" required placeholder="عنوان خرج">
+        </div>
+        <div class="form-group">
+            <label for="expense-amount">مقدار خرج (تومان)</label>
+            <input type="number" id="expense-amount" name="expense-amount" required placeholder="مقدار خرج">
+        </div>
+        <div class="form-group">
+            <label for="expense-date">زمان خرج</label>
+            <input type="date" id="expense-date" name="expense-date" required>
+        </div>
+        <button type="submit" class="submit-btn">ثبت خرج</button>
+    </form>
+
+    <a href="{% url "home_page" %}" class="back-btn">بازگشت به پنل مدیریت</a>
+</div>
+{% endblock %}

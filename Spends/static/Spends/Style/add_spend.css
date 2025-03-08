@@ -1,0 +1,81 @@
+body {
+    font-family: 'Tahoma', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+.form-group {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.form-group label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #2980b9;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    transition: 0.3s;
+}
+.submit-btn:hover {
+    background: #1f6696;
+}
+.back-btn {
+    margin-top: 20px;
+    text-decoration: none;
+    color: #2980b9;
+    font-size: 16px;
+}
+.back-btn:hover {
+    color: #1f6696;
+}
+.form-group input[type="date"] {
+    background-color: #f7f9fc;
+}
+.form-group input[type="date"]:focus {
+    background-color: #e2e8f0;
+}
+
+*{
+    direction:rtl;
+}
