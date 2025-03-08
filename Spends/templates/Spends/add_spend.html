@@ -23,9 +23,16 @@
             <label for="expense-date">زمان خرج</label>
             <input type="date" id="expense-date" name="expense-date" required>
         </div>
+        <div class="form-group">
+            <input type="checkbox" id="use-current-time" name="use-current-time">
+            <label for="use-current-time">استفاده از زمان فعلی</label>
+        </div>
         <button type="submit" class="submit-btn">ثبت خرج</button>
     </form>
 
     <a href="{% url "home_page" %}" class="back-btn">بازگشت به پنل مدیریت</a>
 </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static "Spends/Js/add_income_spend.js"%}"></script>
 {% endblock %}

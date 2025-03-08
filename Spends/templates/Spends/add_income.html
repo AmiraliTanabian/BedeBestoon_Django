@@ -21,8 +21,15 @@
             <label for="income-date">زمان دریافت</label>
             <input type="date" id="income-date" name="income-date" required>
         </div>
+        <div class="form-group">
+            <input type="checkbox" id="use-current-time" name="use-current-time">
+            <label for="use-current-time">استفاده از زمان فعلی</label>
+        </div>
         <button type="submit" class="submit-btn">ثبت درآمد</button>
     </form>
 
     <a href="{% url "home_page" %}" class="back-btn">بازگشت به پنل مدیریت</a>
+{% endblock %}
+{% block js %}
+    <script src="{% static "Spends/Js/add_income_spend.js" %}"></script>
 {% endblock %}
