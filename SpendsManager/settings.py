@@ -142,3 +142,7 @@ EMAIL_TIMEOUT = 60
 
 
 SITE_URL = 'http://localhost:8000'
+
+# Session settings
+SESSION_COOKIE_AGE = 2592000
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False

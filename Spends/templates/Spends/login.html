@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} ورود به اکانت  {% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'Spends/Style/login.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form action="{% url 'login_page' %}" method="post">
+        {% csrf_token %}
+         <h1i id="main-title">ورود به حساب کاربری</h1i>
+        {{ form_obj }}
+        <button type="submit">ورود</button>
+        </form>
+
+    {% if status == 'username or password incorrect' %}
+        <div id="error-message" class="error-box">
+            نام کاربری یا رمز عبور شما اشتباه میباشد!<br>لطفا مجدد تلاش بفرمایید
+        </div>
+    {% endif %}
+
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'Spends/Js/register.js' %}"></script>
+{% endblock %}

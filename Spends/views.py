@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from .models import Token, Spend, Income, TempUser
 from django.utils import timezone
 from json.encoder import JSONEncoder
-from .forms import registerForm
+from .forms import registerForm, loginForm
 from secrets import choice
 from string import digits, punctuation, ascii_letters
 from django.contrib.auth.hashers import make_password, check_password
@@ -14,6 +14,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.conf import settings
 from django.db.models import Avg, Sum, Count, Max, Min
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
@@ -134,6 +136,33 @@ def verify_account(request, random_string):
         temp_object.delete()
         return render(request, 'Spends/verify_account.html', {'status':'Ok', 'username': username,
                                                               'token':this_token.token})
+
+def login_page(request):
+    if request.method != 'POST':
+        form_obj = loginForm()
+        return render(request, 'Spends/login.html', {'form_obj':form_obj})
+
+    else:
+        form_obj = loginForm(data=request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user :
+            login(request, user)
+            messages.success(request, 'شما با موفقیت وارد اکانت خود شدید!\nمیتوانید از امکانات سرویس استفاده کنید')
+            return  HttpResponseRedirect(reverse('home_page'))
+
+        else:
+            return render(request, 'Spends/login.html', {'status':'username or password incorrect',
+                                                         'form_obj':form_obj})
+
+
+
+def index_page(request):
+    return render(request, 'Spends/index.html')
+
 @csrf_exempt
 def api_login(request):
     if request.method == 'POST':

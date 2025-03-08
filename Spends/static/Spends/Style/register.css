@@ -1,0 +1,85 @@
+body{
+    direction: rtl;
+}
+
+div.container{
+    text-align: center;
+    width: 30%;
+    height: 500px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 50px ;
+}
+
+
+input,
+button{
+    margin: auto;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    border:2px solid #FFFFFF;
+    background: #EFEEEE;
+    width: 80%;
+    transition: all ease-in-out 0.5s;
+
+}
+
+
+input:focus{
+    border:none;
+    outline: none;
+    width: 90%;
+}
+
+
+button:hover{
+    background: #3fb33f;
+}
+
+button{
+    cursor: pointer;
+    background: #6daa6d;
+    margin: 0;
+
+}
+.error-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff4d4d;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;
+}
+
+#main-title{
+    margin-bottom: 0;
+}
+
+.success-box{
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3fb33f;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;
+}

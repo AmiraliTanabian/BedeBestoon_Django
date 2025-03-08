@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}بده بستون - صفحه اصلی{% endblock %}
+{% block style_tag %}
+    <style>
+    div.success-box
+    {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3fb33f;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;}
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="success-box" id="error-message">
+                {{ msg }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block js %}
+    <script src="{% static 'Spends/Js/register.js' %}"></script>
+{% endblock %}
