@@ -115,3 +115,13 @@ h1 {
 .list li:hover{
     zoom:1.2;
 }
+
+.average {
+    background-color: #ecf0f1;  /* رنگ زمینه ملایم */
+    color: #333;  /* رنگ متن تیره‌تر */
+    border-radius: 8px;  /* گوشه‌های گرد */
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 12px;
+}

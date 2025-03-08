@@ -36,9 +36,8 @@
     {% endif %}
 
     <div class="container">
-    <h1> خوش آمدید، کاربر عزیز!</h1>
+    <h1>عزیز، خوش آمدید!{{ username }}</h1>
 
-    <!-- فیلتر زمان جدید برای هزینه‌ها و درآمدها -->
     <div class="filter-box">
         <div>
             <label for="time-filter-expenses">فیلتر زمان هزینه‌ها:</label>
@@ -71,8 +70,11 @@
                 <li>150,000 تومان - حمل و نقل</li>
                 <li>80,000 تومان - اینترنت</li>
             </ul>
-            <div class="highlight highest"><span class="icon">💸</span>بیشترین خرج: 1,000,000 تومان</div>
-            <div class="highlight lowest"><span class="icon">🛒</span>کمترین خرج: 80,000 تومان</div>
+            <div class="highlight highest"><span class="icon">💸</span>بیشترین خرج: {{ max_spend }} تومان</div>
+            <div class="highlight lowest"><span class="icon">🛒</span>کمترین خرج: {{ min_spend }} تومان</div>
+            <div class="highlight average">
+               <span class="icon">📊</span>میانگین خرج: {{ avg_spend }} تومان
+            </div>
         </div>
 
         <div class="section incomes">
@@ -85,8 +87,11 @@
                 <li>1,500,000 تومان - سود سهام</li>
                 <li>800,000 تومان - اجاره ملک</li>
             </ul>
-            <div class="highlight highest"><span class="icon">💰</span>بیشترین درآمد: 5,000,000 تومان</div>
-            <div class="highlight lowest"><span class="icon">🎁</span>کمترین درآمد: 500,000 تومان</div>
+            <div class="highlight highest"><span class="icon">💰</span>بیشترین درآمد: {{ max_income }} تومان</div>
+            <div class="highlight lowest"><span class="icon">🎁</span>کمترین درآمد: {{ min_income }} تومان</div>
+            <div class="highlight average">
+            <span class="icon">📊</span>میانگین درآمد: {{ avg_income }} تومان
+            </div>
         </div>
     </div>
 </div>

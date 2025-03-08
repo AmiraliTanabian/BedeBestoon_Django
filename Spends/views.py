@@ -161,7 +161,33 @@ def login_page(request):
 
 
 def index_page(request):
-    return render(request, 'Spends/index.html')
+    if request.user.is_authenticated:
+        user = request.user
+        spend_aggregate = Spend.objects.filter(user=user).aggregate(Max('price'), Min('price'),
+                                                                    Avg('price'))
+        min_spend = int(spend_aggregate['price__min'])
+        max_spend = int(spend_aggregate['price__max'])
+        avg_spend = int(spend_aggregate['price__avg'])
+
+        income_aggregate = Income.objects.filter(user=user).aggregate(Max('price'), Min('price'),
+                                                                      Avg('price'))
+        min_income = int(income_aggregate['price__min'])
+        max_income = int(income_aggregate['price__max'])
+        avg_income = int(income_aggregate['price__avg'])
+
+        context = {
+            'username': user.username,
+            'max_spend': f'{max_spend:,d}',
+            'min_spend': f'{min_spend: ,d}',
+            'avg_spend': f'{avg_spend: ,d}',
+            'max_income': f'{max_income: ,d}',
+            'min_income': f'{min_income: ,d}',
+            'avg_income': f'{avg_income: ,d}'
+        }
+
+        return render(request, 'Spends/dashboard.html', context)
+    else:
+        return JsonResponse({'status':'وارد حساب بشوید'}, encoder=JSONEncoder)
 
 @csrf_exempt
 def api_login(request):
