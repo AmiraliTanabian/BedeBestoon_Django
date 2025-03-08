@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}بده بستون - صفحه اصلی{% endblock %}
+{% block style_tag %}
+    <style>
+    div.success-box
+    {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3fb33f;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;}
+    </style>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "Spends/Style/dashboard.css" %}">
+{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="success-box" id="error-message">
+                {{ msg }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="container">
+    <h1> خوش آمدید، کاربر عزیز!</h1>
+
+    <!-- فیلتر زمان جدید برای هزینه‌ها و درآمدها -->
+    <div class="filter-box">
+        <div>
+            <label for="time-filter-expenses">فیلتر زمان هزینه‌ها:</label>
+            <select id="time-filter-expenses">
+                <option value="all">همه</option>
+                <option value="week">هفته گذشته</option>
+                <option value="month">ماه گذشته</option>
+                <option value="year">سال گذشته</option>
+            </select>
+        </div>
+        <div>
+            <label for="time-filter-incomes">فیلتر زمان درآمدها:</label>
+            <select id="time-filter-incomes">
+                <option value="all">همه</option>
+                <option value="week">هفته گذشته</option>
+                <option value="month">ماه گذشته</option>
+                <option value="year">سال گذشته</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="section expenses">
+            <h2>مدیریت هزینه‌ها</h2>
+            <button class="add-btn">+ افزودن خرج</button>
+            <ul class="list">
+                <li>500,000 تومان - خرید لباس</li>
+                <li>200,000 تومان - غذا</li>
+                <li>1,000,000 تومان - اجاره خانه</li>
+                <li>150,000 تومان - حمل و نقل</li>
+                <li>80,000 تومان - اینترنت</li>
+            </ul>
+            <div class="highlight highest"><span class="icon">💸</span>بیشترین خرج: 1,000,000 تومان</div>
+            <div class="highlight lowest"><span class="icon">🛒</span>کمترین خرج: 80,000 تومان</div>
+        </div>
+
+        <div class="section incomes">
+            <h2>مدیریت درآمدها</h2>
+            <button class="add-btn">+ افزودن درآمد</button>
+            <ul class="list">
+                <li>5,000,000 تومان - حقوق ماهانه</li>
+                <li>2,000,000 تومان - پروژه فریلنس</li>
+                <li>500,000 تومان - فروش کالا</li>
+                <li>1,500,000 تومان - سود سهام</li>
+                <li>800,000 تومان - اجاره ملک</li>
+            </ul>
+            <div class="highlight highest"><span class="icon">💰</span>بیشترین درآمد: 5,000,000 تومان</div>
+            <div class="highlight lowest"><span class="icon">🎁</span>کمترین درآمد: 500,000 تومان</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'Spends/Js/register.js' %}"></script>
+{% endblock %}

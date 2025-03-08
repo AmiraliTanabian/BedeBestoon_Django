@@ -1,0 +1,117 @@
+body {
+    font-family: 'Tahoma', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+h1 {
+    color: #333;
+}
+.filter-box {
+    margin-bottom: 20px;
+    padding: 12px;
+    background: #37474F;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.filter-box label {
+    margin-right: 10px;
+}
+.filter-box select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    background-color: #2c3e50;
+    color: white;
+    transition: background-color 0.3s;
+}
+.filter-box select:hover {
+    background-color: #34495e;
+}
+.panel {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.section {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+.expenses {
+    border-left: 6px solid #e74c3c;
+}
+.incomes {
+    border-left: 6px solid #2ecc71;
+}
+.list {
+    list-style: none;
+    padding: 0;
+}
+.list li {
+    cursor: pointer;
+    background: #f9f9f9;
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: ease-in-out all 0.5s;
+}
+.add-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    background: #2980b9;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+.add-btn:hover {
+    background: #1f6696;
+}
+.highlight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 12px;
+}
+.highlight .icon {
+    font-size: 24px;
+}
+.highest {
+    background-color: #ffb400;
+    color: #333;
+}
+.lowest {
+    background-color: #27ae60;
+    color: white;
+}
+
+.list li:hover{
+    zoom:1.2;
+}
