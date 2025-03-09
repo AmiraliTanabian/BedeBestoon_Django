@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from .models import Token, Spend, Income, TempUser
 from django.utils import timezone
 from json.encoder import JSONEncoder
-from .forms import registerForm, loginForm, addSpend
+from .forms import registerForm, loginForm, addSpend, addIncome
 from secrets import choice
 from string import digits, punctuation, ascii_letters
 from django.contrib.auth.hashers import make_password, check_password
@@ -223,22 +223,46 @@ def add_spend(request):
             context = {'form_obj': add_spend_obj, 'status': True}
             return render(request, 'Spends/add_spend.html', context)
 
-            #
-            # else:
-            #     context = {'form_obj': add_spend_obj}
-            #     return render(request, 'Spends/add_spend.html', context)
-
-
 
     else:
         return render(request, 'Spends/unauthorized.html')
 
 def add_income(request):
     if request.user.is_authenticated:
-        return render(request, 'Spends/add_income.html')
-    else:
-        return render(request, "Spends/unauthorized.html")
+        if request.method != "POST":
+            add_income_object = addIncome()
+            context = {'form_obj':add_income_object}
+            return render(request, 'Spends/add_income.html', context)
 
+        else:
+            add_income_object = addIncome(data=request.POST)
+            title = request.POST['title']
+            price = request.POST['price']
+            is_now = 'is_now' in request.POST
+
+            if is_now:
+                datetime_obj = timezone.now()
+
+            else:
+                # date[0] date and date[1] time
+                date_result = request.POST['datetime'].split('T')
+                date = date_result[0].split('-')
+                time = date_result[1].split(':')
+
+                year = int(date[0])
+                month = int(date[1])
+                day = int(date[2])
+                hour = int(time[0])
+                minute = int(time[1])
+                datetime_obj = datetime.datetime(year, month, day, hour, minute)
+
+            Income.objects.create(user=request.user, title=title, time=datetime_obj, price=price)
+            context = {'form_obj': add_income_object, 'status': True}
+            return render(request, 'Spends/add_income.html', context)
+
+
+    else:
+        return render(request, 'Spends/unauthorized.html')
 
 @csrf_exempt
 def api_login(request):
