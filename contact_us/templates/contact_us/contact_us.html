@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}تماس با ما{% endblock %}
+{% block styles %}
+    <script src="{% static "contact_us/contact_us.css" %}"></script>
+{% endblock %}
+{% block style_tag %}
+        <style>
+.error-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff4d4d;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;
+}
+
+.success-box{
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3fb33f;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;
+}
+    </style>
+{% endblock %}
+{% block content %}
+    {% if status %}
+        <div class="success-box" id="error-message">
+            پیام شما با موفقیت ثبت شد، نتیجه آن با ایمیل به شما ارسال خواهد شد.
+        </div>
+    {% endif %}
+    <section class="contact-form-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>ارتباط با ما</h2>
+                <p>می‌توانید از طریق فرم زیر با ما در ارتباط باشید یا از لینک‌های زیر استفاده کنید.</p>
+                <ul>
+                    <li><strong>گیت‌هاب:</strong> <a href="https://github.com/YourProject" target="_blank">مشاهده پروژه</a></li>
+                    <li><strong>ایمیل:</strong> <a href="mailto:atanabain@gmail.com">atanabain@gmail.com</a></li>
+                </ul>
+            </div>
+            <div class="contact-form">
+                <h2>فرم تماس با ما</h2>
+                <form action="{% url "contact_us_page" %}" method="post">
+                    {% csrf_token %}
+                    <label for="name">نام:</label>
+                    {{ form_obj.name }}
+{#                    <input type="text" id="name" name="name" required>#}
+
+                    <label for="subject">موضوع:</label>
+                    {{ form_obj.subject }}
+{#                    <input type="text" id="subject" name="subject" required>#}
+
+                    <label for="email">ایمیل:</label>
+                    {{ form_obj.email }}
+{#                    <input type="email" id="email" name="email" required>#}
+
+                    <label for="message">متن پیام:</label>
+                    {{ form_obj.text }}
+{#                    <textarea id="message" name="message" rows="4" required></textarea>#}
+
+                    <button type="submit">ارسال پیام</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

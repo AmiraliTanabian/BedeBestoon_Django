@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_render_partial',
     'Spends',
     'django_recaptcha',
+    'contact_us'
 ]
 
 MIDDLEWARE = [
