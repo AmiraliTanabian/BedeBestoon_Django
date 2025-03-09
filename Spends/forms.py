@@ -17,3 +17,10 @@ class registerForm(forms.Form):
 class loginForm(forms.Form):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'نام کاربری'}))
     password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder':'رمز عبور'}))
+
+class addSpend(forms.Form):
+    title = forms.CharField(label="عنوان خرج", widget=forms.TextInput(attrs = {'placeholder':'عنوان خرج'}))
+    price = forms.IntegerField(label="مبلغ خرج" ,widget=forms.TextInput(attrs = {'placeholder':'مقدار  خرج'}))
+    datetime = forms.DateTimeField(label="تاریخ و زمان خرج" ,widget=forms.DateTimeInput(attrs={'type':'datetime-local'}))
+    is_now = forms.BooleanField(required=False, label="زمان الان را برای خرج ثبت کن", widget=forms.CheckboxInput())
+
