@@ -1,3 +1,4 @@
+{% load render_partial %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,7 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    {% render_partial "Spends.views.header" %}
     {% block content %}{% endblock %}
     {% block js %}{% endblock %}
 </body>

@@ -162,6 +162,7 @@ def login_page(request):
 
 def index_page(request):
     if request.user.is_authenticated:
+        print(True)
         user = request.user
         spend_aggregate = Spend.objects.filter(user=user).aggregate(Max('price'), Min('price'),
                                                                     Avg('price'))
@@ -186,8 +187,9 @@ def index_page(request):
         }
 
         return render(request, 'Spends/dashboard.html', context)
+
     else:
-        return JsonResponse({'status':'وارد حساب بشوید'}, encoder=JSONEncoder)
+        return JsonResponse({'status':'وارد حساب بشوید'}, encoder=JSONEncoder, safe=False)
 
 
 def add_spend(request):
@@ -305,3 +307,7 @@ def api_general_stats(request):
     income_stats = Income.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
     spend_stats = Spend.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
     return JsonResponse({'Income':income_stats, 'Spends':spend_stats}, encoder=JSONEncoder)
+
+def header(request):
+    return render(request, "Spends/header_component.html",
+                  {"is_login":request.user.is_authenticated})

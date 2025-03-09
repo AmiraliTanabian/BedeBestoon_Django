@@ -1,0 +1,41 @@
+body {
+    background-color: #f3f4f6;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+header {
+    background-color: #2563eb;
+    padding: 16px;
+    color: white;
+    display: flex;
+    /*justify-content: flex-end;*/
+    align-items: center;
+    width: 100%;
+}
+.header-content {
+    display: flex;
+    align-items: center;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+nav ul li {
+    margin-left: 16px; /* فاصله بین آیتم‌های منو */
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+nav ul li a:hover {
+    text-decoration: underline;
+}
+h1 {
+    margin: 0;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 24px; /* اندازه بزرگتر برای تیتر */
+    margin-left: 16px; /* فاصله بین تیتر و منو */
+}
