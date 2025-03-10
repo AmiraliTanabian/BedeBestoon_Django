@@ -1,0 +1,20 @@
+--> 1)  api/submit/spend 
+POST
+input = title, price, token, datetime(optional)(python datetime.datetime object)
+output = json 
+
+
+--> 2) api/sumbit/income 
+POST
+input = title, price, token, datetime(optional)(python datetime.datetime object)
+output = json 
+
+--> 3) api/general-stat
+POST
+input = token 
+output = json
+
+--> 4) api/account/login
+POST
+input = token 
+output = json
