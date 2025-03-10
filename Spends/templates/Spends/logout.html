@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خروج موفقیت‌آمیز</title>
+    <link rel="stylesheet" href="{% static "Spends/Style/logout.css" %}">
+</head>
+<body>
+    <div class="container">
+        <div class="message-box">
+            <img src="{% static "Spends/Images/logout_success.png" %}" alt="خروج موفق" class="success-icon">
+            <h1>شما با موفقیت از حساب کاربری خود خارج شدید!</h1>
+            <p>از اینکه از خدمات بده بستون استفاده کردید، متشکریم. هر زمان که بخواهید می‌توانید دوباره وارد شوید.</p>
+            <div class="buttons">
+                <a href="{% url "login_page" %}" class="btn btn-primary">ورود به حساب کاربری</a>
+                <a href="{% url "home_page" %}" class="btn btn-secondary">بازگشت به صفحه اصلی</a>
+            </div>
+            <p class="footer-message">بده بستون</p>
+
+        </div>
+    </div>
+    <script src="{% static "Spends/Js/logout.js" %}"></script>
+</body>
+</html>

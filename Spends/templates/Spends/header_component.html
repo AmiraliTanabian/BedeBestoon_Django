@@ -8,7 +8,7 @@
                     <li><a href="{% url "home" %}">صفحه اصلی</a></li>
                     <li><a href="{% url "dashboard" %}">پنل ادمین</a></li>
                     <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
-                    <li><a href="#">خروج از حساب</a></li>
+                    <li><a href="{% url "logout" %}">خروج از حساب</a></li>
                 {% else %}
                     <li><a href="{% url "home" %}">صفحه اصلی</a></li>
                     <li><a href="{% url "login_page" %}">ورود / ثبت نام</a></li>

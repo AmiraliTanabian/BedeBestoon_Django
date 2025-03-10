@@ -243,3 +243,12 @@ def dashboard(request):
     else:
         return render(request, "Spends/unauthorized.html")
 
+def logout_page(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+        logout(request)
+        context = {"username":username}
+        return render(request, "Spends/logout.html", context)
+
+    else:
+        return render(request, "Spends/logout_without_login.html")

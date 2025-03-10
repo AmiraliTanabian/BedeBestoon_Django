@@ -10,5 +10,6 @@ urlpatterns = [
     path('add_spend', views.add_spend, name="add_spend"),
     path("add_income", views.add_income, name="add_income"),
     path('home', views.home_page, name="home"),
-    path("dashboard", views.dashboard, name="dashboard")
+    path("dashboard", views.dashboard, name="dashboard"),
+    path("account/logout", views.logout_page, name="logout")
 ]
