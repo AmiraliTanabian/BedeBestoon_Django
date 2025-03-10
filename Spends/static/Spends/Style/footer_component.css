@@ -67,3 +67,7 @@ footer {
 h2{
     text-align: center;
 }
+
+body{
+    padding-top: 60px;
+}

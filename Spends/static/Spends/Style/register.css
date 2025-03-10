@@ -83,3 +83,7 @@ button{
     transition: opacity 0.5s ease-in-out;
     z-index: 9999;
 }
+
+body{
+    padding-top: 60px;
+}

@@ -1,8 +1,10 @@
 {% load render_partial %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'Spends/Style/header_component.css' %}">
     {% block styles %}{% endblock %}
     {% block style_tag %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>

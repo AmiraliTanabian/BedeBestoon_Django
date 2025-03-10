@@ -13,7 +13,9 @@
     align-items: flex-start;
 }
 
-
+body{
+    padding-top: 60px;
+}
 .contact-form {
     flex: 1;
     padding: 20px;

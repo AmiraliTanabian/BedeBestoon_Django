@@ -1,14 +1,5 @@
-body {
-    background-color: #f3f4f6;
-    margin: 0 ;
-    font-family: Arial, sans-serif;
-}
-*{
-    float: right;
-    direction: rtl;
-    
-}
-header {
+
+header#header_part {
     background-color: #2563eb;
     padding: 16px;
     color: white;
@@ -16,37 +7,40 @@ header {
     /*justify-content: flex-end;*/
     align-items: center;
     width: 100%;
+    margin: 0 ;
+    font-family: Arial, sans-serif;
+    position: fixed;
+    top: 0;
+    right: 0;
 }
 .header-content {
     display: flex;
     align-items: center;
 }
-nav ul {
+nav#header_nav_bar ul {
     list-style: none;
     display: flex;
     padding: 0;
     margin: 0;
 }
-nav ul li {
-    margin-left: 16px; /* فاصله بین آیتم‌های منو */
+nav#header_nav_bar ul li {
+    margin-left: 16px;
 }
-nav ul li a {
+nav#header_nav_bar ul li a {
     color: white;
     text-decoration: none;
 }
-nav ul li a:hover {
+nav#header_nav_bar ul li a:hover {
     text-decoration: underline;
 }
-h1 {
+h1#header_title{
     margin: 0;
     padding: 8px 16px;
     border-radius: 4px;
-    font-size: 24px; /* اندازه بزرگتر برای تیتر */
-    margin-left: 16px; /* فاصله بین تیتر و منو */
+    font-size: 24px;
+    margin-left: 16px;
 }
 
-.section {
-    padding-top: 64px; /* ارتفاع هدر */
-    height: 100vh;
-    box-sizing: border-box; /* برای اینکه padding تو ارتفاع محاسبه بشه */
+body{
+    padding-top: 60px;
 }

@@ -30,3 +30,7 @@ a {
 a:hover {
     background: #2980b9;
 }
+
+body{
+    padding-top: 60px;
+}

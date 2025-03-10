@@ -242,3 +242,4 @@ def dashboard(request):
 
     else:
         return render(request, "Spends/unauthorized.html")
+

@@ -1,39 +1,20 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "Spends/Style/header_component.css" %}">
-</head>
-<body>
-    <header>
-        <h1>بده بستون</h1> <!-- تیتر در سمت راست -->
-        {% if is_login %}
-            <div class="header-content">
-                <nav>
-                    <ul>
-                        <li><a href="{% url "home" %}">صفحه اصلی</a></li>
-                        <li><a href="{% url "dashboard" %}">پنل ادمین</a></li>
-                        <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
-                        <li><a href="#">خروج از حساب</a></li>
-
-                    </ul>
-                </nav>
-            </div>
-        {% else %}
-            <div class="header-content">
-                <nav>
-                    <ul>
-                        <li><a href="{% url "home" %}">صفحه اصلی</a></li>
-                        <li><a href="{% url "login_page" %}">ورود / ثبت نام</a></li>
-                        <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
-
-                    </ul>
-                </nav>
-            </div>
-        {% endif %}
-
-    </header>
-</body>
-</html>
+<header id="header_part">
+    <h1 id="header_title">بده بستون</h1> <!-- تیتر در سمت راست -->
+    <div class="header-content">
+        <nav id="header_nav_bar">
+             <ul>
+                {% if is_login %}
+                    <li><a href="{% url "home" %}">صفحه اصلی</a></li>
+                    <li><a href="{% url "dashboard" %}">پنل ادمین</a></li>
+                    <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
+                    <li><a href="#">خروج از حساب</a></li>
+                {% else %}
+                    <li><a href="{% url "home" %}">صفحه اصلی</a></li>
+                    <li><a href="{% url "login_page" %}">ورود / ثبت نام</a></li>
+                    <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
