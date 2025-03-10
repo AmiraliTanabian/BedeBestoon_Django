@@ -73,21 +73,16 @@
                 <form action="{% url "contact_us_page" %}" method="post">
                     {% csrf_token %}
                     <label for="name">نام:</label>
-{#                    {{ form_obj.name }}#}
-                    <input type="text" id="name" name="name" required>
+                    {{ form_obj.name }}
 
                     <label for="subject">موضوع:</label>
-{#                    {{ form_obj.subject }}#}
-                    <input type="text" id="subject" name="subject" required>
+                    {{ form_obj.subject }}
 
                     <label for="email">ایمیل:</label>
-{#                    {{ form_obj.email }}#}
-                    <input type="email" id="email" name="email" required>
+                    {{ form_obj.email }}
 
                     <label for="message">متن پیام:</label>
-{#                    {{ form_obj.text }}#}
-                    <textarea id="message" name="message" rows="4" required></textarea>
-
+                    {{ form_obj.text }}
                     <button type="submit">ارسال پیام</button>
                 </form>
             </div>
