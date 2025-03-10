@@ -5,6 +5,40 @@ body {
     padding: 0;
     text-align: center;
 }
+
+.success-box{
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3fb33f;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;
+}
+
+
+.error-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff4d4d;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;
+}
+
 .container {
     max-width: 900px;
     margin: 50px auto;
@@ -117,9 +151,9 @@ h1 {
 }
 
 .average {
-    background-color: #ecf0f1;  /* رنگ زمینه ملایم */
-    color: #333;  /* رنگ متن تیره‌تر */
-    border-radius: 8px;  /* گوشه‌های گرد */
+    background-color: #ecf0f1;
+    color: #333;
+    border-radius: 8px;
     padding: 12px;
     font-size: 16px;
     font-weight: bold;
@@ -134,38 +168,29 @@ a{
     color:white;
 }
 
-.success-box{
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #3fb33f;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 5px;
-    font-size: 16px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 9999;
-}
 
-
-.error-box {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #ff4d4d;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 5px;
-    font-size: 16px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 9999;
-}
 body{
     padding-top: 60px;
+}
+
+button.filter-btn{
+    background:#2C3E50;
+    border-radius: 5px;
+    color:white;
+    border:none;
+    outline: none;
+    transition: all ease-in-out 0.5s;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+
+button.filter-btn:hover{
+    background: white;
+    border:2px solid #2C3E50;
+    color:#2C3E50;
+}
+
+.filter-box *{
+    margin: auto;
 }

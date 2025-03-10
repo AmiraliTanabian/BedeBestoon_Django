@@ -133,13 +133,11 @@ def index_page(request):
         min_spend = int(spend_aggregate['price__min'])
         max_spend = int(spend_aggregate['price__max'])
         avg_spend = int(spend_aggregate['price__avg'])
-
         income_aggregate = Income.objects.filter(user=user).aggregate(Max('price'), Min('price'),
                                                                       Avg('price'))
         min_income = int(income_aggregate['price__min'])
         max_income = int(income_aggregate['price__max'])
         avg_income = int(income_aggregate['price__avg'])
-
         context = {
             'username': user.username,
             'max_spend': f'{max_spend:,d}',
@@ -150,7 +148,67 @@ def index_page(request):
             'avg_income': f'{avg_income: ,d}'
         }
 
-        return render(request, 'Spends/dashboard.html', context)
+        # For filter box handel
+        if request.method != 'POST':
+            return render(request, 'Spends/dashboard.html', context)
+
+        else:
+            spend_time_filter = request.POST['spend_time_filter']
+            income_time_filter = request.POST['income_time_filter']
+
+            spends = None
+            if spend_time_filter == 'all':
+                spends = Spend.objects.all()
+
+            elif spend_time_filter == 'last_ten':
+                spends = Spend.objects.all().order_by('time')[:10]
+
+            elif spend_time_filter == 'week':
+                now_date = timezone.now().isocalendar()
+                now_week = now_date[1]
+                now_year = now_date[0]
+                spends = Spend.objects.filter(time__year=now_year, time__week=now_week)
+
+            elif spend_time_filter == 'month':
+                now_year = timezone.now().year
+                now_month = timezone.now().month
+                spends = Spend.objects.filter(time__year=now_year, time__month=now_month)
+
+            elif spend_time_filter == 'year':
+                now_year = timezone.now().year
+                spends = Spend.objects.filter(time__year = now_year)
+
+            context['spends'] = spends
+
+            incomes = None
+            if income_time_filter == "all":
+                incomes = Income.objects.all()
+
+            elif income_time_filter == "last_ten":
+                incomes = Income.objects.all().order_by("time")[:10]
+
+            elif income_time_filter == 'week':
+                now_date = timezone.now().isocalendar()
+                now_week = now_date[1]
+                now_year = now_date[0]
+                spends = Spend.objects.filter(time__year=now_year, time__week=now_week)
+
+            elif income_time_filter == 'month':
+                now_year = timezone.now().year
+                now_month = timezone.now().month
+                incomes = Income.objects.filter(time__year=now_year, time__month=now_month)
+
+            elif income_time_filter == 'year':
+                now_year = timezone.now().year
+                incomes = Income.objects.filter(time__year=now_year)
+
+            context["incomes"] = incomes
+
+            context['income_filter'] = income_time_filter
+            context["spend_filter"] = spend_time_filter
+
+            return render(request, 'Spends/dashboard.html', context)
+
 
     else:
         return  render(request, "Spends/home_page.html")
