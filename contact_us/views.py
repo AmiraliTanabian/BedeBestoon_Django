@@ -24,4 +24,5 @@ def contact_us_page(request):
                                     datetime=datetime.now())
 
             context = {'form_obj': form_obj, 'status':True}
+            print(context)
             return render(request, "contact_us/contact_us.html", context)

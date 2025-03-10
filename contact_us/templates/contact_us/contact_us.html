@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}تماس با ما{% endblock %}
-{% block styles %}
-    <script src="{% static "contact_us/contact_us.css" %}"></script>
-{% endblock %}
+
+
 {% block style_tag %}
-        <style>
+<style>
 .error-box {
     position: fixed;
     top: 20px;
@@ -37,14 +36,28 @@
     transition: opacity 0.5s ease-in-out;
     z-index: 9999;
 }
-    </style>
+
+</style>
 {% endblock %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "contact_us/contact_us.css" %}">
+{% endblock %}
+
+
+
+
+
+
 {% block content %}
     {% if status %}
         <div class="success-box" id="error-message">
             پیام شما با موفقیت ثبت شد، نتیجه آن با ایمیل به شما ارسال خواهد شد.
         </div>
     {% endif %}
+
+
     <section class="contact-form-section">
         <div class="contact-container">
             <div class="contact-info">
@@ -60,20 +73,20 @@
                 <form action="{% url "contact_us_page" %}" method="post">
                     {% csrf_token %}
                     <label for="name">نام:</label>
-                    {{ form_obj.name }}
-{#                    <input type="text" id="name" name="name" required>#}
+{#                    {{ form_obj.name }}#}
+                    <input type="text" id="name" name="name" required>
 
                     <label for="subject">موضوع:</label>
-                    {{ form_obj.subject }}
-{#                    <input type="text" id="subject" name="subject" required>#}
+{#                    {{ form_obj.subject }}#}
+                    <input type="text" id="subject" name="subject" required>
 
                     <label for="email">ایمیل:</label>
-                    {{ form_obj.email }}
-{#                    <input type="email" id="email" name="email" required>#}
+{#                    {{ form_obj.email }}#}
+                    <input type="email" id="email" name="email" required>
 
                     <label for="message">متن پیام:</label>
-                    {{ form_obj.text }}
-{#                    <textarea id="message" name="message" rows="4" required></textarea>#}
+{#                    {{ form_obj.text }}#}
+                    <textarea id="message" name="message" rows="4" required></textarea>
 
                     <button type="submit">ارسال پیام</button>
                 </form>
