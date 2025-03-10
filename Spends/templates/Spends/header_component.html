@@ -9,17 +9,31 @@
 <body>
     <header>
         <h1>بده بستون</h1> <!-- تیتر در سمت راست -->
-        <div class="header-content">
-            <nav>
-                <ul>
-                    <li><a href="#">ورود و ثبت نام</a></li>
-                    <li><a href="#">صفحه اصلی</a></li>
-                    <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
-                    <li><a href="#">درباره ما</a></li>
+        {% if is_login %}
+            <div class="header-content">
+                <nav>
+                    <ul>
+                        <li><a href="{% url "home" %}">صفحه اصلی</a></li>
+                        <li><a href="{% url "dashboard" %}">پنل ادمین</a></li>
+                        <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
+                        <li><a href="#">خروج از حساب</a></li>
 
-                </ul>
-            </nav>
-        </div>
+                    </ul>
+                </nav>
+            </div>
+        {% else %}
+            <div class="header-content">
+                <nav>
+                    <ul>
+                        <li><a href="{% url "home" %}">صفحه اصلی</a></li>
+                        <li><a href="{% url "login_page" %}">ورود / ثبت نام</a></li>
+                        <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
+
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
+
     </header>
 </body>
 </html>

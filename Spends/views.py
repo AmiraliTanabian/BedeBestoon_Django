@@ -127,7 +127,6 @@ def login_page(request):
 
 def index_page(request):
     if request.user.is_authenticated:
-        print(True)
         user = request.user
         spend_aggregate = Spend.objects.filter(user=user).aggregate(Max('price'), Min('price'),
                                                                     Avg('price'))
@@ -231,5 +230,15 @@ def add_income(request):
         return render(request, 'Spends/unauthorized.html')
 
 def header(request):
-    return render(request, "Spends/header_component.html",
-                  {"is_login":request.user.is_authenticated})
+    context = {"is_login":request.user.is_authenticated}
+    return render(request, "Spends/header_component.html", context)
+
+def home_page(request):
+    return render(request, "Spends/home_page.html")
+
+def dashboard(request):
+    if request.user.is_authenticated:
+        return render(request, "Spends/dashboard.html")
+
+    else:
+        return render(request, "Spends/unauthorized.html")
