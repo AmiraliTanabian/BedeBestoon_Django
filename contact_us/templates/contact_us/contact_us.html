@@ -2,10 +2,13 @@
 {% load static %}
 {% block title %}تماس با ما{% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static "contact_us/contact_us.css" %}">
+{% endblock %}
 
 {% block style_tag %}
-<style>
-.error-box {
+    <style>
+    .error-box {
     position: fixed;
     top: 20px;
     left: 50%;
@@ -36,19 +39,8 @@
     transition: opacity 0.5s ease-in-out;
     z-index: 9999;
 }
-
 </style>
 {% endblock %}
-
-
-{% block styles %}
-    <link rel="stylesheet" href="{% static "contact_us/contact_us.css" %}">
-{% endblock %}
-
-
-
-
-
 
 {% block content %}
     {% if status %}
@@ -57,17 +49,8 @@
         </div>
     {% endif %}
 
-
     <section class="contact-form-section">
         <div class="contact-container">
-            <div class="contact-info">
-                <h2>ارتباط با ما</h2>
-                <p>می‌توانید از طریق فرم زیر با ما در ارتباط باشید یا از لینک‌های زیر استفاده کنید.</p>
-                <ul>
-                    <li><strong>گیت‌هاب:</strong> <a href="https://github.com/YourProject" target="_blank">مشاهده پروژه</a></li>
-                    <li><strong>ایمیل:</strong> <a href="mailto:atanabain@gmail.com">atanabain@gmail.com</a></li>
-                </ul>
-            </div>
             <div class="contact-form">
                 <h2>فرم تماس با ما</h2>
                 <form action="{% url "contact_us_page" %}" method="post">
@@ -86,6 +69,18 @@
                     <button type="submit">ارسال پیام</button>
                 </form>
             </div>
+            <div class="contact-info">
+                <h2>ارتباط با ما</h2>
+                <p>می‌توانید از طریق فرم زیر با ما در ارتباط باشید یا از لینک‌های زیر استفاده کنید.</p>
+                <ul>
+                    <li><strong>گیت‌هاب:</strong> <a href="https://github.com/YourProject" target="_blank">مشاهده پروژه</a></li>
+                    <li><strong>ایمیل:</strong> <a href="mailto:atanabain@gmail.com">atanabain@gmail.com</a></li>
+                </ul>
+            </div>
         </div>
     </section>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static "Spends/Js/register.js" %}"></script>
 {% endblock %}

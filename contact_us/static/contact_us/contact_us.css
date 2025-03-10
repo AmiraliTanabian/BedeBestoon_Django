@@ -13,13 +13,6 @@
     align-items: flex-start;
 }
 
-.contact-info {
-    flex: 1;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
 .contact-form {
     flex: 1;
@@ -44,13 +37,6 @@ label {
     font-weight: bold;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
 
 button {
     margin-top: 15px;
@@ -66,4 +52,44 @@ button {
 
 button:hover {
     background: #1e40af;
+}
+
+
+.contact-container {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+
+}
+
+.contact-info {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 15px; /* اضافه کردن فاصله به راست */
+}
+
+input, textarea {
+    width: 95%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: ease-in .2s all;
+}
+
+body{
+    direction: rtl;
+}
+
+input:focus,
+textarea:focus{
+    border:2px solid #1e40af;
+    outline:none;
 }
