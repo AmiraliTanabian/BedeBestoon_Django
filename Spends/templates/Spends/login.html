@@ -11,7 +11,8 @@
         {% csrf_token %}
          <h1i id="main-title">ورود به حساب کاربری</h1i>
         {{ form_obj }}
-        <button type="submit">ورود</button>
+        <button type="submit">ورود</button><br>
+        <a id="register-link" href="{% url "account_register" %}">حساب ندارید؟‌ حساب بسازید</a>
         </form>
 
     {% if status == 'username or password incorrect' %}

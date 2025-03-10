@@ -12,7 +12,8 @@
             <h1 id="main-title">ساخت حساب کاربری</h1>
             {% csrf_token %}
             {{ form_object }}
-            <button type="submit">ثبت نام</button>
+            <button type="submit">ثبت نام</button><br>
+            <a id="login-link" href="{% url "login_page" %}">حساب دارید؟‌ وارد شوید</a>
         </form>
 
         <br>
