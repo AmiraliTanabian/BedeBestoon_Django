@@ -74,9 +74,13 @@
             <h2>مدیریت هزینه‌ها</h2>
             <button class="add-btn"><a class="link" href="{% url 'add_spend' %}">+ افزودن خرج</a></button>
             <ul class="list">
-                {% for spend in spends %}
-                    <li>{{ spend.title }} | {{ spend.price }}</li>
-                {% endfor %}
+            {% if spends %}
+                    {% for spend in spends %}
+                        <li>{{ spend.title }} | {{ spend.price }}</li>
+                    {% endfor %}
+            {% else %}
+                <p class="empty-alert">موردی برای نمایش نمی باشد!</p>
+            {% endif %}
             </ul>
             <div class="highlight highest"><span class="icon">💸</span>بیشترین خرج: {{ max_spend }} تومان</div>
             <div class="highlight lowest"><span class="icon">🛒</span>کمترین خرج: {{ min_spend }} تومان</div>
@@ -89,10 +93,13 @@
             <h2>مدیریت درآمدها</h2>
             <button class="add-btn"><a class="link" href="{% url 'add_income' %}">افزودن درآمد</a></button>
             <ul class="list">
-                {% for income in incomes %}
-                    <li>{{ income.title }} | {{ income.price }}</li>
-
-                {% endfor %}
+                {% if incomes %}
+                    {% for income in incomes %}
+                        <li>{{ income.title }} | {{ income.price }}</li>
+                    {% endfor %}
+                {% else %}
+                    <p class="empty-alert">موردی برای نمایش نمی باشد!</p>
+                {% endif %}
             </ul>
             <div class="highlight highest"><span class="icon">💰</span>بیشترین درآمد: {{ max_income }} تومان</div>
             <div class="highlight lowest"><span class="icon">🎁</span>کمترین درآمد: {{ min_income }} تومان</div>

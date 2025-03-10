@@ -194,3 +194,7 @@ button.filter-btn:hover{
 .filter-box *{
     margin: auto;
 }
+
+.empty-alert{
+    color:#37474F;
+}
