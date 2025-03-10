@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دسترسی محدود</title>
+    <link rel="stylesheet" href="{% static "Spends/Style/login_register_limit.css" %}">
+
+</head>
+<body>
+
+    <div class="card">
+        <i class="fas fa-exclamation-triangle warning-icon"></i>
+        <h3 class="mt-3 text-danger">دسترسی غیرمجاز!</h3>
+        <p class="mt-2">شما قبلاً وارد حساب بده بستون خود شده‌اید.</p>
+        <p>برای ورود یا ثبت‌نام جدید، ابتدا از حساب خود خارج شوید.</p>
+        <a href="{% url 'logout' %}" class="btn btn-warning"> خروج از حساب</a>
+        <a href="{% url 'home_page' %}" class="btn btn-secondary"> بازگشت به صفحه اصلی</a>
+    </div>
+
+    <div class="footer">بده بستون</div>
+
+</body>
+</html>
