@@ -189,8 +189,7 @@ def index_page(request):
         return render(request, 'Spends/dashboard.html', context)
 
     else:
-        return JsonResponse({'status':'وارد حساب بشوید'}, encoder=JSONEncoder, safe=False)
-
+        return  render(request, "Spends/home_page.html")
 
 def add_spend(request):
     if request.user.is_authenticated:

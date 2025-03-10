@@ -3,6 +3,11 @@ body {
     margin: 0 ;
     font-family: Arial, sans-serif;
 }
+*{
+    float: right;
+    direction: rtl;
+    
+}
 header {
     background-color: #2563eb;
     padding: 16px;
@@ -38,4 +43,10 @@ h1 {
     border-radius: 4px;
     font-size: 24px; /* اندازه بزرگتر برای تیتر */
     margin-left: 16px; /* فاصله بین تیتر و منو */
+}
+
+.section {
+    padding-top: 64px; /* ارتفاع هدر */
+    height: 100vh;
+    box-sizing: border-box; /* برای اینکه padding تو ارتفاع محاسبه بشه */
 }

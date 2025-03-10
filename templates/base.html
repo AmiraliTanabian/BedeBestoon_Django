@@ -1,13 +1,13 @@
 {% load render_partial %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     {% block styles %}{% endblock %}
     {% block style_tag %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
+<body dir="rtl">
     {% render_partial "Spends.views.header" %}
     {% block content %}{% endblock %}
     {% include "Spends/footer_component.html" %}
