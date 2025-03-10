@@ -26,41 +26,6 @@ def random_str(length):
     result = ''.join(choice(all_letters) for _ in range(length))
     return result
 
-
-@csrf_exempt
-def api_submit_spend(request):
-    #TODO: data validations : date, token, price, title,...
-    if request.method == 'POST':
-        user = Token.objects.get(token=request.POST['token']).user
-        if 'date' not in request.POST:
-            date = timezone.now()
-
-        else:
-            date = request.POST['date']
-
-        Spend.objects.create(user=user, title=request.POST['title'],
-                            price=request.POST['price'], time=date)
-
-    return JsonResponse({'status':'ok'}, encoder=JSONEncoder)
-
-@csrf_exempt
-def api_submit_income(request):
-    print(request.POST['token'])
-    if request.method == 'POST':
-        user = Token.objects.get(token=request.POST['token']).user
-
-        if 'data' not in request.POST :
-            date = timezone.now()
-
-        else:
-            date = request.POST['date']
-
-        Income.objects.create(user=user, title=request.POST['title'], price=request.POST['price'],
-                              time=date)
-
-    return JsonResponse({'status':'ok'},
-                        encoder=JSONEncoder)
-
 def account_register(request):
 
     if request.method != 'POST':
@@ -264,48 +229,6 @@ def add_income(request):
 
     else:
         return render(request, 'Spends/unauthorized.html')
-
-@csrf_exempt
-def api_login(request):
-    if request.method == 'POST':
-        if 'username' in request.POST and 'password' in request.POST:
-            username = request.POST['username']
-            password =  request.POST['password']
-            user = User.objects.filter(username=username)
-
-            # Username found
-            if user :
-                # password correct
-                user = user[0]
-                if check_password(password, user.password):
-                    token = Token.objects.get(user=user).token
-                    return JsonResponse({"status":"OK", "token":token}, encoder=JSONEncoder)
-
-                # password incorrect
-                else:
-                    status = 'Password is incorrect'
-
-
-            # Username not found
-            else:
-                status = 'Username is incorrect!'
-        else:
-            status = 'You should send username and password'
-    else:
-        status = 'Incorrect request (just POST)'
-
-    context = {'status':status}
-    return JsonResponse(context, encoder=JSONEncoder)
-
-
-@csrf_exempt
-def api_general_stats(request):
-    token = request.POST['token']
-    print(Token.objects.filter(token=token).exists())
-    this_user = Token.objects.get(token=token).user
-    income_stats = Income.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
-    spend_stats = Spend.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
-    return JsonResponse({'Income':income_stats, 'Spends':spend_stats}, encoder=JSONEncoder)
 
 def header(request):
     return render(request, "Spends/header_component.html",
