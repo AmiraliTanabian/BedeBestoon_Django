@@ -129,16 +129,15 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Recaptcha config
-RECAPTCHA_PUBLIC_KEY = "6Ld0yesqAAAAAG9a1VrZLwGgob_IoXz1g7fMv7LQ"
-RECAPTCHA_PRIVATE_KEY = "6Ld0yesqAAAAAATPX8IiJNPBWzlZjbNdr93tLkvJ"
-
+RECAPTCHA_PUBLIC_KEY = ""
+RECAPTCHA_PRIVATE_KEY = ""
 # Emails config 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'atanabain@gmail.com'
-EMAIL_HOST_PASSWORD = 'fnma wcbl cnmh zuur'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'admin@bedeBeeston.com'
 EMAIL_TIMEOUT = 60
 
