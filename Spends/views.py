@@ -226,6 +226,7 @@ def add_spend(request):
 
         else:
             add_spend_obj = addSpend(data=request.POST)
+            note = request.POST['note']
             title = request.POST['title']
             price = request.POST['price']
             is_now = 'is_now' in request.POST
@@ -246,7 +247,7 @@ def add_spend(request):
                 minute = int(time[1])
                 datetime_obj = datetime.datetime(year, month, day, hour, minute)
 
-            Spend.objects.create(user=request.user, title=title, time=datetime_obj, price=price)
+            Spend.objects.create(user=request.user, title=title, time=datetime_obj, price=price, note=note)
             context = {'form_obj': add_spend_obj, 'status': True}
             return render(request, 'Spends/add_spend.html', context)
 
@@ -263,6 +264,7 @@ def add_income(request):
 
         else:
             add_income_object = addIncome(data=request.POST)
+            note = request.POST['note']
             title = request.POST['title']
             price = request.POST['price']
             is_now = 'is_now' in request.POST
@@ -283,7 +285,7 @@ def add_income(request):
                 minute = int(time[1])
                 datetime_obj = datetime.datetime(year, month, day, hour, minute)
 
-            Income.objects.create(user=request.user, title=title, time=datetime_obj, price=price)
+            Income.objects.create(user=request.user, title=title, time=datetime_obj, price=price, note=note)
             context = {'form_obj': add_income_object, 'status': True}
             return render(request, 'Spends/add_income.html', context)
 

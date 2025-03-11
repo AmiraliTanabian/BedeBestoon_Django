@@ -70,8 +70,12 @@
             {{ form_obj.datetime }}
         </div>
         <div class="form-group">
-            {{ form_obj.is_now }}
             <label for="use-current-time">{{ form_obj.is_now.label }}</label>
+            {{ form_obj.is_now }}
+        </div>
+        <div class="form-group">
+            <label for="use-current-time">{{ form_obj.is_now.label }}(اختیاری)</label>
+            {{ form_obj.note }}
         </div>
         <button type="submit" class="submit-btn">ثبت خرج</button>
     </form>

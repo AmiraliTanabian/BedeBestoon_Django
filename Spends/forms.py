@@ -23,6 +23,8 @@ class addSpend(forms.Form):
     price = forms.IntegerField(label="مبلغ خرج" ,widget=forms.TextInput(attrs = {'placeholder':'مقدار  خرج'}))
     datetime = forms.DateTimeField(label="تاریخ و زمان خرج" ,widget=forms.DateTimeInput(attrs={'type':'datetime-local'}))
     is_now = forms.BooleanField(required=False, label="زمان الان را برای خرج ثبت کن", widget=forms.CheckboxInput())
+    note = forms.CharField(label="یاداشت", widget=forms.Textarea(attrs={"placeholder":"یاداشت"}),
+                           required=False)
 
 class addIncome(forms.Form):
     title = forms.CharField(label="عنوان درآمد", widget=forms.TextInput(attrs={'placeholder': 'عنوان درآمد'}))
@@ -30,3 +32,5 @@ class addIncome(forms.Form):
     datetime = forms.DateTimeField(label="تاریخ و زمان درآمد",
                                    widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
     is_now = forms.BooleanField(required=False, label="زمان الان را برای درآمد ثبت کن", widget=forms.CheckboxInput())
+    note = forms.CharField(label="یاداشت", widget=forms.Textarea(attrs={"placeholder":"یاداشت"}),
+                           required=False)

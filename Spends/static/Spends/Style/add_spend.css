@@ -31,7 +31,9 @@ h1 {
     margin-bottom: 5px;
 }
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea
+{
     width: 100%;
     padding: 12px;
     font-size: 16px;
@@ -42,7 +44,8 @@ h1 {
     transition: 0.3s;
 }
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus{
     border-color: #2980b9;
     outline: none;
 }
@@ -83,3 +86,4 @@ h1 {
 body{
     padding-top: 60px;
 }
+
