@@ -1,53 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}حذف درآمد با موفقیت{% endblock %}
-{% block style_tag %}
-    <style>
-
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        margin: 30px auto;
-    }
-
-    .message-box {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        max-width: 300px;
-    }
-
-    h2 {
-        color: #2ecc71;
-        margin: 0 0 10px;
-    }
-
-    p {
-        color: #333;
-        font-size: 14px;
-    }
-
-    .expense-name {
-        font-weight: bold;
-        color: #e74c3c;
-    }
-
-    .btn {
-        display: inline-block;
-        margin-top: 15px;
-        padding: 10px 15px;
-        background-color: #3498db;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-    }
-
-    </style>
-
+{% block styles %}
+    <link rel="stylesheet" href="{% static "Spends/Style/delete_income_success.css" %}">
 {% endblock %}
 
 {% block content %}
