@@ -78,7 +78,7 @@
             <label for="use-current-time">{{ form_obj.note.label }}(اختیاری)</label>
             {{ form_obj.note }}
         </div>
-        <button type="submit" class="submit-btn">ویرایش درآمد</button>
+        <button disabled type="submit" class="submit-btn">ویرایش درآمد</button>
     </form>
 
     <a href="{% url "home_page" %}" class="back-btn">بازگشت به پنل مدیریت</a>
@@ -87,6 +87,7 @@
 {% block js %}
     <script src="{% static "Spends/Js/add_spend_income.js" %}"></script>
     <script src="{% static "Spends/Js/register.js" %}"></script>
+    <script src="{% static "Spends/Js/is_field_changed.js" %}"></script>
 {% endblock %}
 
 {% block script_tag %}
