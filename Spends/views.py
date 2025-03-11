@@ -351,10 +351,6 @@ def delete_income(request, id):
         income_object.delete()
         return render(request, "Spends/delete_income_success.html", {'name':name})
 
-
-# def edit_spend(request):
-#     return HttpResponse("Salam")
-#
 def delete_spend(request , id):
     if not request.user.is_authenticated :
         return render(request, "Spends/unauthorized.html")
@@ -370,9 +366,6 @@ def delete_spend(request , id):
         name = spend_object.title
         spend_object.delete()
         return render(request, "Spends/delete_spend_success.html", {'name':name})
-
-
-
 
 def edit_income(request, id):
     if not request.user.is_authenticated :
@@ -456,5 +449,86 @@ def edit_income(request, id):
 
 
         return render(request, "Spends/edit_income_success.html",
+                      {'form_obj':form_obj, 'name':old_name})
+
+def edit_spend(request, id):
+    # pay attention : we don't create specific form for spend edit beacuse the income edit form is simular
+    if not request.user.is_authenticated :
+        return render(request, "Spends/unauthorized.html")
+
+    # Set init value
+    spend = get_object_or_404(Spend, user=request.user, id=id)
+    title = spend.title
+    price = spend.price
+    note = spend.note
+    time = spend.time
+    year = time.year
+    month = time.month
+    day = time.day
+    minute = time.minute
+    hour = time.hour
+
+    # Convert to html format : For example 7 --> 07
+    if len(str(hour)) == 1:
+        hour = "0" + str(hour)
+
+    # For example 1 --> 01
+    if len(str(minute)) == 1:
+        minute = "0" + str(minute)
+
+    if len(str(month)) == 1:
+        month = "0" + str(month)
+
+    if len(str(day)) == 1:
+        day = "0" + str(day)
+
+
+    # DATATIME html format example: 2025-03-11T07:37
+    html_time_format = f"{year}-{month}-{day}T{hour}:{minute}"
+
+
+
+
+    if request.method != "POST":
+        form_obj = editIncome(initial={"title":title, "price":price, "note":note})
+
+        spend = get_object_or_404(Spend, user=request.user, id=id)
+        return render(request, "Spends/edit_spends.html",
+                      {"form_obj":form_obj, "spend":spend, 'date':html_time_format})
+
+    else:
+        form_obj = editIncome(data=request.POST)
+
+        spend = get_object_or_404(Spend, user=request.user, id=id)
+        old_name = spend.title
+        spend.title = request.POST['title']
+        spend.price = request.POST['price']
+        spend.note = request.POST['note']
+
+
+        is_now = 'is_now' in request.POST.keys()
+
+        if is_now:
+            datetime_obj = timezone.now()
+
+        else:
+            # date[0] date and date[1] time
+            date_result = request.POST['datetime'].split('T')
+            date = date_result[0].split('-')
+            time = date_result[1].split(':')
+
+            year = int(date[0])
+            month = int(date[1])
+            day = int(date[2])
+            hour = int(time[0])
+            minute = int(time[1])
+            datetime_obj = datetime.datetime(year, month, day, hour, minute)
+
+
+        spend.time = datetime_obj
+        spend.save()
+
+
+        return render(request, "Spends/edit_spend_success.html",
                       {'form_obj':form_obj, 'name':old_name})
 

@@ -118,7 +118,7 @@
                 </div>
             </div>
             <div class="button-container">
-                <button class="edit-btn" type="button"><a href="#">ویرایش خرج</a></button>
+                <button class="edit-btn" type="button"><a href="{% url "edit_spend" spend.id %}">ویرایش خرج</a></button>
                 <button class="delete-btn" type="button"><a href="{% url "delete_spend" spend.id %}">حذف خرج</a></button>
                 <button class="add-btn" type="button"><a href="{% url "add_spend" %}">اضافه کردن خرج</a></button>
         </div>

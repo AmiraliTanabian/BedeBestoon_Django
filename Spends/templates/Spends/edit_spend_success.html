@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}ویرایش خرج با موفقیت{% endblock %}
+{% block title %}ویرایش خرج  با موفقیت{% endblock %}
 {% block style_tag %}
     <style>
 
@@ -21,12 +21,12 @@
         max-width: 300px;
     }
 
-    h2 {
+    h2#success_msg {
         color: #2ecc71;
         margin: 0 0 10px;
     }
 
-    p {
+    p#success_p {
         color: #333;
         font-size: 14px;
     }
@@ -53,8 +53,8 @@
 {% block content %}
     <div class="container">
         <div class="message-box">
-            <h2> ویرایش خرج موفق!</h2>
-            <p>خرج "<span class="expense-name">{{ name }}</span>" با موفقیت ویرایش شد.</p>
+            <h2 id="success_msg">ویرایش خرج موفق بود</h2>
+            <p id="success_p">خرج "<span class="expense-name">{{ name }}</span>" با موفقیت ویرایش شد.</p>
             <a href="{% url "home_page" %}" class="btn">بازگشت به داشبورد</a>
         </div>
     </div>
