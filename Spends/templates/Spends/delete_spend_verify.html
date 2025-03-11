@@ -3,16 +3,6 @@
 
 {% block style_tag %}
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
 
     .confirmation-modal {
         background-color: #fff;
@@ -22,6 +12,7 @@
         max-width: 400px;
         width: 100%;
         text-align: center;
+        margin: auto;
     }
 
     .confirmation-modal h2 {
@@ -68,6 +59,10 @@
     .button-container .cancel-btn:hover {
         background-color: #2980b9;
     }
+   a{
+        text-decoration: none;
+        color:white;
+    }
 </style>
 {% endblock %}
 
@@ -77,12 +72,14 @@
 <body>
     <div class="confirmation-modal">
         <h2>آیا مطمئن هستید؟</h2>
-        <p>آیا می‌خواهید این خرج را حذف کنید؟ این عمل غیرقابل بازگشت است.</p>
+        <p> آیا می‌خواهید خرج{{ name }} را حذف کنید؟ این عمل غیرقابل بازگشت است.</p>
         <div class="button-container">
-            <button class="confirm-btn" onclick="confirmDelete()">بله، حذف شود</button>
-            <button class="cancel-btn" onclick="cancelDelete()">لغو</button>
+            <form action="#" method="post">
+                {% csrf_token %}
+                <button name="ok" class="confirm-btn" > بله، حذف شود</button>
+                <button name="cancel" class="cancel-btn"><a href="{% url "spend_detail" id%}">لغو</a></button>
+            </form>
         </div>
     </div>
-
 </body>
 {% endblock %}

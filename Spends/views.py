@@ -345,7 +345,7 @@ def delete_income(request, id):
         income_object = Income.objects.get(user=request.user, id=id)
         name = income_object.title
         income_object.delete()
-        return render(request, "Spends/delete_spend_income_success.html", {'name':name})
+        return render(request, "Spends/delete_income_success.html", {'name':name})
 
 
 # def edit_income(request):
@@ -354,5 +354,14 @@ def delete_income(request, id):
 # def edit_spend(request):
 #     return HttpResponse("Salam")
 #
-# def delete_spend(request):
-#     return HttpResponse("Salam")
+def delete_spend(request , id):
+    if request.method != "POST":
+        spend_name = get_object_or_404(Spend, user=request.user, id=id)
+        return render(request, "Spends/delete_spend_verify.html", {'name':spend_name.title, 'id':id})
+
+    elif 'ok' in request.POST:
+
+        spend_object = Spend.objects.get(user=request.user, id=id)
+        name = spend_object.title
+        spend_object.delete()
+        return render(request, "Spends/delete_spend_success.html", {'name':name})
