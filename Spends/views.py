@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from .models import Token, Spend, Income, TempUser
 from django.utils import timezone
-from .forms import registerForm, loginForm, addSpend, addIncome
+from .forms import registerForm, loginForm, addSpend, addIncome, editIncome
 from secrets import choice
 from string import digits, punctuation, ascii_letters
 from django.contrib.auth.hashers import make_password, check_password
@@ -17,6 +17,7 @@ from django.db.models import Avg, Sum, Count, Max, Min
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.forms import DateTimeInput
 
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
@@ -336,6 +337,9 @@ def spend_details(request, id):
 
 
 def delete_income(request, id):
+    if not request.user.is_authenticated :
+        return render(request, "Spends/unauthorized.html")
+
     if request.method != "POST":
         income_name = get_object_or_404(Income, user=request.user, id=id)
         return render(request, "Spends/delete_income_verify.html", {'name':income_name.title, 'id':id})
@@ -348,13 +352,14 @@ def delete_income(request, id):
         return render(request, "Spends/delete_income_success.html", {'name':name})
 
 
-# def edit_income(request):
-#     return HttpResponse("Salam")
-#
 # def edit_spend(request):
 #     return HttpResponse("Salam")
 #
 def delete_spend(request , id):
+    if not request.user.is_authenticated :
+        return render(request, "Spends/unauthorized.html")
+
+
     if request.method != "POST":
         spend_name = get_object_or_404(Spend, user=request.user, id=id)
         return render(request, "Spends/delete_spend_verify.html", {'name':spend_name.title, 'id':id})
@@ -365,3 +370,91 @@ def delete_spend(request , id):
         name = spend_object.title
         spend_object.delete()
         return render(request, "Spends/delete_spend_success.html", {'name':name})
+
+
+
+
+def edit_income(request, id):
+    if not request.user.is_authenticated :
+        return render(request, "Spends/unauthorized.html")
+
+    # Set init value
+    income = get_object_or_404(Income, user=request.user, id=id)
+    title = income.title
+    price = income.price
+    note = income.note
+    time = income.time
+    year = time.year
+    month = time.month
+    day = time.day
+    minute = time.minute
+    hour = time.hour
+
+    # Convert to html format : For example 7 --> 07
+    if len(str(hour)) == 1:
+        hour = "0" + str(hour)
+
+    # For example 1 --> 01
+    if len(str(minute)) == 1:
+        minute = "0" + str(minute)
+
+    if len(str(month)) == 1:
+        month = "0" + str(month)
+
+    if len(str(day)) == 1:
+        day = "0" + str(day)
+
+
+    # DATATIME html format example: 2025-03-11T07:37
+    html_time_format = f"{year}-{month}-{day}T{hour}:{minute}"
+
+
+        # End convert the datetime to html format
+
+
+
+    if request.method != "POST":
+        form_obj = editIncome(initial={"title":title, "price":price, "note":note})
+
+
+
+        income = get_object_or_404(Income, user=request.user, id=id)
+        return render(request, "Spends/edit_income.html",
+                      {"form_obj":form_obj, "income":income, 'date':html_time_format})
+
+    else:
+        form_obj = editIncome(data=request.POST)
+
+        income = get_object_or_404(Income, user=request.user, id=id)
+        old_name = income.title
+        income.title = request.POST['title']
+        income.price = request.POST['price']
+        income.note = request.POST['note']
+
+
+        is_now = 'is_now' in request.POST.keys()
+
+        if is_now:
+            datetime_obj = timezone.now()
+
+        else:
+            # date[0] date and date[1] time
+            date_result = request.POST['datetime'].split('T')
+            date = date_result[0].split('-')
+            time = date_result[1].split(':')
+
+            year = int(date[0])
+            month = int(date[1])
+            day = int(date[2])
+            hour = int(time[0])
+            minute = int(time[1])
+            datetime_obj = datetime.datetime(year, month, day, hour, minute)
+
+
+        income.time = datetime_obj
+        income.save()
+
+
+        return render(request, "Spends/edit_income_success.html",
+                      {'form_obj':form_obj, 'name':old_name})
+
