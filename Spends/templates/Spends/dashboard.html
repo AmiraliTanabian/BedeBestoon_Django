@@ -76,7 +76,7 @@
             <ul class="list">
             {% if spends %}
                     {% for spend in spends %}
-                        <li>{{ spend.title }} | {{ spend.price }}</li>
+                        <li><a href="{{ spend.get_absolute_url }}">{{ spend.title }} | {{ spend.price }}</a></li>
                     {% endfor %}
             {% else %}
                 <p class="empty-alert">موردی برای نمایش نمی باشد!</p>
@@ -95,7 +95,7 @@
             <ul class="list">
                 {% if incomes %}
                     {% for income in incomes %}
-                        <li>{{ income.title }} | {{ income.price }}</li>
+                        <li><a href="{{ income.get_absolute_url }}">{{ income.title }} | {{ income.price }}</a></li>
                     {% endfor %}
                 {% else %}
                     <p class="empty-alert">موردی برای نمایش نمی باشد!</p>

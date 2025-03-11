@@ -11,5 +11,8 @@ urlpatterns = [
     path("add_income", views.add_income, name="add_income"),
     path('home', views.home_page, name="home"),
     path("dashboard", views.dashboard, name="dashboard"),
-    path("account/logout", views.logout_page, name="logout")
+    path("account/logout", views.logout_page, name="logout"),
+    path("spend/<int:id>", views.spend_details, name="spend_detail"),
+    path("income/<int:id>", views.income_details, name="income_detail"),
+
 ]

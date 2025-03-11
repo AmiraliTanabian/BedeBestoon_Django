@@ -198,3 +198,8 @@ button.filter-btn:hover{
 .empty-alert{
     color:#37474F;
 }
+
+a{
+    color:black;
+    text-decoration: none;
+}

@@ -1,12 +1,10 @@
 import datetime
 
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from .models import Token, Spend, Income, TempUser
 from django.utils import timezone
-from json.encoder import JSONEncoder
 from .forms import registerForm, loginForm, addSpend, addIncome
 from secrets import choice
 from string import digits, punctuation, ascii_letters
@@ -18,6 +16,7 @@ from django.conf import settings
 from django.db.models import Avg, Sum, Count, Max, Min
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
@@ -316,3 +315,21 @@ def logout_page(request):
 
     else:
         return render(request, "Spends/logout_without_login.html")
+
+def income_details(request, id):
+    if not request.user.is_authenticated:
+        return render(request, "Spends/unauthorized.html")
+
+    else:
+        user = request.user
+        income = get_object_or_404(Income, user=user, id=id)
+        return render(request, "Spends/icnome_details.html", {"income":income})
+
+def spend_details(request, id):
+    if not request.user.is_authenticated:
+        return render(request, "Spends/unauthorized.html")
+
+    else:
+        user = request.user
+        spend = get_object_or_404(Spend, user=user, id=id)
+        return render(request, "Spends/spend_detail.html", {"spend":spend})

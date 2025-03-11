@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class Token(models.Model):
     token = models.CharField(max_length=50, verbose_name='توکن')
@@ -23,6 +24,9 @@ class Spend(models.Model):
     def __str__(self):
         return f'{self.title} - {self.time.strftime("%Y-%m-%d | %H:%M")} - {self.price} هزار تومن'
 
+    def get_absolute_url(self):
+        return reverse("spend_detail", args=[self.id])
+
     class Meta:
         verbose_name = 'خرج'
         verbose_name_plural = 'مخارج'
@@ -36,6 +40,10 @@ class Income(models.Model):
 
     def __str__(self):
         return f'{self.title} - {self.time.strftime("%Y-%m-%d | %H:%M")} - {self.price} هزار تومن'
+
+
+    def get_absolute_url(self):
+        return reverse("income_detail", args=[self.id])
 
     class Meta:
         verbose_name = 'درآمد'
