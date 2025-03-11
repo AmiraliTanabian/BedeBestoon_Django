@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style_tag %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .confirmation-modal {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .confirmation-modal h2 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    .confirmation-modal p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 1.5rem;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .button-container button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .button-container .confirm-btn {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .button-container .cancel-btn {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .button-container .confirm-btn:hover {
+        background-color: #c0392b;
+    }
+
+    .button-container .cancel-btn:hover {
+        background-color: #2980b9;
+    }
+</style>
+{% endblock %}
+
+{% block title %}تایید حذف خرج{% endblock %}
+
+{% block content %}
+<body>
+    <div class="confirmation-modal">
+        <h2>آیا مطمئن هستید؟</h2>
+        <p>آیا می‌خواهید این خرج را حذف کنید؟ این عمل غیرقابل بازگشت است.</p>
+        <div class="button-container">
+            <button class="confirm-btn" onclick="confirmDelete()">بله، حذف شود</button>
+            <button class="cancel-btn" onclick="cancelDelete()">لغو</button>
+        </div>
+    </div>
+
+</body>
+{% endblock %}

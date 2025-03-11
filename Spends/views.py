@@ -1,7 +1,7 @@
 import datetime
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from .models import Token, Spend, Income, TempUser
 from django.utils import timezone
@@ -323,7 +323,7 @@ def income_details(request, id):
     else:
         user = request.user
         income = get_object_or_404(Income, user=user, id=id)
-        return render(request, "Spends/icnome_details.html", {"income":income})
+        return render(request, "Spends/income_details.html", {"income":income})
 
 def spend_details(request, id):
     if not request.user.is_authenticated:
@@ -333,3 +333,26 @@ def spend_details(request, id):
         user = request.user
         spend = get_object_or_404(Spend, user=user, id=id)
         return render(request, "Spends/spend_detail.html", {"spend":spend})
+
+
+def delete_income(request, id):
+    if request.method != "POST":
+        income_name = get_object_or_404(Income, user=request.user, id=id)
+        return render(request, "Spends/delete_income_verify.html", {'name':income_name.title, 'id':id})
+
+    elif 'ok' in request.POST:
+
+        income_object = Income.objects.get(user=request.user, id=id)
+        name = income_object.title
+        income_object.delete()
+        return render(request, "Spends/delete_spend_income_success.html", {'name':name})
+
+
+# def edit_income(request):
+#     return HttpResponse("Salam")
+#
+# def edit_spend(request):
+#     return HttpResponse("Salam")
+#
+# def delete_spend(request):
+#     return HttpResponse("Salam")
