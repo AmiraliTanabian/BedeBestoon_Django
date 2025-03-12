@@ -121,9 +121,6 @@ position: relative;
     border-radius: 5px;
     transition: background 0.3s ease;
 }
-.card .button:hover {
-    background: #1e40af;
-}
 @media (max-width: 768px) {
     .cards {
         flex-direction: column;

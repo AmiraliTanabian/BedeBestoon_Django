@@ -95,3 +95,8 @@ textarea:focus{
     border:2px solid #1e40af;
     outline:none;
 }
+
+.contact-link{
+    text-decoration: none;
+    color:#1e40af;
+}
