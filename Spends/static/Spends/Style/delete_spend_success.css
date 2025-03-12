@@ -15,12 +15,12 @@
     max-width: 300px;
 }
 
-h2 {
+h2.delete-income-spend-success{
     color: #2ecc71;
     margin: 0 0 10px;
 }
 
-p {
+p#delete-msg{
     color: #333;
     font-size: 14px;
 }

@@ -156,8 +156,7 @@ def index_page(request):
         if request.method != 'POST':
             return render(request, 'Spends/dashboard.html', context)
 
-        # is_table_selected = "spend_time_filter" in request.POST and "income_time_filter" in request.POST
-        # print(f"is_table_selected {is_table_selected}")
+
         else:
             spend_time_filter = request.POST.get('spend_time_filter')
             income_time_filter = request.POST.get('income_time_filter')
@@ -184,6 +183,9 @@ def index_page(request):
                 now_year = timezone.now().year
                 spends = Spend.objects.filter(time__year = now_year)
 
+            else:
+                messages.error(request, "لطفا یک زمان را برای نمایش هزینه ها انتخاب کنید")
+                return render(request, 'Spends/dashboard.html', context)
 
             context['spends'] = spends
 
@@ -198,7 +200,7 @@ def index_page(request):
                 now_date = timezone.now().isocalendar()
                 now_week = now_date[1]
                 now_year = now_date[0]
-                spends = Spend.objects.filter(time__year=now_year, time__week=now_week)
+                incomes = Income.objects.filter(time__year=now_year, time__week=now_week)
 
             elif income_time_filter == 'month':
                 now_year = timezone.now().year
@@ -208,6 +210,10 @@ def index_page(request):
             elif income_time_filter == 'year':
                 now_year = timezone.now().year
                 incomes = Income.objects.filter(time__year=now_year)
+
+            else:
+                messages.error(request, "لطفا یک زمان را برای نمایش درآمد ها انتخاب کنید")
+                return render(request, 'Spends/dashboard.html', context)
 
             context["incomes"] = incomes
 
@@ -302,14 +308,6 @@ def header(request):
 
 def home_page(request):
     return render(request, "Spends/home_page.html")
-
-def dashboard(request):
-    if request.user.is_authenticated:
-        return render(request, "Spends/dashboard.html")
-
-    else:
-        return render(request, "Spends/unauthorized.html")
-
 def logout_page(request):
     if request.user.is_authenticated:
         username = request.user.username

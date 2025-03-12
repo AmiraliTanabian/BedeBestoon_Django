@@ -9,8 +9,8 @@
 {% block content %}
     <div class="container">
         <div class="message-box">
-            <h2> حذف موفق!</h2>
-            <p>خرج "<span class="expense-name">{{ name }}</span>" با موفقیت حذف شد.</p>
+            <h2 id="delete-income-spend-success"> حذف موفق!</h2>
+            <p id="delete-msg">خرج "<span class="expense-name">{{ name }}</span>" با موفقیت حذف شد.</p>
             <a href="{% url "home_page" %}" class="btn">بازگشت به داشبورد</a>
         </div>
     </div>

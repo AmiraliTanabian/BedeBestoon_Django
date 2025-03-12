@@ -33,9 +33,15 @@
 {% block content %}
     {% if messages %}
         {% for msg in messages %}
-            <div class="success-box" id="error-message">
-                {{ msg }}
-            </div>
+            {% if msg.tags == "success" %}
+                <div class="success-box" id="error-message">
+                    {{ msg }}
+                </div>
+            {% elif msg.tags == "error" %}
+                <div class="error-box" id="error-message">
+                    {{ msg }}
+                </div>
+            {% endif %}
         {% endfor %}
     {% endif %}
 
@@ -48,6 +54,7 @@
                 {% csrf_token %}
                 <label for="time-filter-expenses">فیلتر زمان هزینه‌ها:</label>
                 <select name="spend_time_filter" id="time-filter-expenses">
+                    <option selected value="select">انتخاب کنید</option>
                     <option {% if spend_filter == "all" %}selected{% endif %}  name="all" value="all">همه</option>
                     <option {% if spend_filter == "last_ten" %}selected{% endif %} name="last_ten" value="last_ten">۱۰ خرج آخر</option>
                     <option {% if spend_filter == "week" %}selected{% endif %} name="week" value="week">هفته گذشته</option>
@@ -59,6 +66,7 @@
                 <div>
                 <label for="time-filter-incomes">فیلتر زمان درآمدها:</label>
                 <select name="income_time_filter" id="time-filter-incomes">
+                    <option selected value="select">انتخاب کنید</option>
                     <option {% if income_filter == "all" %}selected{% endif %} value="all">همه</option>
                     <option {% if income_filter == "last_ten" %}selected{% endif %}  value="last_ten">۱۰ درآمد آخر</option>
                     <option {% if income_filter == "week" %}selected{% endif %} value="week">هفته گذشته</option>
@@ -67,7 +75,7 @@
                 </select>
                 </div>
                 <br>
-                <button type="submit" class="filter-btn">نمایش</button>
+                <button type="submit" id="filter-btn">نمایش</button>
 
         </form>
 
