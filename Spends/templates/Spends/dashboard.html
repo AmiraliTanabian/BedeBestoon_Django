@@ -19,12 +19,15 @@
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     z-index: 9999;}
+
     </style>
+
 {% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" href="{% static "Spends/Style/dashboard.css" %}">
 {% endblock %}
+
 
 {% block content %}
     {% if messages %}
@@ -109,7 +112,12 @@
         </div>
     </div>
 </div>
+
+    {% include "Spends/chart.html" %}
+
 {% endblock %}
 {% block js %}
     <script src="{% static 'Spends/Js/register.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
+
