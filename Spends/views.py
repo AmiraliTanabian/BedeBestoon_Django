@@ -17,7 +17,7 @@ from django.db.models import Avg, Sum, Count, Max, Min
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from django.forms import DateTimeInput
+from . import chart_handel
 
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
@@ -156,9 +156,11 @@ def index_page(request):
         if request.method != 'POST':
             return render(request, 'Spends/dashboard.html', context)
 
+        # is_table_selected = "spend_time_filter" in request.POST and "income_time_filter" in request.POST
+        # print(f"is_table_selected {is_table_selected}")
         else:
-            spend_time_filter = request.POST['spend_time_filter']
-            income_time_filter = request.POST['income_time_filter']
+            spend_time_filter = request.POST.get('spend_time_filter')
+            income_time_filter = request.POST.get('income_time_filter')
 
             spends = None
             if spend_time_filter == 'all':
@@ -181,6 +183,7 @@ def index_page(request):
             elif spend_time_filter == 'year':
                 now_year = timezone.now().year
                 spends = Spend.objects.filter(time__year = now_year)
+
 
             context['spends'] = spends
 
@@ -532,3 +535,24 @@ def edit_spend(request, id):
         return render(request, "Spends/edit_spend_success.html",
                       {'form_obj':form_obj, 'name':old_name})
 
+def chart(request):
+    is_chart_submit = 'chart_time_filter' in request.GET
+    if not is_chart_submit:
+        return render(request, "Spends/chart.html")
+
+    else:
+        chart_filter = request.GET['chart_time_filter']
+        if chart_filter == "month" :
+            spends = chart_handel.month_spend_data(request)
+            incomes = chart_handel.month_income_data(request)
+            month_shamsi = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی',
+                            'بهمن', 'اسفند']
+
+            miladi_to_shamsi = [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            spends_shamsi_date = [spends[miladi_to_shamsi.index(i + 1)] for i in range(12)]
+            incomes_shamsi_date = [incomes[miladi_to_shamsi.index(i + 1)] for i in range(12)]
+
+
+            print(f"Spends : {spends} \n incomes {incomes}")
+            return render(request, "Spends/chart.html",
+                          {"spend_data":spends_shamsi_date, "income_data":incomes_shamsi_date, "month":month_shamsi})

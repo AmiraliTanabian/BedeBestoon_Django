@@ -6,10 +6,10 @@
 
         <h1 id="chart-h1">نمودار هزینه ها و درآمد ها</h1>
         <div class="filter-box">
-            <form action="#" method="post">
+            <form action="#" method="get">
             {% csrf_token %}
                 <label for="time-filter-expenses">فیلتر زمان هزینه‌ها:</label>
-                <select name="spend_time_filter" id="time-filter-expenses">
+                <select name="chart_time_filter" id="time-filter-expenses">
                     <option {% if spend_filter == "all" %}selected{% endif %}  name="all" value="all">همه</option>
                     <option {% if spend_filter == "last_ten" %}selected{% endif %} name="last_ten" value="last_ten">۱۰ خرج آخر</option>
                     <option {% if spend_filter == "week" %}selected{% endif %} name="week" value="week">هفته گذشته</option>
@@ -24,6 +24,41 @@
             <canvas id="expense-income-chart"></canvas>
     </div>
 {% endblock %}
-{% block js %}
-    <script src="{% static "Spends/Js/chart.js" %}"></script>
+{% block script_tag %}
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById("expense-income-chart").getContext("2d");
+
+    const expenseData = {{ spend_data|safe }};
+    const incomeData = {{ income_data|safe }};
+    const labels =  {{ month|safe }};
+
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: "هزینه‌ها",
+                    data: expenseData,
+                    borderColor: "red",
+                    backgroundColor: "rgba(255, 0, 0, 0.2)",
+                    fill: true
+                },
+                {
+                    label: "درآمدها",
+                    data: incomeData,
+                    borderColor: "green",
+                    backgroundColor: "rgba(0, 255, 0, 0.2)",
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+});
+    </script>
 {% endblock %}
