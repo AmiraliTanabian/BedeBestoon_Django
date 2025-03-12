@@ -542,9 +542,16 @@ def chart(request):
 
     else:
         chart_filter = request.GET['chart_time_filter']
-        if chart_filter == "month" :
-            spends = chart_handel.month_spend_data(request)
-            incomes = chart_handel.month_income_data(request)
+
+        # User has not selected item yet
+        if chart_filter == "select":
+            return render(request, "Spends/chart.html", {"chart_filter":chart_filter, "has_error":True,
+                                                         "error_msg":"لطفا زمان مورد نظر را انتخاب کنید."})
+
+        # ___________________________________YEAR__________________________________
+        if chart_filter == "year" :
+            spends = chart_handel.year_spend_data(request)
+            incomes = chart_handel.year_income_data(request)
             month_shamsi = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی',
                             'بهمن', 'اسفند']
 
@@ -553,6 +560,37 @@ def chart(request):
             incomes_shamsi_date = [incomes[miladi_to_shamsi.index(i + 1)] for i in range(12)]
 
 
-            print(f"Spends : {spends} \n incomes {incomes}")
             return render(request, "Spends/chart.html",
-                          {"spend_data":spends_shamsi_date, "income_data":incomes_shamsi_date, "month":month_shamsi})
+                          {"spend_data":spends_shamsi_date, "income_data":incomes_shamsi_date, "label":month_shamsi,
+                           'chart_filter':chart_filter})
+
+
+        # ___________________________________MONTH__________________________________
+        if chart_filter == "month":
+            spends = chart_handel.month_spend_data(request)
+            incomes = chart_handel.month_income_data(request)
+            month_day = [day for day in range(1, 31)]
+
+            return render(request, "Spends/chart.html", {"spend_data":spends, "income_data":incomes, "label":month_day,
+                           'chart_filter':chart_filter})
+
+        # __________________________________WEEK______________________________________
+        if chart_filter == "week":
+            spends = chart_handel.week_spend_data(request)
+            incomes = chart_handel.week_income_data(request)
+            week_days = ["شنبه", "یکشنه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه"]
+
+            return render(request, "Spends/chart.html", {"spend_data":spends, "income_data":incomes, "label":week_days,
+                                                         'chart_filter':chart_filter})
+
+
+        #_________________________________LAST TEN________________________________________
+        if chart_filter == "last_ten":
+            spends = chart_handel.last_ten_spend_data(request)
+            incomes = chart_handel.last_ten_income_data(request)
+            labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+            print(spends)
+            print(incomes)
+            return render(request, "Spends/chart.html", {"spend_data":spends, "income_data":incomes, "label":labels,
+                                                         "chart_filter":chart_filter})

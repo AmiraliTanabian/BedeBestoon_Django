@@ -3,6 +3,11 @@
     <link rel="stylesheet" href="{% static "Spends/Style/chart.css" %}">
 {% endblock %}
 {% block content %}
+        {% if has_error %}
+        <div id="error-message" class="error-box">
+            لطفا یک زمان را برای نمایش نمودار انتخاب کنید.
+        </div>
+        {% endif %}
 
         <h1 id="chart-h1">نمودار هزینه ها و درآمد ها</h1>
         <div class="filter-box">
@@ -10,11 +15,11 @@
             {% csrf_token %}
                 <label for="time-filter-expenses">فیلتر زمان هزینه‌ها:</label>
                 <select name="chart_time_filter" id="time-filter-expenses">
-                    <option {% if spend_filter == "all" %}selected{% endif %}  name="all" value="all">همه</option>
-                    <option {% if spend_filter == "last_ten" %}selected{% endif %} name="last_ten" value="last_ten">۱۰ خرج آخر</option>
-                    <option {% if spend_filter == "week" %}selected{% endif %} name="week" value="week">هفته گذشته</option>
-                    <option {% if spend_filter == "month" %}selected{% endif %} name="month" value="month">ماه گذشته</option>
-                    <option {% if spend_filter == "year" %}selected{% endif %} name="year" value="year">سال گذشته</option>
+                    <option {% if chart_filter == "all" %}selected{% endif %}  name="select" value="select">انتخاب کنید</option>
+                    <option {% if chart_filter == "last_ten" %}selected{% endif %} name="last_ten" value="last_ten">۱۰ خرج آخر</option>
+                    <option {% if chart_filter == "week" %}selected{% endif %} name="week" value="week">هفته گذشته</option>
+                    <option {% if chart_filter == "month" %}selected{% endif %} name="month" value="month">ماه گذشته</option>
+                    <option {% if chart_filter == "year" %}selected{% endif %} name="year" value="year">سال گذشته</option>
                 </select>
                 <button id="submit-btn" type="submit">نمایش</button>
             </form>
@@ -31,7 +36,7 @@
 
     const expenseData = {{ spend_data|safe }};
     const incomeData = {{ income_data|safe }};
-    const labels =  {{ month|safe }};
+    const labels =  {{ label|safe }};
 
     new Chart(ctx, {
         type: "line",
