@@ -1,4 +1,3 @@
-/* تنظیمات کلی */
 body {
     font-family: 'Nunito', sans-serif;
     background-color: #f0f4f8;
@@ -12,7 +11,6 @@ body {
     text-align: center;
 }
 
-/* کانتینر اصلی */
 .container {
     background-color: #ffffff;
     padding: 2rem;
@@ -22,28 +20,27 @@ body {
     width: 100%;
 }
 
-/* آیکون موفقیت */
 .success-icon {
     width: 80px;
     height: 80px;
     margin-bottom: 1rem;
 }
 
-/* عنوان */
+
 h1 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: #27ae60; /* رنگ سبز برای حس موفقیت‌آمیز */
 }
 
-/* متن توضیحی */
+
 p {
     font-size: 1rem;
     color: #666;
     margin-bottom: 1.5rem;
 }
 
-/* دکمه‌ها */
+
 .buttons {
     display: flex;
     flex-direction: column;
@@ -59,26 +56,106 @@ p {
 }
 
 .btn-primary {
-    background-color: #27ae60; /* رنگ سبز */
+    background-color: #27ae60;
     color: #fff;
 }
 
 .btn-primary:hover {
-    background-color: #219653; /* رنگ سبز تیره‌تر */
+    background-color: #219653;
 }
 
 .btn-secondary {
-    background-color: #e74c3c; /* رنگ قرمز */
+    background-color: #e74c3c;
     color: #fff;
 }
 
 .btn-secondary:hover {
-    background-color: #c0392b; /* رنگ قرمز تیره‌تر */
+    background-color: #c0392b;
 }
 
-/* پیام فوتر */
+
 .footer-message {
     font-size: 0.9rem;
     color: #888;
     margin-top: 1.5rem;
+}
+
+
+@media (max-width: 1024px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        font-size: 0.95rem;
+        padding: 0.65rem 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1.2rem;
+    }
+
+    h1 {
+        font-size: 1.15rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .success-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .footer-message {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1rem;
+    }
+
+    p {
+        font-size: 0.85rem;
+    }
+
+    .success-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+        padding: 0.55rem 0.95rem;
+    }
+
+    .footer-message {
+        font-size: 0.8rem;
+    }
 }

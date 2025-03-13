@@ -4,23 +4,28 @@ body {
     padding: 20px;
     direction: rtl;
 }
+
 .message {
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
 }
+
 .success {
     background-color: #d4edda;
     color: #155724;
 }
+
 .error {
     background-color: #f8d7da;
     color: #721c24;
 }
+
 .info {
     background-color: #cce5ff;
     color: #004085;
 }
+
 .popup {
     position: absolute;
     background: #4CAF50;
@@ -32,6 +37,84 @@ body {
     transition: opacity 0.5s ease-in-out;
 }
 
-body{
-    padding-top: 60px;
+/* ریسپانسیو */
+@media (max-width: 1024px) {
+    body {
+        padding: 30px 15px;
+    }
+
+    .message {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    #text {
+        font-size: 0.95rem;
+    }
+
+    a {
+        padding: 8px 16px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 25px 15px;
+    }
+
+    .message {
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    #text {
+        font-size: 0.85rem;
+    }
+
+    a {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px 10px;
+    }
+
+    .message {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    h3 {
+        font-size: 0.9rem;
+    }
+
+    #text {
+        font-size: 0.8rem;
+    }
+
+    a {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
 }

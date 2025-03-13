@@ -1,3 +1,4 @@
+
 body {
     background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     height: 100vh;
@@ -5,7 +6,10 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
+
 .card {
     max-width: 400px;
     width: 100%;
@@ -15,10 +19,12 @@ body {
     background: white;
     text-align: center;
 }
+
 .warning-icon {
     font-size: 50px;
     color: #ff4757;
 }
+
 .btn {
     width: 100%;
     padding: 10px;
@@ -26,6 +32,7 @@ body {
     border-radius: 8px;
     margin-top: 10px;
 }
+
 .footer {
     margin-top: 20px;
     font-weight: bold;
@@ -33,7 +40,66 @@ body {
     font-size: 18px;
 }
 
-a{
-    color:#1e40af;
+a {
+    color: #1e40af;
     text-decoration: none;
+}
+
+
+@media (max-width: 1024px) {
+    .card {
+        padding: 15px;
+    }
+
+    .warning-icon {
+        font-size: 45px;
+    }
+
+    .btn {
+        font-size: 16px;
+    }
+
+    .footer {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 10px;
+        max-width: 350px;
+    }
+
+    .warning-icon {
+        font-size: 40px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .footer {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 8px;
+        max-width: 100%;
+    }
+
+    .warning-icon {
+        font-size: 35px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .footer {
+        font-size: 14px;
+    }
 }

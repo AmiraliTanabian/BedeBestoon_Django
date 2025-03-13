@@ -1,3 +1,4 @@
+/* تنظیمات کلی */
 .container {
     display: flex;
     justify-content: center;
@@ -13,6 +14,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     max-width: 300px;
+    width: 100%;
 }
 
 h2#success_msg {
@@ -38,4 +40,45 @@ p#success_p {
     color: white;
     text-decoration: none;
     border-radius: 5px;
+}
+
+/* ریسپانسیو برای تبلت‌ها و موبایل‌ها */
+@media (max-width: 768px) {
+    .message-box {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    h2#success_msg {
+        font-size: 1.4rem;
+    }
+
+    p#success_p {
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .message-box {
+        padding: 10px;
+        max-width: 90%;
+    }
+
+    h2#success_msg {
+        font-size: 1.2rem;
+    }
+
+    p#success_p {
+        font-size: 12px;
+    }
+
+    .btn {
+        padding: 7px 10px;
+        font-size: 13px;
+    }
 }

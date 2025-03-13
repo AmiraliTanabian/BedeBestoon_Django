@@ -1,3 +1,12 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+
 .container {
     display: flex;
     justify-content: center;
@@ -6,29 +15,36 @@
     margin: 30px auto;
 }
 
+
 .message-box {
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    max-width: 300px;
+    max-width: 350px;
+    width: 100%;
 }
 
-h2.delete-income-spend-success{
+
+h2.delete-income-spend-success {
     color: #2ecc71;
     margin: 0 0 10px;
+    font-size: 1.25rem;
 }
 
-p#delete-msg{
+
+p#delete-msg {
     color: #333;
-    font-size: 14px;
+    font-size: 1rem;
 }
+
 
 .expense-name {
     font-weight: bold;
     color: #e74c3c;
 }
+
 
 .btn {
     display: inline-block;
@@ -38,4 +54,66 @@ p#delete-msg{
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+    .message-box {
+        padding: 15px;
+    }
+
+    h2.delete-income-spend-success {
+        font-size: 1.2rem;
+    }
+
+    p#delete-msg {
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .message-box {
+        padding: 15px;
+    }
+
+    h2.delete-income-spend-success {
+        font-size: 1.1rem;
+    }
+
+    p#delete-msg {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 15px auto;
+    }
+
+    .message-box {
+        padding: 10px;
+    }
+
+    h2.delete-income-spend-success {
+        font-size: 1rem;
+    }
+
+    p#delete-msg {
+        font-size: 0.85rem;
+    }
+
+    .btn {
+        font-size: 1.2rem;
+        padding: 12px;
+    }
 }
