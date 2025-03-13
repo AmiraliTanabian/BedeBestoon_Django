@@ -1,6 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+
 .confirmation-modal {
     margin: 30px auto;
-    font-family: Arial, sans-serif;
     background-color: #fff;
     padding: 2rem;
     border-radius: 10px;
@@ -21,6 +28,7 @@
     color: #555;
     margin-bottom: 1.5rem;
 }
+
 
 .button-container {
     display: flex;
@@ -58,12 +66,12 @@
     background-color: #2980b9;
 }
 
+
 a {
     text-decoration: none;
     color: white;
 }
 
-/* ریسپانسیو */
 @media (max-width: 1024px) {
     .confirmation-modal {
         padding: 1.5rem;
