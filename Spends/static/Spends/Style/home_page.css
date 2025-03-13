@@ -1,181 +1,184 @@
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+from {
+    opacity: 0;
+    transform: translateY(20px);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
 }
 
 .hero h1, .hero p {
-    animation: fadeInUp 1s ease-out;
+animation: fadeInUp 1s ease-out;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+scroll-behavior: smooth;
 }
 
 body {
-    font-family: Arial, sans-serif;
+font-family: Arial, sans-serif;
+padding-top: 60px;
 }
 
 .section {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
 }
 
 .start {
-    background: #f3f4f6;
-    flex-direction: column;
-}
-
-.contact {
-    background: white;
-    flex-direction: column;
+background: #f3f4f6;
+flex-direction: column;
 }
 
 .buttons {
-    margin-top: 20px;
+margin-top: 20px;
 }
 
 .button {
-    padding: 10px 20px;
-    margin: 10px;
-    text-decoration: none;
-    color: white;
-    background: #2563eb;
-    border-radius: 5px;
-    transition: ease-in 0.4s all;
+padding: 10px 20px;
+margin: 10px;
+text-decoration: none;
+color: white;
+background: #2563eb;
+border-radius: 5px;
+transition: ease-in 0.4s all;
 }
 
 .mainButtons:hover {
-    color: #1e40af;
-    border:1px solid #1e40af;
-    background-color:white;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
+color: #1e40af;
+border: 1px solid #1e40af;
+background-color: white;
 }
 
 .hero {
-    background: url('../Images/main.jpg') ,linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center center/cover;
-    background-size: cover;
-    color: white;
-    flex-direction: column;
-    position: relative;
-}
-
-/* ✅ بهبود هدر در سکشن اول */
-h1#main-title {
-    font-size: 30px;
-    margin-top: 20px; /* اضافه کردن فاصله از بالا */
-}
-
-/* ✅ بهبود خوانایی متن در سکشن اول */
-.hero p {
-    font-size: 18px;  /* افزایش سایز متن */
-    line-height: 1.8; /* فاصله بین خطوط */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* اضافه کردن سایه برای خوانایی بهتر */
+background: url('../Images/main.jpg') ,linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center center/cover;
+background-size: cover;
+color: white;
+flex-direction: column;
+position: relative;
 }
 
 .start {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center center/cover;
-    padding: 20px;
+background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat center center/cover;
+padding: 20px;
 }
 
 .cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+display: flex;
+justify-content: center;
+gap: 20px;
 }
 
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 300px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+background: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+text-align: center;
+width: 300px;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+transform: translateY(-10px);
+box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .card i {
-    font-size: 2rem;
-    color: #2563eb;
-    margin-bottom: 10px;
+font-size: 2rem;
+color: #2563eb;
+margin-bottom: 10px;
 }
 
 .card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+font-size: 1.5rem;
+margin-bottom: 10px;
 }
 
 .card p {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 20px;
+font-size: 1rem;
+color: #666;
+margin-bottom: 20px;
 }
 
 .card .button {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #2563eb;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-@media (max-width: 768px) {
-    .cards {
-        flex-direction: column;
-        align-items: center;
-    }
-    .card {
-        width: 90%;
-        margin-bottom: 20px;
-    }
+display: inline-block;
+padding: 10px 20px;
+background: #2563eb;
+color: white;
+text-decoration: none;
+border-radius: 5px;
+transition: background 0.3s ease;
 }
 
 .button:hover {
-    color: #1e40af;
-    border: 1px solid #1e40af;
-    background-color: white;
+color: #1e40af;
+border: 1px solid #1e40af;
+background-color: white;
 }
 
-#contact-p {
-    text-align: center;
+/* استایل‌های ریسپانسیو */
+@media (max-width: 1024px) {
+.section {
+    height: auto;
+    padding: 50px 20px;
+}
 }
 
-body {
-    padding-top: 60px;
+@media (max-width: 768px) {
+.cards {
+    flex-direction: column;
+    align-items: center;
+}
+.card {
+    width: 90%;
+    margin-bottom: 20px;
+}
+.hero h1 {
+    font-size: 24px;
+}
+.hero p {
+    font-size: 16px;
+}
 }
 
-section#hero {
-    padding-top: 40px;
-    margin-top: 40px;
+@media (max-width: 480px) {
+    .button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .hero {
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 20px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+}
+
+h1#main-title {
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.8;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }

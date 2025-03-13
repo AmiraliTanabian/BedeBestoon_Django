@@ -1,7 +1,14 @@
+{% load static%}
+<html >
+<head>
+    <link rel="stylesheet" href="{% static "Spends/Style/header_component.css" %}">
+</head>
+<body>
 {% load static %}
 <header id="header_part">
-    <h1 id="header_title">بده بستون</h1> <!-- تیتر در سمت راست -->
+    <h1 id="header_title">بده بستون</h1>
     <div class="header-content">
+        <div class="menu-toggle"> ☰ </div>
         <nav id="header_nav_bar">
              <ul>
                 {% if is_login %}
@@ -10,7 +17,7 @@
                     <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
                     <li><a href="{% url "logout" %}">خروج از حساب</a></li>
                 {% else %}
-                    <li><a href="{% url "home" %}">صفحه اصلی</a></li>
+                    <li><a href="{% url "home_page" %}">صفحه اصلی</a></li>
                     <li><a href="{% url "login_page" %}">ورود / ثبت نام</a></li>
                     <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
                 {% endif %}
@@ -18,3 +25,16 @@
         </nav>
     </div>
 </header>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector("#header_nav_bar");
+
+    menuToggle.addEventListener("click", function () {
+        this.classList.toggle("active");
+        nav.classList.toggle("active");
+    });
+});
+</script>
+</body>
+</html>
