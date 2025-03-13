@@ -18,7 +18,7 @@ class Spend(models.Model):
     time = models.DateTimeField(verbose_name='تاریخ و زمان')
     price = models.BigIntegerField(verbose_name='مبلغ')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
-    note = models.TextField(null=True, default="", verbose_name="یاداشت")
+    note = models.TextField(null=True, default="", verbose_name="یاداشت" , blank=True)
 
 
     def __str__(self):
@@ -36,7 +36,7 @@ class Income(models.Model):
     time = models.DateTimeField(verbose_name='تاریخ و زمان')
     price = models.BigIntegerField(verbose_name='مبلغ')
     user = models.ForeignKey(User, on_delete=models.CASCADE ,verbose_name='کاربر')
-    note = models.TextField(null=True, default="", verbose_name="یاداشت")
+    note = models.TextField(null=True, default="", verbose_name="یاداشت", blank=True)
 
     def __str__(self):
         return f'{self.title} - {self.time.strftime("%Y-%m-%d | %H:%M")} - {self.price} هزار تومن'
