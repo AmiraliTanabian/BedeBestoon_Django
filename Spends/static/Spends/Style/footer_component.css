@@ -8,10 +8,10 @@ footer {
 
 .footer-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 80%;
     max-width: 1200px;
-    align-items: stretch;
 }
 
 .about, .contact {
@@ -22,7 +22,8 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 20px;
+    margin: 10px;
+    min-width: 300px; /* حداقل عرض برای جلوگیری از فشردگی بیش از حد */
 }
 
 .contact {
@@ -64,10 +65,22 @@ footer {
     text-decoration: underline;
 }
 
-h2{
+h2 {
     text-align: center;
 }
 
-body{
-    padding-top: 60px;
+/* استایل برای نمایش در موبایل */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .about, .contact {
+        width: 90%;
+        min-width: unset; /* حذف حداقل عرض برای نمایش درست */
+        margin: 10px 0;
+    }
 }
+
