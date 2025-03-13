@@ -187,6 +187,10 @@ h1 {
     color: #333;
 }
 
+div.filter-box > form{
+  margin: auto;
+}
+
 .lowest {
     background-color: #27ae60;
     color: white;
@@ -210,8 +214,90 @@ a {
     color: #37474F;
 }
 
+/* ریسپانسیو کردن برای موبایل (تا 576px) */
+@media (max-width: 576px) {
+    .container {
+        margin: 20px auto;
+        padding: 10px;
+    }
 
-@media (min-width: 768px) {
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .filter-box {
+        padding: 8px;
+    }
+
+    .filter-box select,
+    #filter-btn {
+        font-size: 14px;
+        padding: 8px;
+        max-width: 100%;
+    }
+
+    .section {
+        padding: 10px;
+    }
+
+    .highlight {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .highlight .icon {
+        font-size: 20px;
+    }
+
+    .add-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .list li {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* تبلت (576px تا 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .container {
+        margin: 30px auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .filter-box {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .filter-box select,
+    #filter-btn {
+        width: 48%;
+        max-width: none;
+    }
+
+    .panel {
+        flex-direction: column;
+    }
+
+    .section {
+        padding: 15px;
+    }
+
+    .highlight {
+        font-size: 15px;
+    }
+}
+
+/* دسکتاپ (768px به بالا) */
+@media (min-width: 769px) {
     .filter-box {
         flex-direction: row;
         justify-content: space-between;
@@ -225,29 +311,14 @@ a {
 
     .filter-box select,
     #filter-btn {
-        width: auto; /* در دسکتاپ عرض ثابت */
+        width: auto;
     }
 
     h1 {
         font-size: 2rem;
     }
-}
-
-@media (max-width: 767px) { /* موبایل */
-    .container {
-        margin: 20px auto;
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
 
     .section {
-        padding: 15px;
-    }
-
-    .highlight {
-        font-size: 14px;
+        width: 48%;
     }
 }
