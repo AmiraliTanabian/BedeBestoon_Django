@@ -162,6 +162,7 @@ def db_not_empty(func):
 
 @db_not_empty
 def index_page(request):
+    print("Ijnam")
     if request.user.is_authenticated:
         user = request.user
         spend_aggregate = Spend.objects.filter(user=user).aggregate(Max('price'), Min('price'),
@@ -256,7 +257,7 @@ def index_page(request):
 
 
     else:
-        return  render(request, "Spends/home_page.html")
+        return  render(request, "Spends/home_page.html", {"login":False})
 
 def add_spend(request):
     if request.user.is_authenticated:
@@ -336,7 +337,7 @@ def header(request):
     return render(request, "Spends/header_component.html", context)
 
 def home_page(request):
-    return render(request, "Spends/home_page.html")
+    return render(request, "Spends/home_page.html", {"login":request.user.is_authenticated})
 def logout_page(request):
     if request.user.is_authenticated:
         username = request.user.username

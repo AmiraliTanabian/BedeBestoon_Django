@@ -5,14 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'Spends/Style/header_component.css' %}">
+    <link rel="stylesheet" href="{% static "Spends/Style/global_styles.css" %}"
     {% block styles %}{% endblock %}
     {% block style_tag %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
-    <style>
-        *{
-            font-family: Arial;
-        }
-    </style>
 </head>
 <body dir="rtl">
     {% render_partial "Spends.views.header" %}

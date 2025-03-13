@@ -15,7 +15,7 @@
             <p>توکن شما:( لطفا آن را سیو کنید زیر دیگر نمایش داده نخواهد شد ... کاملا جدی :| )</p>
             <p id="text">{{ token }}</p>
             <div id="popup" class="popup">کپی شد!</div>
-            <a href="/login">به صفحه ورود بروید</a>
+            <a href="{% url "login_page" %}">به صفحه ورود بروید</a>
         </div>
     {% elif status == 'NotFound' %}
         <div class="message error">
