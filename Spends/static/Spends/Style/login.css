@@ -1,8 +1,9 @@
-body{
+body {
     direction: rtl;
+    padding-top: 60px;
 }
 
-div.container{
+div.container {
     text-align: center;
     width: 30%;
     height: 300px;
@@ -13,41 +14,37 @@ div.container{
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
-    margin-top: 50px ;
+    margin-top: 50px;
 }
 
-
 input,
-button{
+button {
     margin: auto;
     padding: 10px;
     border-radius: 5px;
     margin: 10px;
-    border:2px solid #FFFFFF;
+    border: 2px solid #FFFFFF;
     background: #EFEEEE;
     width: 80%;
     transition: all ease-in-out 0.5s;
-
 }
 
-
-input:focus{
-    border:none;
+input:focus {
+    border: none;
     outline: none;
     width: 90%;
 }
 
-
-button:hover{
+button:hover {
     background: #3fb33f;
 }
 
-button{
+button {
     cursor: pointer;
     background: #6daa6d;
     margin: 0;
-
 }
+
 .error-box {
     position: fixed;
     top: 20px;
@@ -64,12 +61,7 @@ button{
     z-index: 9999;
 }
 
-#main-title{
-    margin-bottom: 0;
-    font-size: 20px;
-}
-
-.success-box{
+.success-box {
     position: fixed;
     top: 20px;
     left: 50%;
@@ -85,11 +77,76 @@ button{
     z-index: 9999;
 }
 
-body{
-    padding-top: 60px;
+#main-title {
+    margin-bottom: 0;
+    font-size: 20px;
 }
 
-#register-link{
+#register-link {
     text-decoration: none;
-    color:#2563eb;
+    color: #2563eb;
+}
+@media (max-width: 768px) {
+    div.container {
+        width: 80%;
+        height: auto;
+        padding: 20px;
+    }
+
+    input,
+    button {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+    }
+
+    #main-title {
+        font-size: 18px;
+    }
+
+    #register-link {
+        font-size: 14px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+@media (max-width: 480px) {
+    div.container {
+        width: 90%;
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    #main-title {
+        font-size: 16px;
+    }
+
+    input,
+    button {
+        padding: 14px;
+    }
+
+    #register-link {
+        font-size: 14px;
+    }
+
+
+    input,
+    button {
+        margin-bottom: 15px;
+
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
