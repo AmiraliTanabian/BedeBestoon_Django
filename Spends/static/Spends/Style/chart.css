@@ -89,3 +89,28 @@ h1#chart-h1{
     transition: opacity 0.5s ease-in-out;
     z-index: 9999;
 }
+
+@media screen and (max-width: 768px) {
+    #chart-container {
+        padding: 15px;
+        width: 100%;
+    }
+
+    h1#chart-h1 {
+        font-size: 22px;
+    }
+
+    .filter-box {
+        max-width: 100%;
+    }
+
+    .filter-box select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .filter-box form button#submit-btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

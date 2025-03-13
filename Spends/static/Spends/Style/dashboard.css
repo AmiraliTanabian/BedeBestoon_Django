@@ -4,9 +4,10 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
+    padding-top: 60px;
 }
 
-.success-box{
+.success-box {
     position: fixed;
     top: 20px;
     left: 50%;
@@ -20,8 +21,9 @@ body {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     z-index: 9999;
+    width: 90%;
+    max-width: 400px;
 }
-
 
 .error-box {
     position: fixed;
@@ -37,6 +39,8 @@ body {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     z-index: 9999;
+    width: 90%;
+    max-width: 400px;
 }
 
 .container {
@@ -46,10 +50,14 @@ body {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
 }
+
 h1 {
     color: #333;
+    font-size: 1.8rem;
 }
+
 .filter-box {
     margin-bottom: 20px;
     padding: 12px;
@@ -57,12 +65,15 @@ h1 {
     border-radius: 8px;
     color: white;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
     align-items: center;
 }
+
 .filter-box label {
     margin-right: 10px;
 }
+
 .filter-box select {
     padding: 10px;
     font-size: 16px;
@@ -72,32 +83,57 @@ h1 {
     background-color: #2c3e50;
     color: white;
     transition: background-color 0.3s;
+    width: 100%;
+    max-width: 300px;
 }
+
 .filter-box select:hover {
     background-color: #34495e;
 }
+
+#filter-btn {
+    transition: background-color 0.3s;
+    background-color: #2c3e50;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 300px;
+}
+
+#filter-btn:hover {
+    background-color: #34495e;
+}
+
 .panel {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 20px;
 }
+
 .section {
-    flex: 1;
     padding: 20px;
     border-radius: 10px;
     background: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
+
 .expenses {
     border-left: 6px solid #e74c3c;
 }
+
 .incomes {
     border-left: 6px solid #2ecc71;
 }
+
 .list {
     list-style: none;
     padding: 0;
 }
+
 .list li {
     cursor: pointer;
     background: #f9f9f9;
@@ -105,8 +141,13 @@ h1 {
     padding: 12px;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: ease-in-out all 0.5s;
+    transition: transform 0.5s ease-in-out;
 }
+
+.list li:hover {
+    transform: scale(1.05);
+}
+
 .add-btn {
     display: block;
     width: 100%;
@@ -118,11 +159,13 @@ h1 {
     font-size: 16px;
     cursor: pointer;
     border-radius: 6px;
-    transition: 0.3s;
+    transition: background 0.3s;
 }
+
 .add-btn:hover {
     background: #1f6696;
 }
+
 .highlight {
     display: flex;
     align-items: center;
@@ -131,81 +174,80 @@ h1 {
     padding: 12px;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 12px;
 }
+
 .highlight .icon {
     font-size: 24px;
 }
+
 .highest {
     background-color: #ffb400;
     color: #333;
 }
+
 .lowest {
     background-color: #27ae60;
     color: white;
 }
 
-.list li:hover{
-    zoom:1.2;
-}
-
 .average {
     background-color: #ecf0f1;
     color: #333;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 12px;
 }
 
-a{
+a {
     text-decoration: none;
+    color: black;
 }
 
 .link {
-    color:white;
+    color: white;
+}
+
+.empty-alert {
+    color: #37474F;
 }
 
 
-body{
-    padding-top: 60px;
+@media (min-width: 768px) {
+    .filter-box {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .panel {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .filter-box select,
+    #filter-btn {
+        width: auto; /* در دسکتاپ عرض ثابت */
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
 }
 
-#filter-btn
-{
-	transition: background-color 0.3s;
-	background-color: #2c3e50;
-	cursor: pointer;
-	border: none;
-	outline: none;
-	color: white;
-	padding: 10px;
-	border-radius: 6px;
-}
+@media (max-width: 767px) { /* موبایل */
+    .container {
+        margin: 20px auto;
+        padding: 15px;
+    }
 
-#filter-btn:hover{
-  background-color: #34495e;
-  cursor: pointer;
-  border: none;
-  outline:none;
-  color:white;
-  padding: 10px;
-  border-radius: 6px;
+    h1 {
+        font-size: 1.5rem;
+    }
 
-}
+    .section {
+        padding: 15px;
+    }
 
-
-.filter-box *{
-    margin: auto;
-}
-
-.empty-alert{
-    color:#37474F;
-}
-
-a{
-    color:black;
-    text-decoration: none;
+    .highlight {
+        font-size: 14px;
+    }
 }
