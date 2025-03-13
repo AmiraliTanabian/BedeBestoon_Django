@@ -100,3 +100,57 @@ textarea:focus{
     text-decoration: none;
     color:#1e40af;
 }
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap; /* برای ریسپانسیو شدن */
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.contact-form, .contact-info {
+    flex: 1;
+    min-width: 300px; /* برای جلوگیری از کوچک شدن بیش از حد */
+}
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap; /* این باعث میشه که محتوا در موبایل یا تبلت به صورت ستونی قرار بگیره */
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.contact-form, .contact-info {
+    flex: 1;
+    min-width: 300px; /* برای جلوگیری از کوچک شدن بیش از حد */
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column; /* فرم و اطلاعات تماس به صورت ستون می‌ره */
+    }
+
+    .contact-form, .contact-info {
+        width: 100%; /* هر کدام عرض کامل صفحه رو می‌گیرن */
+        margin-bottom: 20px; /* فاصله بین فرم‌ها */
+    }
+
+    .contact-info {
+        margin-right: 0;
+    }
+
+    button {
+        padding: 12px 20px; /* اندازه دکمه روی موبایل بزرگتر می‌شود */
+        font-size: 14px;
+    }
+
+    input, textarea {
+        width: 100%; /* فرم‌ها به عرض 100% صفحه می‌رسند */
+    }
+}
