@@ -5,6 +5,7 @@ body {
     padding: 0;
     text-align: center;
 }
+
 .container {
     max-width: 600px;
     margin: 50px auto;
@@ -14,26 +15,29 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
+
 h1 {
     color: #333;
     margin-bottom: 20px;
     font-size: 24px;
 }
+
 .form-group {
     margin-bottom: 25px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
+
 .form-group label {
     font-size: 16px;
     color: #333;
     margin-bottom: 5px;
 }
+
 .form-group input,
 .form-group select,
-.form-group textarea
-{
+.form-group textarea {
     width: 100%;
     padding: 12px;
     font-size: 16px;
@@ -43,12 +47,14 @@ h1 {
     box-sizing: border-box;
     transition: 0.3s;
 }
+
 .form-group input:focus,
 .form-group select:focus,
-.form-group textarea:focus{
+.form-group textarea:focus {
     border-color: #2980b9;
     outline: none;
 }
+
 .submit-btn {
     width: 100%;
     padding: 12px;
@@ -60,30 +66,54 @@ h1 {
     border: none;
     transition: 0.3s;
 }
+
 .submit-btn:hover {
     background: #1f6696;
 }
+
 .back-btn {
     margin-top: 20px;
     text-decoration: none;
     color: #2980b9;
     font-size: 16px;
 }
+
 .back-btn:hover {
     color: #1f6696;
 }
+
 .form-group input[type="date"] {
     background-color: #f7f9fc;
 }
+
 .form-group input[type="date"]:focus {
     background-color: #e2e8f0;
 }
 
-*{
-    direction:rtl;
+* {
+    direction: rtl;
 }
 
-body{
+body {
     padding-top: 60px;
 }
 
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 20px;
+    }
+    h1 {
+        font-size: 20px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px;
+    }
+    .submit-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
