@@ -19,6 +19,16 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from . import chart_handel
 
+def login_verify(func):
+    def inner_verify(request):
+        if request.user.is_authenticated:
+            return func(request)
+
+        else:
+            return render(request, "Spends/unauthorized.html")
+
+    return inner_verify
+
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
     all_letters = all_letters.replace(r'/', '')
@@ -264,43 +274,40 @@ def add_spend(request):
     else:
         return render(request, 'Spends/unauthorized.html')
 
+@login_verify
 def add_income(request):
-    if request.user.is_authenticated:
-        if request.method != "POST":
-            add_income_object = addIncome()
-            context = {'form_obj':add_income_object}
-            return render(request, 'Spends/add_income.html', context)
-
-        else:
-            add_income_object = addIncome(data=request.POST)
-            note = request.POST['note']
-            title = request.POST['title']
-            price = request.POST['price']
-            is_now = 'is_now' in request.POST
-
-            if is_now:
-                datetime_obj = timezone.now()
-
-            else:
-                # date[0] date and date[1] time
-                date_result = request.POST['datetime'].split('T')
-                date = date_result[0].split('-')
-                time = date_result[1].split(':')
-
-                year = int(date[0])
-                month = int(date[1])
-                day = int(date[2])
-                hour = int(time[0])
-                minute = int(time[1])
-                datetime_obj = datetime.datetime(year, month, day, hour, minute)
-
-            Income.objects.create(user=request.user, title=title, time=datetime_obj, price=price, note=note)
-            context = {'form_obj': add_income_object, 'status': True}
-            return render(request, 'Spends/add_income.html', context)
-
+    if request.method != "POST":
+        add_income_object = addIncome()
+        context = {'form_obj':add_income_object}
+        return render(request, 'Spends/add_income.html', context)
 
     else:
-        return render(request, 'Spends/unauthorized.html')
+        add_income_object = addIncome(data=request.POST)
+        note = request.POST['note']
+        title = request.POST['title']
+        price = request.POST['price']
+        is_now = 'is_now' in request.POST
+
+        if is_now:
+            datetime_obj = timezone.now()
+
+        else:
+            # date[0] date and date[1] time
+            date_result = request.POST['datetime'].split('T')
+            date = date_result[0].split('-')
+            time = date_result[1].split(':')
+
+            year = int(date[0])
+            month = int(date[1])
+            day = int(date[2])
+            hour = int(time[0])
+            minute = int(time[1])
+            datetime_obj = datetime.datetime(year, month, day, hour, minute)
+
+        Income.objects.create(user=request.user, title=title, time=datetime_obj, price=price, note=note)
+        context = {'form_obj': add_income_object, 'status': True}
+        return render(request, 'Spends/add_income.html', context)
+
 
 def header(request):
     context = {"is_login":request.user.is_authenticated}
@@ -318,29 +325,20 @@ def logout_page(request):
     else:
         return render(request, "Spends/logout_without_login.html")
 
+@login_verify
 def income_details(request, id):
-    if not request.user.is_authenticated:
-        return render(request, "Spends/unauthorized.html")
+    user = request.user
+    income = get_object_or_404(Income, user=user, id=id)
+    return render(request, "Spends/income_details.html", {"income":income})
 
-    else:
-        user = request.user
-        income = get_object_or_404(Income, user=user, id=id)
-        return render(request, "Spends/income_details.html", {"income":income})
-
+@login_verify
 def spend_details(request, id):
-    if not request.user.is_authenticated:
-        return render(request, "Spends/unauthorized.html")
+    user = request.user
+    spend = get_object_or_404(Spend, user=user, id=id)
+    return render(request, "Spends/spend_detail.html", {"spend":spend})
 
-    else:
-        user = request.user
-        spend = get_object_or_404(Spend, user=user, id=id)
-        return render(request, "Spends/spend_detail.html", {"spend":spend})
-
-
+@login_verify
 def delete_income(request, id):
-    if not request.user.is_authenticated :
-        return render(request, "Spends/unauthorized.html")
-
     if request.method != "POST":
         income_name = get_object_or_404(Income, user=request.user, id=id)
         return render(request, "Spends/delete_income_verify.html", {'name':income_name.title, 'id':id})
@@ -352,11 +350,8 @@ def delete_income(request, id):
         income_object.delete()
         return render(request, "Spends/delete_income_success.html", {'name':name})
 
+@login_verify
 def delete_spend(request , id):
-    if not request.user.is_authenticated :
-        return render(request, "Spends/unauthorized.html")
-
-
     if request.method != "POST":
         spend_name = get_object_or_404(Spend, user=request.user, id=id)
         return render(request, "Spends/delete_spend_verify.html", {'name':spend_name.title, 'id':id})
@@ -368,10 +363,8 @@ def delete_spend(request , id):
         spend_object.delete()
         return render(request, "Spends/delete_spend_success.html", {'name':name})
 
+@login_verify
 def edit_income(request, id):
-    if not request.user.is_authenticated :
-        return render(request, "Spends/unauthorized.html")
-
     # Set init value
     income = get_object_or_404(Income, user=request.user, id=id)
     title = income.title
@@ -452,11 +445,9 @@ def edit_income(request, id):
         return render(request, "Spends/edit_income_success.html",
                       {'form_obj':form_obj, 'name':old_name})
 
+@login_verify
 def edit_spend(request, id):
-    # pay attention : we don't create specific form for spend edit beacuse the income edit form is simular
-    if not request.user.is_authenticated :
-        return render(request, "Spends/unauthorized.html")
-
+    # pay attention : we don't create specific form for spend edit because the income edit form is simular
     # Set init value
     spend = get_object_or_404(Spend, user=request.user, id=id)
     title = spend.title
