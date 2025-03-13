@@ -16,5 +16,5 @@ output = json
 
 --> 4) api/account/login
 POST
-input = token 
-output = json
+input = username , password
+output = json(YOUR_TOKEN)

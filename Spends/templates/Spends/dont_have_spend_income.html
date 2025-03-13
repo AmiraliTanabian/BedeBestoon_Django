@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}خرج یا درآمدی ندارید!{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "Spends/Style/dont_have_spend_income.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="empty-container">
+        <div class="empty-icon">❌</div>
+        <h1 id="empty-title">خالیه!</h1>
+        <p id="empty-p">
+            شما هنوز هیچ خرج یا درآمدی وارد نکردید.<br>
+            از دکمه‌های زیر شروع کنید تا حساب و کتاب زندگی‌تون رو مرتب کنید...
+        </p>
+        <a href="{% url "add_spend" %}" class="btn btn-add-spend">وارد کردن خرج</a>
+        <a href="{% url "add_income" %}" class="btn btn-add-income">وارد کردن درآمد</a>
+    </div>
+
+{% endblock %}

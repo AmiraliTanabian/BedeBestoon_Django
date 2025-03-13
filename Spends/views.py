@@ -139,6 +139,28 @@ def login_page(request):
     else:
         return render(request, "Spends/login_register_limit.html")
 
+def db_not_empty(func):
+    def wrapper(request):
+        if request.user.is_authenticated:
+
+            try:
+                user = request.user
+                income_count = Income.objects.filter(user=user).count()
+                spend_count = Spend.objects.filter(user=user).count()
+                if spend_count and income_count:
+                    return func(request)
+                else:
+                    return render(request, "Spends/dont_have_spend_income.html")
+
+            except Exception as Error:
+                print(Error)
+
+        else:
+            return func(request)
+
+    return wrapper
+
+@db_not_empty
 def index_page(request):
     if request.user.is_authenticated:
         user = request.user
@@ -173,25 +195,25 @@ def index_page(request):
 
             spends = None
             if spend_time_filter == 'all':
-                spends = Spend.objects.all()
+                spends = Spend.objects.filter(user=request.user)
 
             elif spend_time_filter == 'last_ten':
-                spends = Spend.objects.all().order_by('time')[:10]
+                spends = Spend.objects.filter(user=request.user).order_by('time')[:10]
 
             elif spend_time_filter == 'week':
                 now_date = timezone.now().isocalendar()
                 now_week = now_date[1]
                 now_year = now_date[0]
-                spends = Spend.objects.filter(time__year=now_year, time__week=now_week)
+                spends = Spend.objects.filter(user=request.user, time__year=now_year, time__week=now_week)
 
             elif spend_time_filter == 'month':
                 now_year = timezone.now().year
                 now_month = timezone.now().month
-                spends = Spend.objects.filter(time__year=now_year, time__month=now_month)
+                spends = Spend.objects.filter(user=request.user, time__year=now_year, time__month=now_month)
 
             elif spend_time_filter == 'year':
                 now_year = timezone.now().year
-                spends = Spend.objects.filter(time__year = now_year)
+                spends = Spend.objects.filter(user=request.user, time__year = now_year)
 
             else:
                 messages.error(request, "لطفا یک زمان را برای نمایش هزینه ها انتخاب کنید")

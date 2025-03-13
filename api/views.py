@@ -10,7 +10,6 @@ from django.http import JsonResponse
 @csrf_exempt
 def api_general_stats(request):
     token = request.POST['token']
-    print(Token.objects.filter(token=token).exists())
     this_user = Token.objects.get(token=token).user
     income_stats = Income.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
     spend_stats = Spend.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
