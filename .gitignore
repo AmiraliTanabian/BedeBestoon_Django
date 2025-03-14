@@ -1,6 +1,8 @@
 db.sqlite3
-SpendsManager/settings.py
+SpendsManager/mainSettings.py
 settings.py
+SpendsManager/settings.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
