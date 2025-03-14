@@ -20,13 +20,16 @@ from django.shortcuts import get_object_or_404
 from . import chart_handel
 
 def login_verify(func):
-    def inner_verify(request):
+    def inner_verify(request, **kwargs):
         if request.user.is_authenticated:
-            return func(request)
 
+            if 'id' in kwargs :
+                return func(request, kwargs.get("id"))
+
+            else:
+                return func(request)
         else:
             return render(request, "Spends/unauthorized.html")
-
     return inner_verify
 
 def random_str(length):
