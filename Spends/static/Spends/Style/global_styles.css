@@ -3,6 +3,13 @@
     font-family: 'IranSans';
 }
 
+@font-face {
+    src: url("../Fonts/Vazir.ttf") format("ttf");
+    src: url("../Fonts/Vazir.woff") format("woff");
+    font-family: 'Vazir';
+}
+
+
 *{
-    font-family: IranSans !important;
+    font-family: Vazir !important;
 }
