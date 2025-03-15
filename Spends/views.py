@@ -157,7 +157,6 @@ def db_not_empty(func):
 
             except Exception as Error:
                 print(Error)
-                return HttpResponse(Error)
 
         else:
             return func(request)
