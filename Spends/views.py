@@ -165,7 +165,6 @@ def db_not_empty(func):
 
 @db_not_empty
 def index_page(request):
-    print("Ijnam")
     if request.user.is_authenticated:
         user = request.user
         spend_aggregate = Spend.objects.filter(user=user).aggregate(Max('price'), Min('price'),
@@ -227,25 +226,25 @@ def index_page(request):
 
             incomes = None
             if income_time_filter == "all":
-                incomes = Income.objects.all()
+                incomes = Income.objects.all(user=request.user)
 
             elif income_time_filter == "last_ten":
-                incomes = Income.objects.all().order_by("time")[:10]
+                incomes = Income.objects.all(user=request.user).order_by("time")[:10]
 
             elif income_time_filter == 'week':
                 now_date = timezone.now().isocalendar()
                 now_week = now_date[1]
                 now_year = now_date[0]
-                incomes = Income.objects.filter(time__year=now_year, time__week=now_week)
+                incomes = Income.objects.filter(user=request.user, time__year=now_year, time__week=now_week)
 
             elif income_time_filter == 'month':
                 now_year = timezone.now().year
                 now_month = timezone.now().month
-                incomes = Income.objects.filter(time__year=now_year, time__month=now_month)
+                incomes = Income.objects.filter(user=request.user, time__year=now_year, time__month=now_month)
 
             elif income_time_filter == 'year':
                 now_year = timezone.now().year
-                incomes = Income.objects.filter(time__year=now_year)
+                incomes = Income.objects.filter(user=request.user, time__year=now_year)
 
             else:
                 messages.error(request, "لطفا یک زمان را برای نمایش درآمد ها انتخاب کنید")
