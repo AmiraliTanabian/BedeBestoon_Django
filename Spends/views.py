@@ -157,6 +157,7 @@ def db_not_empty(func):
 
             except Exception as Error:
                 print(Error)
+                return HttpResponse(Error)
 
         else:
             return func(request)
@@ -226,10 +227,10 @@ def index_page(request):
 
             incomes = None
             if income_time_filter == "all":
-                incomes = Income.objects.all(user=request.user)
+                incomes = Income.objects.filter(user=request.user)
 
             elif income_time_filter == "last_ten":
-                incomes = Income.objects.all(user=request.user).order_by("time")[:10]
+                incomes = Income.objects.filter(user=request.user).order_by("time")[:10]
 
             elif income_time_filter == 'week':
                 now_date = timezone.now().isocalendar()
