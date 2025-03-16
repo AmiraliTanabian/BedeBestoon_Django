@@ -5,7 +5,7 @@ class Messages(models.Model):
     subject = models.CharField(max_length=255, verbose_name="موضوع پیام")
     email = models.EmailField(verbose_name="ایمیل ارسال کننده")
     text = models.TextField(verbose_name="متن پیام")
-    datetime = models.DateTimeField(verbose_name='زمان ارسال پیام')
+    datetime = models.DateTimeField(auto_now_add=True ,verbose_name='زمان ارسال پیام')
 
     def __str__(self):
         return f'{self.name} - {self.subject}'
