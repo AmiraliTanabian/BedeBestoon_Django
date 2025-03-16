@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from .forms import ContactUsModelForm
+from django.views import View
 
-# Create your views here.
-def contact_us_page(request):
-    if request.method != "POST":
+class ContactUsView(View):
+    def get(self, request):
         context = {'form_obj': ContactUsModelForm()}
         return render(request, "contact_us/contact_us.html", context)
-    else:
+    
+    def post(self, request):
         form_obj = ContactUsModelForm(data=request.POST)
 
         if not form_obj.is_valid():
