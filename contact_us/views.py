@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from .forms import ContactUsModelForm
-from .models import Messages
-from datetime import datetime
 
 # Create your views here.
 def contact_us_page(request):
