@@ -28,7 +28,7 @@
             <h2>بده بستون چیه؟</h2>
             <p>بده بستون یه پروژه متن بازه که بر اساس یه نیاز شخصی و ایده گرفتن از پروژه جادی شکل گرفته </p><br>
             <p>با بده بستون میتونید به راحتی درآمد و هزینه های خود را مدیریت و تحلیل کنید</p>
-            {% if not login %}
+            {% if not request.user.is_authenticated %}
                 <a href="{% url "login_page" %}" id="StartButton" class="button">ورود به حساب کاربری</a>
                 <a href="{% url "account_register" %}" id="StartButton" class="button">ساخت حساب کاربری</a>
             {% else %}

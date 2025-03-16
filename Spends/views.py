@@ -18,6 +18,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from . import chart_handel
+from django.views.generic import TemplateView
 
 def login_verify(func):
     def inner_verify(request, **kwargs):
@@ -338,8 +339,9 @@ def header(request):
     context = {"is_login":request.user.is_authenticated}
     return render(request, "Spends/header_component.html", context)
 
-def home_page(request):
-    return render(request, "Spends/home_page.html", {"login":request.user.is_authenticated})
+class HomePageView(TemplateView):
+    template_name = "Spends/home_page.html"
+
 def logout_page(request):
     if request.user.is_authenticated:
         username = request.user.username
