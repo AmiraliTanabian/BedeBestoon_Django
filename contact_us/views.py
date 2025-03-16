@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import contactUsForm, ContactUsModelForm
+from .forms import ContactUsModelForm
 from .models import Messages
 from datetime import datetime
 
