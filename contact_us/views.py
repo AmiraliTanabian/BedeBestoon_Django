@@ -1,21 +1,18 @@
-from django.shortcuts import render
 from .forms import ContactUsModelForm
-from django.views import View
+from django.views.generic import FormView
+from django.urls import reverse_lazy
+from django.contrib import messages
 
-class ContactUsView(View):
-    def get(self, request):
-        context = {'form_obj': ContactUsModelForm()}
-        return render(request, "contact_us/contact_us.html", context)
-    
-    def post(self, request):
-        form_obj = ContactUsModelForm(data=request.POST)
 
-        if not form_obj.is_valid():
-            context = {'form_obj': form_obj}
-            return render(request, "contact_us/contact_us.html", context)
 
-        else:
-            form_obj.save()
+class ContactUsView(FormView):
+    is_valid = False
+    form_class = ContactUsModelForm
+    template_name = "contact_us/contact_us.html"
+    success_url = reverse_lazy("contact_us_page")
 
-            context = {'form_obj': form_obj, 'status':True}
-            return render(request, "contact_us/contact_us.html", context)
+    def form_valid(self, form):
+        self.is_valid = True
+        form.save()
+        messages.success(self.request, "پیام شما با موفقیت ثبت شد. نتیجه آن با ایمیل به شما ارسال خواهد شد.")
+        return super().form_valid(form)

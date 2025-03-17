@@ -43,10 +43,12 @@
 {% endblock %}
 
 {% block content %}
-    {% if status %}
-        <div class="success-box" id="error-message">
-            پیام شما با موفقیت ثبت شد، نتیجه آن با ایمیل به شما ارسال خواهد شد.
-        </div>
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="success-box" id="error-message">
+                {{ msg }}
+            </div>
+        {% endfor %}
     {% endif %}
 
     <section class="contact-form-section">
@@ -56,16 +58,16 @@
                 <form action="{% url "contact_us_page" %}" method="post">
                     {% csrf_token %}
                     <label for="name">نام:</label>
-                    {{ form_obj.name }}
+                    {{ form.name }}
 
                     <label for="subject">موضوع:</label>
-                    {{ form_obj.subject }}
+                    {{ form.subject }}
 
                     <label for="email">ایمیل:</label>
-                    {{ form_obj.email }}
+                    {{ form.email }}
 
                     <label for="message">متن پیام:</label>
-                    {{ form_obj.text }}
+                    {{ form.text }}
                     <button type="submit">ارسال پیام</button>
                 </form>
             </div>
