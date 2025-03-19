@@ -11,24 +11,34 @@
         <form action="{% url 'account_register' %}" method="post" >
             <h1 id="main-title">ساخت حساب کاربری</h1>
             {% csrf_token %}
-            {{ form_object }}
+
+            {{ form_object.username }}
+            {{ form_object.email }}
+            {{ form_object.password }}
+            {{ form_object.again_password }}
+            {{ form_object.recaptcha }}
+
             <button type="submit">ثبت نام</button><br>
             <a id="login-link" href="{% url "login_page" %}">حساب دارید؟‌ وارد شوید</a>
         </form>
 
+
         <br>
-        {% if status == 'AgianPasswordError' %}
+        {% if form_object.username.errors %}
+                <div id="error-message" class="error-box">
+                    {{  form_object.username.errors }}
+                </div>
+        
+        {% elif form_object.email.errors %}
             <div id="error-message" class="error-box">
-                متاسفانه رمز عبور شما با تکرارش مطابقت ندارد
+                {{  form_object.email.errors }}
             </div>
-        {% elif status == 'UserNameExists' %}
+
+        {% elif form_object.non_field_errors %}
             <div id="error-message" class="error-box">
-               متاسفانه این نام کاربری قبلا ثبت شده است
+                {{  form_object.non_field_errors }}
             </div>
-        {% elif status == 'EmailExists'%}
-            <div id="error-message" class="error-box">
-                متاسفانه این ایمیل قبلا ثبت شده است
-            </div>
+
         {% elif status == 'OK' %}
             <div id="error-message" class="success-box">
                 ایمیل تایید برای شما ارسال شد<br> اگر ایمیل را نمیبیند پوشه spam را چک کنید
@@ -39,4 +49,5 @@
 {% endblock %}
 {% block js %}
     <script src="{% static 'Spends/Js/verify_account.js' %}"></script>
+    <script src="{% static 'Spends/Js/register.js' %}"></script>
 {% endblock %}

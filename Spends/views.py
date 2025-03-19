@@ -11,7 +11,7 @@ from string import digits, punctuation, ascii_letters
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from django.db.models import Avg, Max, Min
 from django.contrib.auth import login, logout, authenticate
@@ -19,6 +19,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from . import chart_handel
 from django.views.generic import TemplateView
+from django.views import View
 
 def login_verify(func):
     def inner_verify(request, **kwargs):
@@ -96,6 +97,57 @@ def account_register(request):
                 return render(request, 'Spends/register.html', {'form_object':form_object})
     else:
         return render(request, "Spends/login_register_limit.html")
+
+class AccountRegisterView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return render(request, "Spends/login_register_limit.html")
+
+        else:
+            form_object = registerForm()
+            return render(request, 'Spends/register.html',
+                          {'status':False , 'form_object':form_object})
+
+
+    def post(self, request):
+        form_object = registerForm(data=request.POST)
+
+        if form_object.is_valid():
+            form_object = registerForm(data=request.POST)
+            username = request.POST['username']
+            password = request.POST['password']
+            email = request.POST['email']
+
+
+            #TODO; check the user dont on temp users
+            #TODO; check ip
+            #TODO; remove TempUser
+            random_string = random_str(50)
+
+            # Add temp info on table
+            TempUser.objects.create(username=username, password=make_password(password),
+                                    date=timezone.now() , email=email, random_str=random_string)
+            # Send verify email
+            verification_url = settings.SITE_URL +  reverse_lazy('verify_account', args=[random_string])
+            email_subject = 'تایید حساب کاربری'
+            email_html_content = render_to_string('Spends/email_sender.html',
+                                                    {'verification_url':verification_url})
+            email_from = 'atanabain@gmail.com'
+
+            mail = EmailMessage(email_subject, email_html_content, email_from, [email])
+            mail.content_subtype = 'html'
+            mail.send()
+
+
+            return render(request, 'Spends/register.html',
+                        {'status':'OK', 'form_object':form_object})
+
+        else:
+            print(form_object.non_field_errors)
+            return render(request, 'Spends/register.html',
+                {'status':False , 'form_object':form_object})
+
+
 def verify_account(request, random_string):
 
     temp_object = TempUser.objects.filter(random_str=random_string)
