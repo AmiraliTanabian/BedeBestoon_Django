@@ -369,19 +369,19 @@ class SpendDetailView(LoginRequiredMixin, DetailView):
     model = Spend
     context_object_name = "spend"
     login_url = reverse_lazy("login_page")
-
-@login_verify
-def delete_income(request, id):
-    if request.method != "POST":
+class DeleteIncomeView(LoginRequiredMixin, View):
+    login_url = reverse_lazy("login_page")
+    def get(self, request, id):
         income_name = get_object_or_404(Income, user=request.user, id=id)
-        return render(request, "Spends/delete_income_verify.html", {'name':income_name.title, 'id':id})
+        return render(request, "Spends/delete_income_verify.html", {'name': income_name.title, 'id': id})
 
-    elif 'ok' in request.POST:
 
-        income_object = Income.objects.get(user=request.user, id=id)
-        name = income_object.title
-        income_object.delete()
-        return render(request, "Spends/delete_income_success.html", {'name':name})
+    def post(self, request, id):
+        if "ok" in request.POST:
+            income_object = Income.objects.get(user=request.user, id=id)
+            name = income_object.title
+            income_object.delete()
+            return render(request, "Spends/delete_income_success.html", {'name':name})
 
 @login_verify
 def delete_spend(request , id):
