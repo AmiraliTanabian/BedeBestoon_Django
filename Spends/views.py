@@ -394,7 +394,6 @@ class EditIncomeView(LoginRequiredMixin, View):
     login_url = reverse_lazy("login_page")
     def dispatch(self, request, *args, **kwargs):
         # Set init value
-        print(kwargs)
         id = kwargs["id"]
         income = get_object_or_404(Income, user=request.user, id=id)
         self.title = income.title
@@ -468,85 +467,6 @@ class EditIncomeView(LoginRequiredMixin, View):
         return render(request, "Spends/edit_income_success.html",
                       {'form_obj':form_obj, 'name':old_name})
 
-@login_verify
-def edit_spend(request, id):
-    # pay attention : we don't create specific form for spend edit because the income edit form is simular
-    # Set init value
-    spend = get_object_or_404(Spend, user=request.user, id=id)
-    title = spend.title
-    price = spend.price
-    note = spend.note
-    time = spend.time
-    year = time.year
-    month = time.month
-    day = time.day
-    minute = time.minute
-    hour = time.hour
-
-    # Convert to html format : For example 7 --> 07
-    if len(str(hour)) == 1:
-        hour = "0" + str(hour)
-
-    # For example 1 --> 01
-    if len(str(minute)) == 1:
-        minute = "0" + str(minute)
-
-    if len(str(month)) == 1:
-        month = "0" + str(month)
-
-    if len(str(day)) == 1:
-        day = "0" + str(day)
-
-
-    # DATATIME html format example: 2025-03-11T07:37
-    html_time_format = f"{year}-{month}-{day}T{hour}:{minute}"
-
-
-
-
-    if request.method != "POST":
-        form_obj = editIncome(initial={"title":title, "price":price, "note":note})
-
-        spend = get_object_or_404(Spend, user=request.user, id=id)
-        return render(request, "Spends/edit_spends.html",
-                      {"form_obj":form_obj, "spend":spend, 'date':html_time_format})
-
-    else:
-        form_obj = editIncome(data=request.POST)
-
-        spend = get_object_or_404(Spend, user=request.user, id=id)
-        old_name = spend.title
-        spend.title = request.POST['title']
-        spend.price = request.POST['price']
-        spend.note = request.POST['note']
-
-
-        is_now = 'is_now' in request.POST.keys()
-
-        if is_now:
-            datetime_obj = timezone.now()
-
-        else:
-            # date[0] date and date[1] time
-            date_result = request.POST['datetime'].split('T')
-            date = date_result[0].split('-')
-            time = date_result[1].split(':')
-
-            year = int(date[0])
-            month = int(date[1])
-            day = int(date[2])
-            hour = int(time[0])
-            minute = int(time[1])
-            datetime_obj = datetime.datetime(year, month, day, hour, minute)
-
-
-        spend.time = datetime_obj
-        spend.save()
-
-
-        return render(request, "Spends/edit_spend_success.html",
-                      {'form_obj':form_obj, 'name':old_name})
-
 def chart(request):
     is_chart_submit = 'chart_time_filter' in request.GET
     if not is_chart_submit:
@@ -606,3 +526,80 @@ def chart(request):
             print(incomes)
             return render(request, "Spends/chart.html", {"spend_data":spends, "income_data":incomes, "label":labels,
                                                          "chart_filter":chart_filter})
+
+class EditSpendView(LoginRequiredMixin, View):
+    login_url = reverse_lazy("login_page")
+    def dispatch(self, request, *args, **kwargs):
+        # Set init value
+        id = kwargs["id"]
+        spend = get_object_or_404(Spend, user=request.user, id=id)
+        self.title = spend.title
+        self.price = spend.price
+        self.note = spend.note
+        self.time = spend.time
+        self.year = self.time.year
+        self.month = self.time.month
+        self.day = self.time.day
+        self.minute = self.time.minute
+        self.hour = self.time.hour
+
+        # Convert to html format : For example 7 --> 07
+        if len(str(self.hour)) == 1:
+            self.hour = "0" + str(self.hour)
+
+        # For example 1 --> 01
+        if len(str(self.minute)) == 1:
+            self.minute = "0" + str(self.minute)
+
+        if len(str(self.month)) == 1:
+            self.month = "0" + str(self.month)
+
+        if len(str(self.day)) == 1:
+            self.day = "0" + str(self.day)
+
+        # DATATIME html format example: 2025-03-11T07:37
+        self.html_time_format = f"{self.year}-{self.month}-{self.day}T{self.hour}:{self.minute}"
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, id):
+        form_obj = editIncome(initial={"title":self.title, "price":self.price, "note":self.note})
+        spend = get_object_or_404(Spend, user=request.user, id=id)
+        return render(request, "Spends/edit_spends.html",
+                      {"form_obj":form_obj, "spend":spend, 'date':self.html_time_format})
+
+
+    def post(self, request, id):
+        form_obj = editIncome(data=request.POST)
+
+        spend = get_object_or_404(Spend, user=request.user, id=id)
+        old_name = spend.title
+        spend.title = request.POST['title']
+        spend.price = request.POST['price']
+        spend.note = request.POST['note']
+
+
+        is_now = 'is_now' in request.POST
+
+        if is_now:
+            datetime_obj = timezone.now()
+
+        else:
+            # date[0] date and date[1] time
+            date_result = request.POST['datetime'].split('T')
+            date = date_result[0].split('-')
+            time = date_result[1].split(':')
+
+            year = int(date[0])
+            month = int(date[1])
+            day = int(date[2])
+            hour = int(time[0])
+            minute = int(time[1])
+            datetime_obj = datetime.datetime(year, month, day, hour, minute)
+
+        spend.time = datetime_obj
+        spend.save()
+
+
+        return render(request, "Spends/edit_spend_success.html",
+                      {'form_obj':form_obj, 'name':old_name})
