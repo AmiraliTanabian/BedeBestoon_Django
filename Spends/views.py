@@ -390,54 +390,50 @@ class DeleteSpendView(LoginRequiredMixin, View):
             spend_object.delete()
             return render(request, "Spends/delete_spend_success.html", {'name': name})
 
+class EditIncomeView(LoginRequiredMixin, View):
+    login_url = reverse_lazy("login_page")
+    def dispatch(self, request, *args, **kwargs):
+        # Set init value
+        print(kwargs)
+        id = kwargs["id"]
+        income = get_object_or_404(Income, user=request.user, id=id)
+        self.title = income.title
+        self.price = income.price
+        self.note = income.note
+        self.time = income.time
+        self.year = self.time.year
+        self.month = self.time.month
+        self.day = self.time.day
+        self.minute = self.time.minute
+        self.hour = self.time.hour
 
-@login_verify
-def edit_income(request, id):
-    # Set init value
-    income = get_object_or_404(Income, user=request.user, id=id)
-    title = income.title
-    price = income.price
-    note = income.note
-    time = income.time
-    year = time.year
-    month = time.month
-    day = time.day
-    minute = time.minute
-    hour = time.hour
+        # Convert to html format : For example 7 --> 07
+        if len(str(self.hour)) == 1:
+            self.hour = "0" + str(self.hour)
 
-    # Convert to html format : For example 7 --> 07
-    if len(str(hour)) == 1:
-        hour = "0" + str(hour)
+        # For example 1 --> 01
+        if len(str(self.minute)) == 1:
+            self.minute = "0" + str(self.minute)
 
-    # For example 1 --> 01
-    if len(str(minute)) == 1:
-        minute = "0" + str(minute)
+        if len(str(self.month)) == 1:
+            self.month = "0" + str(self.month)
 
-    if len(str(month)) == 1:
-        month = "0" + str(month)
+        if len(str(self.day)) == 1:
+            self.day = "0" + str(self.day)
 
-    if len(str(day)) == 1:
-        day = "0" + str(day)
+        # DATATIME html format example: 2025-03-11T07:37
+        self.html_time_format = f"{self.year}-{self.month}-{self.day}T{self.hour}:{self.minute}"
 
+        return super().dispatch(request, *args, **kwargs)
 
-    # DATATIME html format example: 2025-03-11T07:37
-    html_time_format = f"{year}-{month}-{day}T{hour}:{minute}"
-
-
-        # End convert the datetime to html format
-
-
-
-    if request.method != "POST":
-        form_obj = editIncome(initial={"title":title, "price":price, "note":note})
-
-
-
+    def get(self, request, id):
+        form_obj = editIncome(initial={"title":self.title, "price":self.price, "note":self.note})
         income = get_object_or_404(Income, user=request.user, id=id)
         return render(request, "Spends/edit_income.html",
-                      {"form_obj":form_obj, "income":income, 'date':html_time_format})
+                      {"form_obj":form_obj, "income":income, 'date':self.html_time_format})
 
-    else:
+
+    def post(self, request, id):
         form_obj = editIncome(data=request.POST)
 
         income = get_object_or_404(Income, user=request.user, id=id)
@@ -464,7 +460,6 @@ def edit_income(request, id):
             hour = int(time[0])
             minute = int(time[1])
             datetime_obj = datetime.datetime(year, month, day, hour, minute)
-
 
         income.time = datetime_obj
         income.save()
