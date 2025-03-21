@@ -89,29 +89,30 @@ class AccountRegisterView(View):
             return render(request, 'Spends/register.html',
                 {'status':False , 'form_object':form_object})
 
+class VerifyAccountView(View):
+    def get(self, request, random_string):
+        temp_object = TempUser.objects.filter(random_str=random_string)
 
-def verify_account(request, random_string):
-
-    temp_object = TempUser.objects.filter(random_str=random_string)
-
-    if not temp_object.exists():
-        print("Salam")
-        return render(request, 'Spends/verify_account.html', {'status':'NotFound'})
-
-    elif timezone.now().timestamp() - temp_object[0].date.timestamp() > 12 * 3600 :
-        return render(request, 'Spends/verify_account.html', {'status':'Expired'})
+        if not temp_object.exists():
+            print("Salam")
+            return render(request, 'Spends/verify_account.html', {'status': 'NotFound'})
 
 
-    else:
-        temp_object = temp_object[0]
-        username = temp_object.username
-        user_object = User(username=temp_object.username, password=temp_object.password, email=temp_object.email)
-        user_object.save()
-        this_token = Token(user=user_object, token=random_str(50))
-        this_token.save()
-        temp_object.delete()
-        return render(request, 'Spends/verify_account.html', {'status':'Ok', 'username': username,
-                                                              'token':this_token.token})
+        elif timezone.now().timestamp() - temp_object[0].date.timestamp() > 12 * 3600:
+            return render(request, 'Spends/verify_account.html', {'status': 'Expired'})
+
+
+        else:
+            temp_object = temp_object.first()
+            username = temp_object.username
+            user_object = User(username=temp_object.username, password=temp_object.password, email=temp_object.email)
+            user_object.save()
+            this_token = Token(user=user_object, token=random_str(50))
+            this_token.save()
+            temp_object.delete()
+            return render(request, 'Spends/verify_account.html', {'status': 'Ok', 'username': username,
+                                                                  'token': this_token.token})
+
 
 def login_page(request):
     if not request.user.is_authenticated:
