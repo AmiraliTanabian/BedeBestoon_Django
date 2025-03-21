@@ -262,15 +262,21 @@ def index_page(request):
     else:
         return  render(request, "Spends/home_page.html", {"login":False})
 
-def add_spend(request):
-    if request.user.is_authenticated:
-        if request.method != "POST":
+class AddSpendView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
             add_spend_obj = addSpend()
             context = {'form_obj':add_spend_obj}
             return render(request, 'Spends/add_spend.html', context)
 
+
         else:
-            add_spend_obj = addSpend(data=request.POST)
+            return render(request, 'Spends/unauthorized.html')
+
+    def post(self, request):
+        add_spend_obj = addSpend(data=request.POST)
+
+        if request.user.is_authenticated:
             note = request.POST['note']
             title = request.POST['title']
             price = request.POST['price']
@@ -296,9 +302,8 @@ def add_spend(request):
             context = {'form_obj': add_spend_obj, 'status': True}
             return render(request, 'Spends/add_spend.html', context)
 
-
-    else:
-        return render(request, 'Spends/unauthorized.html')
+        else:
+            return render(request, 'Spends/unauthorized.html')
 
 @login_verify
 def add_income(request):
