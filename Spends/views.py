@@ -299,16 +299,16 @@ class AddSpendView(LoginRequiredMixin,View):
         context = {'form_obj': add_spend_obj, 'status': True}
         return render(request, 'Spends/add_spend.html', context)
 
-
-@login_verify
-def add_income(request):
-    if request.method != "POST":
-        add_income_object = addIncome()
-        context = {'form_obj':add_income_object}
+class AddIncomeView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("login_page")
+    def get(self, request):
+        add_income_obj = addIncome()
+        context = {'form_obj':add_income_obj}
         return render(request, 'Spends/add_income.html', context)
 
-    else:
-        add_income_object = addIncome(data=request.POST)
+    def post(self, request):
+        add_income_obj = addIncome(data=request.POST)
+
         note = request.POST['note']
         title = request.POST['title']
         price = request.POST['price']
@@ -331,7 +331,7 @@ def add_income(request):
             datetime_obj = datetime.datetime(year, month, day, hour, minute)
 
         Income.objects.create(user=request.user, title=title, time=datetime_obj, price=price, note=note)
-        context = {'form_obj': add_income_object, 'status': True}
+        context = {'form_obj': add_income_obj, 'status': True}
         return render(request, 'Spends/add_income.html', context)
 
 
