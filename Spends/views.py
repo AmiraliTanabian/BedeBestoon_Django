@@ -264,48 +264,41 @@ def index_page(request):
     else:
         return  render(request, "Spends/home_page.html", {"login":False})
 
-class AddSpendView(View):
+class AddSpendView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("login_page")
     def get(self, request):
-        if request.user.is_authenticated:
-            add_spend_obj = addSpend()
-            context = {'form_obj':add_spend_obj}
-            return render(request, 'Spends/add_spend.html', context)
-
-
-        else:
-            return render(request, 'Spends/unauthorized.html')
+        add_spend_obj = addSpend()
+        context = {'form_obj':add_spend_obj}
+        return render(request, 'Spends/add_spend.html', context)
 
     def post(self, request):
         add_spend_obj = addSpend(data=request.POST)
 
-        if request.user.is_authenticated:
-            note = request.POST['note']
-            title = request.POST['title']
-            price = request.POST['price']
-            is_now = 'is_now' in request.POST
+        note = request.POST['note']
+        title = request.POST['title']
+        price = request.POST['price']
+        is_now = 'is_now' in request.POST
 
-            if is_now:
-                datetime_obj = timezone.now()
-
-            else:
-                # date[0] date and date[1] time
-                date_result = request.POST['datetime'].split('T')
-                date = date_result[0].split('-')
-                time = date_result[1].split(':')
-
-                year = int(date[0])
-                month = int(date[1])
-                day = int(date[2])
-                hour = int(time[0])
-                minute = int(time[1])
-                datetime_obj = datetime.datetime(year, month, day, hour, minute)
-
-            Spend.objects.create(user=request.user, title=title, time=datetime_obj, price=price, note=note)
-            context = {'form_obj': add_spend_obj, 'status': True}
-            return render(request, 'Spends/add_spend.html', context)
+        if is_now:
+            datetime_obj = timezone.now()
 
         else:
-            return render(request, 'Spends/unauthorized.html')
+            # date[0] date and date[1] time
+            date_result = request.POST['datetime'].split('T')
+            date = date_result[0].split('-')
+            time = date_result[1].split(':')
+
+            year = int(date[0])
+            month = int(date[1])
+            day = int(date[2])
+            hour = int(time[0])
+            minute = int(time[1])
+            datetime_obj = datetime.datetime(year, month, day, hour, minute)
+
+        Spend.objects.create(user=request.user, title=title, time=datetime_obj, price=price, note=note)
+        context = {'form_obj': add_spend_obj, 'status': True}
+        return render(request, 'Spends/add_spend.html', context)
+
 
 @login_verify
 def add_income(request):
