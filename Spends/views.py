@@ -364,12 +364,11 @@ class IncomeDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "income"
     login_url = reverse_lazy("login_page")
 
-
-@login_verify
-def spend_details(request, id):
-    user = request.user
-    spend = get_object_or_404(Spend, user=user, id=id)
-    return render(request, "Spends/spend_detail.html", {"spend":spend})
+class SpendDetailView(LoginRequiredMixin, DetailView):
+    template_name = "Spends/spend_detail.html"
+    model = Spend
+    context_object_name = "spend"
+    login_url = reverse_lazy("login_page")
 
 @login_verify
 def delete_income(request, id):
