@@ -113,18 +113,21 @@ class VerifyAccountView(View):
             return render(request, 'Spends/verify_account.html', {'status': 'Ok', 'username': username,
                                                                   'token': this_token.token})
 
-
-def login_page(request):
-    if not request.user.is_authenticated:
-        if request.method != 'POST':
+class LoginView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
             form_obj = loginForm()
-            return render(request, 'Spends/login.html', {'form_obj':form_obj})
+            return render(request, 'Spends/login.html', {'form_obj': form_obj})
 
         else:
-            form_obj = loginForm(data=request.POST)
+            return render(request, "Spends/login_register_limit.html")
+
+    def post(self, request):
+        form_obj = loginForm(data=request.POST)
+
+        if form_obj.is_valid():
             username = request.POST['username']
             password = request.POST['password']
-
             user = authenticate(request, username=username, password=password)
 
             if user :
@@ -135,8 +138,10 @@ def login_page(request):
             else:
                 return render(request, 'Spends/login.html', {'status':'username or password incorrect',
                                                              'form_obj':form_obj})
-    else:
-        return render(request, "Spends/login_register_limit.html")
+
+        else:
+            return render(request, 'Spends/login.html', {'form_obj': form_obj})
+
 
 def db_not_empty(func):
     def wrapper(request):

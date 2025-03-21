@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('account/register', views.AccountRegisterView.as_view() , name="account_register"),
     path('account/verify/<str:random_string>', views.VerifyAccountView.as_view(), name='verify_account'),
-    path('account/login', views.login_page, name="login_page"),
+    path('account/login', views.LoginView.as_view(), name="login_page"),
     path('', views.index_page, name="home_page"),
     path('add_spend', views.add_spend, name="add_spend"),
     path("add_income", views.add_income, name="add_income"),
