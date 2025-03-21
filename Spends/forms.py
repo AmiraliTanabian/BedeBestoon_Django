@@ -37,11 +37,7 @@ class registerForm(forms.Form):
         password = self.cleaned_data.get("password")
         again_password = self.cleaned_data.get("again_password")
 
-        print("Password {} \n \n".format(password))
-        print("Agian Password {}\n \n".format(again_password))
-
-        print(f"Cleaned data \n {self.cleaned_data} \n\n\n\n\n\n")
-        if password != again_password : 
+        if password != again_password :
             raise forms.ValidationError("متاسفانه رمز عبور شما با تکرارش مطابقت ندارد")
 
         return self.cleaned_data
