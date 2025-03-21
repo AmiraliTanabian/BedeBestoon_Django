@@ -20,6 +20,8 @@ from django.shortcuts import get_object_or_404
 from . import chart_handel
 from django.views.generic import TemplateView
 from django.views import View
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def login_verify(func):
     def inner_verify(request, **kwargs):
@@ -356,12 +358,12 @@ class LogoutView(View):
 
         else:
             return render(request, "Spends/logout_without_login.html")
+class IncomeDetailView(LoginRequiredMixin, DetailView):
+    template_name = "Spends/income_details.html"
+    model = Income
+    context_object_name = "income"
+    login_url = reverse_lazy("login_page")
 
-@login_verify
-def income_details(request, id):
-    user = request.user
-    income = get_object_or_404(Income, user=user, id=id)
-    return render(request, "Spends/income_details.html", {"income":income})
 
 @login_verify
 def spend_details(request, id):
