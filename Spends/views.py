@@ -6,7 +6,7 @@ from secrets import choice
 from string import digits, punctuation, ascii_letters
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from .models import Token, Spend, Income, TempUser, ForgetPasswordUsers
 from django.utils import timezone
@@ -26,6 +26,7 @@ from django.views import View
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.crypto import get_random_string
+
 
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
@@ -135,52 +136,53 @@ class LoginView(View):
         else:
             return render(request, 'Spends/login.html', {'form_obj': form_obj})
 
-
-def db_not_empty(func):
-    def wrapper(request):
-        if request.user.is_authenticated:
-
-            try:
-                user = request.user
-                income_count = Income.objects.filter(user=user).count()
-                spend_count = Spend.objects.filter(user=user).count()
-                if spend_count and income_count:
-                    return func(request)
-                else:
-                    return render(request, "Spends/dont_have_spend_income.html")
-
-            except Exception as Error:
-                print(Error)
-                return render(request, "Spends/dont_have_spend_income.html")
-
-        else:
-            return func(request)
-
-    return wrapper
-
-@db_not_empty
 def index_page(request):
     if request.user.is_authenticated:
-        user = request.user
-        spend_aggregate = Spend.objects.filter(user=user).aggregate(Max('price'), Min('price'),
-                                                                    Avg('price'))
-        min_spend = int(spend_aggregate['price__min'])
-        max_spend = int(spend_aggregate['price__max'])
-        avg_spend = int(spend_aggregate['price__avg'])
-        income_aggregate = Income.objects.filter(user=user).aggregate(Max('price'), Min('price'),
-                                                                      Avg('price'))
-        min_income = int(income_aggregate['price__min'])
-        max_income = int(income_aggregate['price__max'])
-        avg_income = int(income_aggregate['price__avg'])
-        context = {
-            'username': user.username,
-            'max_spend': f'{max_spend:,d}',
-            'min_spend': f'{min_spend: ,d}',
-            'avg_spend': f'{avg_spend: ,d}',
-            'max_income': f'{max_income: ,d}',
-            'min_income': f'{min_income: ,d}',
-            'avg_income': f'{avg_income: ,d}'
-        }
+        try:
+            user = request.user
+            spend_aggregate = Spend.objects.filter(user=user).aggregate(Max('price'), Min('price'),Avg('price'))
+            min_spend = int(spend_aggregate['price__min'])
+            max_spend = int(spend_aggregate['price__max'])
+            avg_spend = int(spend_aggregate['price__avg'])
+
+        except TypeError :
+            min_spend = max_spend = avg_spend = "شما هنور خرجی ندارید:)"
+
+        try:
+            income_aggregate = Income.objects.filter(user=user).aggregate(Max('price'), Min('price'), Avg('price'))
+            min_income = int(income_aggregate['price__min'])
+            max_income = int(income_aggregate['price__max'])
+            avg_income = int(income_aggregate['price__avg'])
+
+        # Db is empty and can convert None type to int
+        except TypeError:
+            min_income = max_income = avg_income = "شما هنوز درآمدی ندارید:)"
+
+        try:
+            context = {
+                'username': user.username,
+                'max_spend': f'{max_spend:,d}',
+                'min_spend': f'{min_spend: ,d}',
+                'avg_spend': f'{avg_spend: ,d}',
+                'max_income': f'{max_income: ,d}',
+                'min_income': f'{min_income: ,d}',
+                'avg_income': f'{avg_income: ,d}'
+            }
+
+
+        # The database is empty and cannot separate the 3 digit None values.
+        except ValueError:
+            context = {
+                'username': user.username,
+                'max_spend': max_spend,
+                'min_spend': min_spend,
+                'avg_spend': avg_spend,
+                'max_income': max_income,
+                'min_income': min_income,
+                'avg_income': avg_income,
+            }
+
+
 
         # For filter box handel
         if request.method != 'POST':
