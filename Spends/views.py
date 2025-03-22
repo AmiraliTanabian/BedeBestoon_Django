@@ -8,7 +8,8 @@ from django.utils import timezone
 from .forms import registerForm, loginForm, addSpend, addIncome, editIncome
 from secrets import choice
 from string import digits, punctuation, ascii_letters
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import make_password
+from django.db.models.aggregates import Sum
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
@@ -22,19 +23,6 @@ from django.views.generic import TemplateView
 from django.views import View
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-def login_verify(func):
-    def inner_verify(request, **kwargs):
-        if request.user.is_authenticated:
-
-            if 'id' in kwargs :
-                return func(request, kwargs.get("id"))
-
-            else:
-                return func(request)
-        else:
-            return render(request, "Spends/unauthorized.html")
-    return inner_verify
 
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
@@ -160,13 +148,14 @@ def db_not_empty(func):
 
             except Exception as Error:
                 print(Error)
+                return render(request, "Spends/dont_have_spend_income.html")
 
         else:
             return func(request)
 
     return wrapper
 
-@db_not_empty
+# @db_not_empty
 def index_page(request):
     if request.user.is_authenticated:
         user = request.user
@@ -603,3 +592,80 @@ class EditSpendView(LoginRequiredMixin, View):
 
         return render(request, "Spends/edit_spend_success.html",
                       {'form_obj':form_obj, 'name':old_name})
+
+
+def profit_or_loss(request):
+    user = request.user
+    now_month = timezone.now().month
+    now_year = timezone.now().year
+    now_day = timezone.now().day
+    now_week = timezone.now().isocalendar()[1]
+
+    user_spends = Spend.objects.filter(user=user)
+    user_incomes = Income.objects.filter(user=user)
+
+
+    # Year
+    user_spends_year = user_spends.filter(time__year=now_year)
+    user_incomes_year = user_incomes.filter(time__year=now_year)
+
+
+    # Month
+    user_spends_month = user_spends_year.filter(time__month=now_month)
+    user_income_month = user_incomes_year.filter(time__month=now_month)
+
+
+    # Week
+    user_spends_week = user_spends_year.filter(time__week=now_week)
+    user_incomes_week = user_incomes_year.filter(time__week=now_week)
+
+
+    # Day
+    user_spends_day = user_spends_month.filter(time__day=now_day)
+    user_incomes_day = user_income_month.filter(time__day=now_day)
+
+    # Calc Sum
+    month_spends_sum = user_spends_month.aggregate(Sum("price"))["price__sum"]
+    month_incomes_sum = user_income_month.aggregate(Sum("price"))["price__sum"]
+
+    day_spends_sum = user_spends_day.aggregate(Sum("price"))["price__sum"]
+    day_incomes_sum = user_incomes_day.aggregate(Sum("price"))["price__sum"]
+
+    year_spends_sum = user_spends_year.aggregate(Sum("price"))["price__sum"]
+    year_incomes_sum = user_incomes_year.aggregate(Sum("price"))["price__sum"]
+
+    week_spends_sum = user_spends_week.aggregate(Sum("price"))["price__sum"]
+    week_incomes_sum = user_incomes_week.aggregate(Sum("price"))["price__sum"]
+
+    # Calc difference to detect profits or loss
+    if month_incomes_sum is None or month_spends_sum is None:
+        month_result = None
+    else:
+        month_result =  month_incomes_sum - month_spends_sum
+
+    if day_incomes_sum is None or day_spends_sum is None:
+        day_result = None
+    else:
+        day_result = day_incomes_sum - day_spends_sum
+
+    if year_spends_sum is None or year_spends_sum is None:
+        year_result = None
+    else:
+        year_result = year_incomes_sum - year_spends_sum
+
+
+    if week_incomes_sum is None or week_spends_sum is None:
+        week_result = None
+    else:
+        week_result = week_incomes_sum - year_spends_sum
+
+
+    context = {
+        "year":year_result,
+        "day":day_result,
+        "week":week_result,
+        "month":month_result
+    }
+
+    return render(request, "Spends/profit_or_loss.html", context)
+

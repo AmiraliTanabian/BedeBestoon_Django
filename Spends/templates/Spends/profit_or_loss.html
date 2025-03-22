@@ -1,0 +1,75 @@
+{% load mathfilters %}
+{% load static %}
+{% block content %}
+    <button class="floating-btn" onclick="openPopup()">
+        <span class="icon">📈</span>
+    </button>
+
+    <div class="popup" id="profitPopup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h1>شما در سال اخیر</h1>
+            {% if year > 0 %}
+            <p class="popup-message profit"> {{ year }} تومان سود کردید!</p>
+            {% elif year < 0 %}
+            <p class="popup-message loss"> {{ year|mul:-1 }} تومان ضرر کردید!</p>
+            {% elif year is None %}
+            <p class="popup-message">شما باید حداقل یک درآمد یا هزینه در سال داشته باشید</p>
+            {% else %}
+            <p class="popup-message profit">شما نه سود کردی نه ضرر ! کاملا متعادل‌:)</p>
+            {% endif %}
+            <hr>
+{#        ------------------------------------------------------#}
+            <h1>شما در ماه اخیر</h1>
+            {% if month > 0 %}
+            <p class="popup-message profit"> {{ month }} تومان سود کردید!</p>
+            {% elif month < 0 %}
+            <p class="popup-message loss"> {{ month|mul:-1 }} تومان ضرر کردید!</p>
+            {% elif month is None %}
+            <p class="popup-message">شما باید حداقل یک درآمد یا هزینه در ماه داشته باشید</p>
+            {% else %}
+            <p class="popup-message profit">شما نه سود کردی نه ضرر ! کاملا متعادل‌:)</p>
+            {% endif %}
+            <hr>
+{#            -----------------------------------------------------------------#}
+            <h1>شما در هفته اخیر</h1>
+            {% if week > 0 %}
+            <p class="popup-message profit"> {{ week }} تومان سود کردید!</p>
+            {% elif week < 0 %}
+            <p class="popup-message loss"> {{ week|mul:-1 }} تومان ضرر کردید!</p>
+            {% elif week is None %}
+            <p class="popup-message">شما باید حداقل یک درآمد یا هزینه در هفته داشته باشید</p>
+            {% else %}
+            <p class="popup-message profit">شما نه سود کردی نه ضرر ! کاملا متعادل‌:)</p>
+            {% endif %}
+            <hr>
+{#        -----------------------------------------------------------------------#}
+            <h1>شما در روز اخیر</h1>
+            {% if day > 0 %}
+            <p class="popup-message profit"> {{ day }} تومان سود کردید!</p>
+            {% elif day < 0 %}
+            <p class="popup-message loss"> {{ day|mul:-1 }} تومان ضرر کردید!</p>
+            {% elif day is None %}
+            <p class="popup-message">شما باید حداقل یک درآمد یا هزینه در روز داشته باشید</p>
+            {% else %}
+            <p class="popup-message profit">شما نه سود کردی نه ضرر ! کاملا متعادل‌:)</p>
+            {% endif %}
+            <hr>
+
+        </div>
+    </div>
+{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "Spends/Style/profit_or_loss.css" %}">
+{% endblock %}
+{% block script_tag %}
+    <script>
+        function openPopup() {
+            document.getElementById('profitPopup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('profitPopup').style.display = 'none';
+        }
+    </script>
+{% endblock %}

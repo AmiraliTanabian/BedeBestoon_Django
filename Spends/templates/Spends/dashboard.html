@@ -20,9 +20,7 @@
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
     z-index: 9999;}
-
     </style>
-
 {% endblock %}
 
 {% block styles %}
@@ -123,7 +121,7 @@
 </div>
 
     {% render_partial "Spends.views.chart" %}
-
+    {% render_partial "Spends.views.profit_or_loss" %}
 {% endblock %}
 {% block js %}
     <script src="{% static 'Spends/Js/register.js' %}"></script>
