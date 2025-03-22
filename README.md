@@ -15,7 +15,10 @@ The Bedeh Beston project is a website (and in the future, we plan to develop a m
 ```
 pip install -r requirements.txt
 ```
+<li>Rename Fakesettings.py</li>
+Rename
 
+```Fakesettings.py``` to ```settings.py```
 <li>Complete the recaptcha config</li>
 <p>Go to this <a href="https://www.google.com/recaptcha/admin/create">link</a> and create recaptcha with localhost:8000 domain and replace <b>site key</b> on 
   
