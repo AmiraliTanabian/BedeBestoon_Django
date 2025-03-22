@@ -1,0 +1,60 @@
+.currency-coin-container {
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+}
+
+
+.container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+
+.segment {
+    background-color: #f8f9fa;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #2c3e50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.segment:hover {
+    background-color: #e9ecef;
+    transform: scale(1.02);
+}
+
+.segment:nth-child(2) {
+    border-left: 4px solid #28a745;
+}
+
+.segment:nth-child(3) {
+    border-left: 4px solid #007bff;
+}
+
+.segment:nth-child(4) {
+    border-left: 4px solid #ffc107;
+}
+
+.segment:nth-child(5) {
+    border-left: 4px solid #ff6f61;
+}

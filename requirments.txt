@@ -2,3 +2,5 @@ django-recaptcha==4.0.0
 django-render-partial==0.4
 django
 django-mathfilters
+requests
+beautifulsoup4

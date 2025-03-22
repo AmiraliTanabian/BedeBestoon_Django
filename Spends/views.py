@@ -1,4 +1,9 @@
 import datetime
+from bs4 import BeautifulSoup
+import requests
+from . import chart_handel
+from secrets import choice
+from string import digits, punctuation, ascii_letters
 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -6,8 +11,6 @@ from django.contrib.auth.models import User
 from .models import Token, Spend, Income, TempUser, ForgetPasswordUsers
 from django.utils import timezone
 from .forms import registerForm, loginForm, addSpend, addIncome, editIncome, ForgetPasswordForm, ResetPasswordForm
-from secrets import choice
-from string import digits, punctuation, ascii_letters
 from django.contrib.auth.hashers import make_password
 from django.db.models.aggregates import Sum
 from django.core.mail import EmailMessage
@@ -18,7 +21,6 @@ from django.db.models import Avg, Max, Min
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from . import chart_handel
 from django.views.generic import TemplateView
 from django.views import View
 from django.views.generic import DetailView
@@ -156,7 +158,7 @@ def db_not_empty(func):
 
     return wrapper
 
-# @db_not_empty
+@db_not_empty
 def index_page(request):
     if request.user.is_authenticated:
         user = request.user
@@ -752,3 +754,20 @@ class ResetPasswordView(View):
         else:
             return render(request, "Spends/reset_password_page.html",
                           {"form":form})
+
+def currency_coin(request):
+    response = requests.get("https://www.tgju.org/currency")
+    parser = BeautifulSoup(response.text, "html.parser")
+
+    dollar = parser.select_one('table.data-table tr[data-market-nameslug="price_dollar_rl"] td.nf').contents[0]
+    uro = parser.select_one('table.data-table tr[data-market-nameslug="price_eur"] td.nf').contents[0]
+    coin = parser.select_one('li#l-sekee span.info-price').contents[0]
+    gold = parser.select_one('li#l-geram18 span.info-price').contents[0]
+
+    context = {
+        "dollar":dollar,
+        "uro":uro,
+        "coin":coin,
+        "gold":gold,
+       }
+    return render(request, "Spends/currency_coin.html", context)

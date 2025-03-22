@@ -1,0 +1,22 @@
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "Spends/Style/currency_coin.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="currency-coin-container">
+        <h2>قیمت لحظه ای ارز و سکه</h2>
+        <div class="segment">
+            دلار {{ dollar }} ریال
+        </div>
+        <div class="segment">
+            یورو {{ uro }} ریال
+        </div>
+        <div class="segment">
+            سکه {{ coin }} ریال
+        </div>
+        <div class="segment">
+            طلا  {{ gold }} ریال
+        </div>
+    </div>
+{% endblock %}
