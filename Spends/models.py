@@ -63,3 +63,7 @@ class TempUser(models.Model):
     class Meta:
         verbose_name = 'کاربر موقت'
         verbose_name_plural = 'کاربران موقت'
+
+class ForgetPasswordUsers(models.Model):
+    email = models.EmailField(max_length=255 ,verbose_name='ایمیل')
+    random_str = models.CharField(max_length=50 ,verbose_name='کد فعال‌سازی حساب')

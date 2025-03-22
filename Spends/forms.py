@@ -72,3 +72,22 @@ class editIncome(forms.Form):
     is_now = forms.BooleanField(required=False, label="زمان الان را برای درآمد ثبت کن", widget=forms.CheckboxInput())
     note = forms.CharField(label="یاداشت", widget=forms.Textarea(attrs={"placeholder":"یاداشت"}),
                            required=False)
+
+class ForgetPasswordForm(forms.Form):
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'placeholder': 'ایمیل'}),
+                             error_messages={'required': 'لظفا ایمیل خود را وارد نمایید'})
+
+class ResetPasswordForm(forms.Form):
+    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'رمز عبور'}),
+                               error_messages={'required': 'لطفا رمز عبور خود را وارد نمایید'})
+    again_password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'تکرار رمز'}),
+                                     error_messages={'required': 'لطفا تکرار رمز خود را وارد نمایید'})
+
+    def clean(self):
+        password = self.cleaned_data["password"]
+        confirm_password = self.cleaned_data["again_password"]
+
+        if password != confirm_password :
+            raise forms.ValidationError("رمز شما با تکرارش مطابقت ندارد!")
+
+        return self.cleaned_data

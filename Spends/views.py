@@ -3,9 +3,9 @@ import datetime
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from .models import Token, Spend, Income, TempUser
+from .models import Token, Spend, Income, TempUser, ForgetPasswordUsers
 from django.utils import timezone
-from .forms import registerForm, loginForm, addSpend, addIncome, editIncome
+from .forms import registerForm, loginForm, addSpend, addIncome, editIncome, ForgetPasswordForm, ResetPasswordForm
 from secrets import choice
 from string import digits, punctuation, ascii_letters
 from django.contrib.auth.hashers import make_password
@@ -23,6 +23,7 @@ from django.views.generic import TemplateView
 from django.views import View
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.crypto import get_random_string
 
 def random_str(length):
     all_letters = digits + punctuation + ascii_letters
@@ -669,3 +670,85 @@ def profit_or_loss(request):
 
     return render(request, "Spends/profit_or_loss.html", context)
 
+class ForgetPasswordView(View):
+    def get(self, request):
+        form = ForgetPasswordForm()
+        return render(request, "Spends/forget_password.html", {
+            "form":form
+        })
+
+
+    def post(self, request):
+        form = ForgetPasswordForm(data=request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get("email")
+            email_user = User.objects.filter(email=email)
+
+            if not email_user.exists():
+                form.add_error("email", "ایمیل شما نامعتبر است!")
+                return render(request, "Spends/forget_password.html", {
+                    "form": form
+                })
+
+
+            # email found
+            else:
+                random_string = get_random_string(50)
+                ForgetPasswordUsers.objects.create(email=email, random_str=random_string)
+                url = settings.SITE_URL +  reverse_lazy("reset_password", args=[random_string])
+                email_body = render_to_string("Spends/reset_password_email.html", {
+                    "verification_url":url,
+                })
+
+                msg = EmailMessage(
+                    "ریست پسورد بده بستون",
+                    email_body,
+                    "atanabain@gmail.com",
+                    [email]
+                )
+                msg.content_subtype = "html"
+                msg.send()
+
+
+                messages.success(request, "ایمیل تغییر رمز برای شما ارسال شد \n اگر ایمیل را نمیبنید پوشه spam را چک کنید!")
+                return render(request, "Spends/forget_password.html", {
+                    "form": form
+                })
+
+
+
+
+        else:
+            return render(request, "Spends/forget_password.html", {
+                "form": form
+            })
+
+
+class ResetPasswordView(View):
+    def get(self, request, random_string):
+        form = ResetPasswordForm()
+        forget_pass_user = get_object_or_404(ForgetPasswordUsers, random_str=random_string)
+        return render(request, "Spends/reset_password_page.html",
+                      {"form":form})
+
+    def post(self, request, random_string):
+        form = ResetPasswordForm(data=request.POST)
+        if form.is_valid():
+            forget_pass_user = get_object_or_404(ForgetPasswordUsers, random_str=random_string)
+            email = forget_pass_user.email
+
+            # TODO; remove items from forget password table on detect time
+            # delete from forget password table
+            forget_pass_user.delete()
+
+            new_password = form.cleaned_data["password"]
+            user = User.objects.get(email=email)
+            user.set_password(new_password)
+            user.save()
+
+            messages.success(request, "رمز عبور شما با موفقیت تغییر پیدا کرد!")
+            return HttpResponseRedirect(reverse_lazy("login_page"))
+
+        else:
+            return render(request, "Spends/reset_password_page.html",
+                          {"form":form})

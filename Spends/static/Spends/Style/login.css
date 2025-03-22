@@ -86,6 +86,17 @@ button {
     text-decoration: none;
     color: #2563eb;
 }
+
+
+#forget-password{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.8);
+    transition: all 0.6s ease;
+}
+
+#forget-password:hover{
+    color:#27ae60;
+}
 @media (max-width: 768px) {
     div.container {
         width: 80%;
