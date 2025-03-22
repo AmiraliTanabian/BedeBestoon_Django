@@ -137,9 +137,9 @@ class LoginView(View):
             return render(request, 'Spends/login.html', {'form_obj': form_obj})
 
 def index_page(request):
+    user = request.user
     if request.user.is_authenticated:
         try:
-            user = request.user
             spend_aggregate = Spend.objects.filter(user=user).aggregate(Max('price'), Min('price'),Avg('price'))
             min_spend = int(spend_aggregate['price__min'])
             max_spend = int(spend_aggregate['price__max'])
@@ -149,7 +149,6 @@ def index_page(request):
             min_spend = max_spend = avg_spend = "شما هنور خرجی ندارید:)"
 
         try:
-            user = request.user
             income_aggregate = Income.objects.filter(user=user).aggregate(Max('price'), Min('price'), Avg('price'))
             min_income = int(income_aggregate['price__min'])
             max_income = int(income_aggregate['price__max'])
