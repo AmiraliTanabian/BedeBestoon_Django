@@ -149,6 +149,7 @@ def index_page(request):
             min_spend = max_spend = avg_spend = "شما هنور خرجی ندارید:)"
 
         try:
+            user = request.user
             income_aggregate = Income.objects.filter(user=user).aggregate(Max('price'), Min('price'), Avg('price'))
             min_income = int(income_aggregate['price__min'])
             max_income = int(income_aggregate['price__max'])
