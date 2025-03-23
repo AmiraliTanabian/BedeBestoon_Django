@@ -653,7 +653,7 @@ def profit_or_loss(request):
     else:
         day_result = day_incomes_sum - day_spends_sum
 
-    if year_spends_sum is None or year_spends_sum is None:
+    if year_incomes_sum is None or year_spends_sum is None:
         year_result = None
     else:
         year_result = year_incomes_sum - year_spends_sum
