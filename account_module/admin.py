@@ -11,3 +11,4 @@ class AdminUser(admin.ModelAdmin):
 
 admin.site.register(models.Token)
 admin.site.register(models.TempUser, AdminTempUser)
+admin.site.register(models.ForgetPasswordUsers)

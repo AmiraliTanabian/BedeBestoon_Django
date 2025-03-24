@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.urls import reverse
 
 class TempUser(models.Model):
     username = models.CharField(max_length=255 ,verbose_name='نام کاربری')
@@ -20,6 +19,10 @@ class TempUser(models.Model):
 class ForgetPasswordUsers(models.Model):
     email = models.EmailField(max_length=255 ,verbose_name='ایمیل')
     random_str = models.CharField(max_length=50 ,verbose_name='کد فعال‌سازی حساب')
+
+    class Meta:
+        verbose_name = "کاربر درخواست تغییر رمز"
+        verbose_name = "کاربران درخواست تغییر رمز"
 
 class Token(models.Model):
     token = models.CharField(max_length=50, verbose_name='توکن')
