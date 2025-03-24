@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from Spends.models import User, Income, Spend, Token
+from account_module.models import User, Token
+from Spends.models import Income, Spend
 from django.contrib.auth.hashers import  check_password
 from json import JSONEncoder
 from django.utils import timezone
