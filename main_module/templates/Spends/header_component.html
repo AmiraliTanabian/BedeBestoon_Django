@@ -16,10 +16,12 @@
                     <li><a href="{% url "home_page" %}">داشبورد مدیریت</a></li>
                     <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
                     <li><a href="{% url "logout" %}">خروج از حساب</a></li>
+                    <li><a href="{% url "news_page" %}">اخبار</a></li>
                 {% else %}
                     <li><a href="{% url "home_page" %}">صفحه اصلی</a></li>
                     <li><a href="{% url "login_page" %}">ورود / ثبت نام</a></li>
                     <li><a href="{% url "contact_us_page" %}">تماس با ما</a></li>
+                    <li><a href="{% url "news_page" %}">اخبار</a></li>
                 {% endif %}
             </ul>
         </nav>

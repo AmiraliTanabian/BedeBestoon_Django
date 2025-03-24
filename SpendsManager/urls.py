@@ -22,5 +22,6 @@ urlpatterns = [
     path('', include('main_module.urls')),
     path('contact-us', include("contact_us.urls")),
     path('api/', include('api.urls')),
-    path("account/", include("account_module.urls"))
+    path("account/", include("account_module.urls")),
+    path("news/", include("news_module.urls"))
 ]

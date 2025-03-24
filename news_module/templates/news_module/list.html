@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}اخبار بده بستون{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static "news_module/Style/list.css" %}">
+{% endblock %}
+{% block content %}
+    <div class="banner">
+        <h2>اخبار بده‌بستون</h2>
+    </div>
+
+    <section class="news-section">
+        {% if news %}
+            {% for cart in news %}
+                {% include 'news_module/news_cart.html' with cart=cart %}
+            {% endfor %}
+        {% endif %}
+    </section>
+
+    {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" id="prev">قبلی</a>
+            {% endif %}
+            <span class="page-info">صفحه <span id="current-page">{{ page_obj.number }}</span> از <span id="total-pages">{{ paginator.num_pages }}</span></span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" id="next">بعدی</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

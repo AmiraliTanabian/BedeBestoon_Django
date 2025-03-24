@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "news_module/Style/detail.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="news-container">
+        <h1 class="news-title">{{ news.title }}</h1>
+        <div class="news-meta">
+            <span>{{ news.datatime }}</span>
+            <span>نویسنده: {{ news.writer }}</span>
+        </div>
+        <img src="https://via.placeholder.com/800x400" alt="{{ news.title }}" class="news-image">
+        <div class="news-content">
+            <p>
+                {{ news.text }}
+            </p>
+        </div>
+        <a href="{% url 'news_page' %}" class="back-button">بازگشت به لیست اخبار</a>
+    </div>
+{% endblock %}
