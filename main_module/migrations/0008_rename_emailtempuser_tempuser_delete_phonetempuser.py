@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Spends', '0007_phonetempuser_rename_tempuser_emailtempuser'),
+        ('main_module', '0007_phonetempuser_rename_tempuser_emailtempuser'),
     ]
 
     operations = [

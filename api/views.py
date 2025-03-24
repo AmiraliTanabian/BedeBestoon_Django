@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from account_module.models import User, Token
-from Spends.models import Income, Spend
+from main_module.models import Income, Spend
 from django.contrib.auth.hashers import  check_password
 from json import JSONEncoder
 from django.utils import timezone
@@ -14,7 +14,7 @@ def api_general_stats(request):
     this_user = Token.objects.get(token=token).user
     income_stats = Income.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
     spend_stats = Spend.objects.filter(user=this_user).aggregate(Count('price'), Avg('price'), Max('price'), Min('price'))
-    return JsonResponse({'Income':income_stats, 'Spends':spend_stats}, encoder=JSONEncoder)
+    return JsonResponse({'Income':income_stats, 'main_module':spend_stats}, encoder=JSONEncoder)
 
 @csrf_exempt
 def api_login(request):

@@ -120,9 +120,9 @@
     </div>
 </div>
 
-    {% render_partial "Spends.views.chart" %}
-    {% render_partial "Spends.views.profit_or_loss" %}
-    {% render_partial "Spends.views.currency_coin" %}
+    {% render_partial "main_module.views.chart" %}
+    {% render_partial "main_module.views.profit_or_loss" %}
+    {% render_partial "main_module.views.currency_coin" %}
 {% endblock %}
 {% block js %}
     <script src="{% static 'Spends/Js/register.js' %}"></script>

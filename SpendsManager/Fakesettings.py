@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_render_partial',
-    'Spends',
+    'main_module',
     'django_recaptcha',
     'contact_us'
 ]
