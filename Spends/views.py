@@ -761,15 +761,25 @@ def currency_coin(request):
     response = requests.get("https://www.tgju.org/currency")
     parser = BeautifulSoup(response.text, "html.parser")
 
-    dollar = parser.select_one('table.data-table tr[data-market-nameslug="price_dollar_rl"] td.nf').contents[0]
-    uro = parser.select_one('table.data-table tr[data-market-nameslug="price_eur"] td.nf').contents[0]
-    coin = parser.select_one('li#l-sekee span.info-price').contents[0]
-    gold = parser.select_one('li#l-geram18 span.info-price').contents[0]
+    if response.status_code == 200 :
+        dollar = parser.select_one('table.data-table tr[data-market-nameslug="price_dollar_rl"] td.nf').contents[0]
+        uro = parser.select_one('table.data-table tr[data-market-nameslug="price_eur"] td.nf').contents[0]
+        coin = parser.select_one('li#l-sekee span.info-price').contents[0]
+        gold = parser.select_one('li#l-geram18 span.info-price').contents[0]
 
-    context = {
-        "dollar":dollar,
-        "uro":uro,
-        "coin":coin,
-        "gold":gold,
-       }
+        context = {
+            "dollar":dollar,
+            "uro":uro,
+            "coin":coin,
+            "gold":gold,
+           }
+
+    else:
+        context = {
+            "dollar": "مشکلی در برقراری ارتباط پیش آمده!",
+            "uro": "مشکلی در برقراری ارتباط پیش آمده!",
+            "coin": "مشکلی در برقراری ارتباط پیش آمده!",
+            "gold": "مشکلی در برقراری ارتباط پیش آمده!",
+        }
+
     return render(request, "Spends/currency_coin.html", context)
