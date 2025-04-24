@@ -1,15 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.utils.timezone import now
 
 
 class NewsModel(models.Model):
-    writer = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name="نویسنده")
+    writer = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="نویسنده")
     title = models.CharField(max_length=100, verbose_name="تیتر خبر")
     banner = models.ImageField(upload_to="NewsBanner/", verbose_name="تصویر اصلی")
     slug = models.SlugField(db_index=True, verbose_name="اسلاگ", blank=True, allow_unicode=True)
     text = models.TextField()
-    datetime = models.DateField(verbose_name="آخرین ویرایش"),
+    time = models.DateTimeField(verbose_name="آخرین ویرایش"),
     short_info = models.CharField(max_length=255,default="", verbose_name="توضیحات کوتاه")
     is_active = models.BooleanField(default=True, verbose_name="فعال بودن خبر")
 
@@ -21,7 +22,6 @@ class NewsModel(models.Model):
         verbose_name= "خبر"
         verbose_name_plural = "اخبار"
 
-
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.datetime = now()
         super().save(*args, **kwargs)

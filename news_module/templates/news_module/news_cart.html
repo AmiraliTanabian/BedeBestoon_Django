@@ -1,5 +1,5 @@
 <div class="news-card">
-    <img src="localhost:8000/media/{{ cart.banner }}" alt="{{ cart.title }}">
+    <img src="{{ cart.banner.url }}" alt="{{ cart.title }}">
     <div class="news-card-content">
         <h3>{{ cart.title }}</h3>
         <p>{{ cart.short_info }}</p>

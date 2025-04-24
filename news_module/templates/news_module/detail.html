@@ -10,10 +10,10 @@
     <div class="news-container">
         <h1 class="news-title">{{ news.title }}</h1>
         <div class="news-meta">
-            <span>{{ news.datetime }}تاریخ انتشار‌:</span>
+{#            <span>{{ news.time|date:"%y/%m/%D" }}تاریخ انتشار‌:</span>#}
             <span>نویسنده: {{ news.writer }}</span>
         </div>
-        <img src="https://via.placeholder.com/800x400" alt="{{ news.title }}" class="news-image">
+        <img style="text-align: center" src="{{ news.banner.url }}" alt="{{ news.title }}" class="news-image">
         <div class="news-content">
             <p>
                 {{ news.text }}

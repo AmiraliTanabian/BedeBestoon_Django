@@ -13,5 +13,5 @@ class NewsMainPageView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return  NewsModel.objects.filter(is_active=True)
+        return NewsModel.objects.filter(is_active=True)
 

@@ -14,6 +14,12 @@
             {% for cart in news %}
                 {% include 'news_module/news_cart.html' with cart=cart %}
             {% endfor %}
+        {% else %}
+            <div class="empty-container">
+                <div class="icon">🔍</div>
+                    <h1>فعلاً خبری نیست! 😔 ولی نگران نباش، به‌زودی با اخبار جدید برمی‌گردیم.</h1>
+                <a href="{% url "home" %}" class="btn">برگشت به صفحه اصلی</a>
+            </div>
         {% endif %}
     </section>
 
